@@ -13,7 +13,6 @@ function WeShop() {
   ]);
   const [isConnected, setIsConnected] = useState(false);
   const [currentTab, setCurrentTab] = useState(DefaultTab);
-  let ret;
   function changeTab(tabName) {
     switch (tabName) {
       case "My Acount": {
