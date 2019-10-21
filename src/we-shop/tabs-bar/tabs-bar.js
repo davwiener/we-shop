@@ -10,7 +10,7 @@ function TabsBar(props) {
           key={index}
           tab={tab.name}
           index={index}
-          onClick={props.onClick(tab.name)}
+          onClick={tab => props.onClick(tab)}
         ></TabBar>
       ))}
     </div>

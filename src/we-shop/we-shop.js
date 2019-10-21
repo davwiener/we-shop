@@ -14,6 +14,7 @@ function WeShop() {
   const [isConnected, setIsConnected] = useState(false);
   const [currentTab, setCurrentTab] = useState(DefaultTab);
   function changeTab(tabName) {
+    console.log(tabName);
     switch (tabName) {
       case "My Acount": {
         break;
@@ -41,7 +42,7 @@ function WeShop() {
         key="tabs"
         tabs={tabs}
         className="container"
-        onClick={changeTab}
+        onClick={tab => changeTab(tab)}
       ></TabsBar>
       {currentTab}
     </div>
