@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./we-shop.scss";
 import SignIn from "./sign-in/sign-in";
-import TabsBar from "./tabs-bar/tabs-bar";
+import TabsBar from "./top-bar/tabs-bar/tabs-bar";
 import DefaultTab from "./tabs/defualt-tab";
+import TopBar from "./top-bar/top-bar";
 
 function WeShop() {
   const [tabs, setTabs] = useState([
@@ -13,7 +14,7 @@ function WeShop() {
   ]);
   const [isConnected, setIsConnected] = useState(false);
   const [currentTab, setCurrentTab] = useState(DefaultTab);
-  function changeTab(tabName) {
+  function openPopUp(tabName) {
     console.log(tabName);
     switch (tabName) {
       case "My Acount": {
@@ -28,6 +29,8 @@ function WeShop() {
       case "Help": {
         break;
       }
+      case "Register": {
+      }
       default: {
         break;
       }
@@ -35,16 +38,10 @@ function WeShop() {
   }
   return (
     <div>
-      {!isConnected && (
-        <SignIn newUser={true} isConnected={isConnected}></SignIn>
-      )}
-      <TabsBar
-        key="tabs"
+      <TopBar
         tabs={tabs}
-        className="container"
-        onClick={tab => changeTab(tab)}
-      ></TabsBar>
-      {currentTab}
+        openPopUp={popUpName => openPopUp(popUpName)}
+      ></TopBar>
     </div>
     // )
     // );

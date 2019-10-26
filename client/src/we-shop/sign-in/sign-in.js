@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import InputText from "../components/input-text/input-text";
-import ConfirmButton from "../components/confirm-button/confirm-button";
+import ConfirmButton from "../components/we-shop-button/we-shop-button";
 import ConnectService from "../../services/connect-service";
 function SignIn(props) {
   const [email, setEmail] = useState("");
