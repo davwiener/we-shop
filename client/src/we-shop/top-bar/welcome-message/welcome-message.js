@@ -10,7 +10,7 @@ function WelcomeMessage(props) {
         <div className="we-shop-button">
           <WeShopButton
             text="Register"
-            onClick={x => props.onClick("Register")}
+            onClick={x => props.onClick("Connect")}
           ></WeShopButton>
         </div>
       )}

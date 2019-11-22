@@ -4,6 +4,7 @@ import SignIn from "./sign-in/sign-in";
 import TabsBar from "./top-bar/tabs-bar/tabs-bar";
 import DefaultTab from "./tabs/defualt-tab";
 import TopBar from "./top-bar/top-bar";
+import WeShopPopup from "./components/we-shop-popup/we-shop-popup";
 
 function WeShop() {
   const [tabs, setTabs] = useState([
@@ -14,8 +15,9 @@ function WeShop() {
   ]);
   const [isConnected, setIsConnected] = useState(false);
   const [currentTab, setCurrentTab] = useState(DefaultTab);
-  function openPopUp(tabName) {
-    console.log(tabName);
+  const [popUp, setPopup] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  function openPopup(tabName) {
     switch (tabName) {
       case "My Acount": {
         break;
@@ -30,17 +32,38 @@ function WeShop() {
         break;
       }
       case "Register": {
+        setShowPopup(false);
+        setPopup(null);
+        break;
+      }
+      case "Connect": {
+        setPopup(
+          <SignIn
+            newUser={true}
+            onClose={closePopup}
+            onRegister={tab => openPopup(tab)}
+          ></SignIn>
+        );
+        setShowPopup(true);
+        break;
       }
       default: {
+        console.log("Register");
         break;
       }
     }
   }
+  const closePopup = () => {
+    setShowPopup(false);
+    setPopup(null);
+  };
+
   return (
-    <div>
+    <div className="we-shop">
+      {showPopup ? <WeShopPopup content={popUp}></WeShopPopup> : null}
       <TopBar
         tabs={tabs}
-        openPopUp={popUpName => openPopUp(popUpName)}
+        openPopUp={popupName => openPopup(popupName)}
       ></TopBar>
     </div>
     // )

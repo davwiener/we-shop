@@ -1,15 +1,19 @@
 import React from "react";
-
+import "./input-text.scss";
 function InputText(props) {
   return (
-    <form>
-      <input
-        placeholder={props.placeholder}
-        type={props.type ? props.type : ""}
-        value={props.value}
-        onChange={e => props.setValue(e.target.value)}
-      />
-    </form>
+    <input
+      name={props.name}
+      className={props.valid ? "valid" : ""}
+      required
+      type={props.type}
+      placeholder={props.placeholder}
+      type={props.type ? props.type : ""}
+      id={props.id ? props.id : ""}
+      value={props.value}
+      onChange={props.onChange}
+      onBlur={props.handleBlur}
+    />
   );
 }
 
