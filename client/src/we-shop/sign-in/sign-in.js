@@ -7,50 +7,19 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 
 import "./sign-in.scss";
+
 const SignIn = prop => (
-  //const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
-  // const [newUser, setNewUSer] = useState("");
-  // const [validMail, setValidMail] = useState(false);
-  // const [validPassword, setValidPassword] = useState(false);
-  // const [validConfirmPassword, setValidConfirmPassword] = useState(false);
-
-  // function onConfirm() {
-  //   if (newUser) {
-  //     ConnectService.register({
-  //       email: email,
-  //       password: password
-  //     });
-  //   } else {
-  //     ConnectService.connect({
-  //       email: email,
-  //       password: password
-  //     });
-  //   }
-  //   props.onClose();
-  // }
-  // function onCanncel() {
-  //   props.onClose();
-  // }
-
-  // return (
   <Formik
-    initialValues={{
-      email: "",
-      password: "",
-      confirmPassword: "",
-      newUser: false
-    }}
-    validationSchema={Yup.object().shape({
-      email: Yup.string()
-        .email()
-        .required("Required"),
-      password: Yup.string()
-        .required("No password provided.")
-        .min(8, "Password is too short - should be 8 chars minimum.")
-        .matches(/(?=.*[0-9])/, "Password must contain a number.")
-    })}
+    initialValues={prop.inputs.reduce((obj, input) => {
+      obj[input.name] = "";
+      return obj;
+    }, {})}
+    validationSchema={Yup.object().shape(
+      prop.inputs.reduce((obj, input) => {
+        obj[input.name] = input.validateFunc;
+        return obj;
+      }, {})
+    )}
     onSubmit={async values => {
       await new Promise(resolve => setTimeout(resolve, 500));
       alert(JSON.stringify(values, null, 2));
@@ -66,63 +35,48 @@ const SignIn = prop => (
         handleBlur,
         handleSubmit
       } = props;
-      function inputEmail() {
+      // function inputEmail() {
+      //   return (
+      //     <div className="input-container">
+      //       <InputText
+      //         className={errors.password && touched.password && "error"}
+      //         name={"email"}
+      //         valid={!errors.email && touched.email}
+      //         placeholder={"Email"}
+      //         type={"email"}
+      //         value={values.email}
+      //         id={"username"}
+      //         onChange={handleChange}
+      //         handleBlur={handleBlur}
+      //       ></InputText>
+      //       {errors.email && touched.email && (
+      //         <div className="input-feedback">{errors.email}</div>
+      //       )}
+      //     </div>
+      //   );
+      // }
+      function input(inputVals) {
         return (
           <div className="input-container">
             <InputText
-              className={errors.password && touched.password && "error"}
-              name={"email"}
-              valid={!errors.email && touched.email}
-              placeholder={"Email"}
-              type={"email"}
-              value={values.email}
-              id={"username"}
+              className={
+                errors[inputVals.name] && touched[inputVals.name] && "error"
+              }
+              name={inputVals.name}
+              valid={!errors[inputVals.name] && touched[inputVals.name]}
+              placeholder={inputVals.placeholder}
+              textVissible={false}
+              type={inputVals.type}
+              value={values[inputVals.name]}
               onChange={handleChange}
+              id={inputVals.name}
               handleBlur={handleBlur}
             ></InputText>
-            {errors.email && touched.email && (
-              <div className="input-feedback">{errors.email}</div>
+            {errors[inputVals.name] && touched[inputVals.name] && (
+              <div className="input-feedback">{errors[inputVals.name]}</div>
             )}
           </div>
         );
-      }
-      function inputPassword() {
-        return (
-          <div className="input-container">
-            <InputText
-              className={errors.password && touched.password && "error"}
-              name={"password"}
-              valid={!errors.password && touched.password}
-              placeholder={"Password"}
-              textVissible={false}
-              type={"password"}
-              value={values.password}
-              onChange={handleChange}
-              id="password"
-              handleBlur={handleBlur}
-            ></InputText>
-            {errors.password && touched.password && (
-              <div className="input-feedback">{errors.password}</div>
-            )}
-          </div>
-        );
-      }
-      function inputConfirmPassword() {
-        if (values.newUser) {
-          return (
-            <InputText
-              className={errors.password && touched.password && "error"}
-              name={"confirmPassword"}
-              // valid={validConfirmPassword}
-              placeholder={"Confirm Password"}
-              textVissible={false}
-              type={"password"}
-              value={values.confirmPassword}
-              onChange={handleChange}
-              handleBlur={handleBlur}
-            ></InputText>
-          );
-        }
       }
       function onCanncel() {
         prop.onClose();
@@ -135,7 +89,7 @@ const SignIn = prop => (
           <div className="sign-in-container">
             <div className="input-container">
               <div className="input-fields-container">
-                {inputEmail()} {inputPassword()} {inputConfirmPassword()}
+                {prop.inputs.map(inputVals => input(inputVals))}
               </div>
               <div className="buttons">
                 <WeShopButton
