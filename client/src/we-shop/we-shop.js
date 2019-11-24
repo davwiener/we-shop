@@ -64,6 +64,9 @@ function WeShop() {
             inputs={["email", "password", "confirmPassword"].map(
               input => usableInputs[input]
             )}
+            secunedFuncVar="Connect"
+            secunedFunc={tab => openPopup(tab)}
+            text={"Connect"}
           ></SignIn>
         );
         break;
@@ -75,6 +78,8 @@ function WeShop() {
             onClose={closePopup}
             onRegister={tab => openPopup(tab)}
             inputs={["email", "password"].map(input => usableInputs[input])}
+            secunedFunc={tab => openPopup(tab)}
+            secunedFuncVar="Register"
           ></SignIn>
         );
         setShowPopup(true);

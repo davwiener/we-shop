@@ -35,26 +35,6 @@ const SignIn = prop => (
         handleBlur,
         handleSubmit
       } = props;
-      // function inputEmail() {
-      //   return (
-      //     <div className="input-container">
-      //       <InputText
-      //         className={errors.password && touched.password && "error"}
-      //         name={"email"}
-      //         valid={!errors.email && touched.email}
-      //         placeholder={"Email"}
-      //         type={"email"}
-      //         value={values.email}
-      //         id={"username"}
-      //         onChange={handleChange}
-      //         handleBlur={handleBlur}
-      //       ></InputText>
-      //       {errors.email && touched.email && (
-      //         <div className="input-feedback">{errors.email}</div>
-      //       )}
-      //     </div>
-      //   );
-      // }
       function input(inputVals) {
         return (
           <div className="input-container">
