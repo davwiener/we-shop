@@ -8,12 +8,11 @@ import WeShop from "./we-shop/we-shop";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import reducer from "./reducer/index";
+import { rootReducer, INITIALE_STATE } from "./reducer/index";
 const store = createStore(
-  reducer,
-  compose(
-    applyMiddleware(thunk),
-    window.devToolsExtension ? window.devToolsExtension() : (f) => f
-  )
+  rootReducer,
+  INITIALE_STATE,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 ReactDOM.render(
   <Provider store={store}>
