@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,gBAAgB,CAAC;EACf,QAAQ,EAAE,QAAQ;EAClB,KAAK,EAAE,CAAC;EACR,GAAG,EAAE,CAAC;EACN,KAAK,EAAE,KAAK;EACZ,SAAS,EAAE,IAAI;CAIhB;;AATD,AAME,gBANc,CAMd,eAAe,CAAC;EACd,WAAW,EAAE,GAAG;CACjB",
-    "sources": [
-        "welcome-message.scss"
-    ],
-    "names": [],
-    "file": "welcome-message.css"
-}

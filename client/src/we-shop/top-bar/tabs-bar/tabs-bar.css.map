@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,KAAK,CAAC;EACJ,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,GAAG;EACnB,WAAW,EAAE,MAAM;EACnB,eAAe,EAAE,MAAM;EACvB,UAAU,EAAE,IAAI;CACjB",
-    "sources": [
-        "tabs-bar.scss"
-    ],
-    "names": [],
-    "file": "tabs-bar.css"
-}
