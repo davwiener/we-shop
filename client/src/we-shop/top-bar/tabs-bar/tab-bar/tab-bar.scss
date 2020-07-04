@@ -1,0 +1,11 @@
+.tab {
+  margin-left: 2px;
+  border: 1px gray solid;
+  background-color: lightblue;
+  color: gray;
+  &:hover {
+    background-color: white;
+    color: blue;
+    cursor: pointer;
+  }
+}
