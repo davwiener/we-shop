@@ -9,6 +9,7 @@ import DefaultTab from "./tabs/defualt-tab";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { WeShoopState } from "./../reducer/index";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 function WeShop() {
   const [tabs, setTabs] = useState([
     { name: "My Acount" },
@@ -29,6 +30,7 @@ function WeShop() {
     <div className="we-shop">
       {popUp ? <WeShopPopup content={popUp}></WeShopPopup> : null}
       <TopBar tabs={tabs}></TopBar>
+      <Router></Router>
     </div>
   );
 }
