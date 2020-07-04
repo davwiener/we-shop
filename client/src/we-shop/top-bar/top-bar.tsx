@@ -2,8 +2,10 @@ import TabsBar from "./tabs-bar/tabs-bar";
 import WelcomeMessage from "./welcome-message/welcome-message";
 import "./top-bar.scss";
 import React from "react";
-
-function TopBar(props: { tabs: any; openPopUp: (arg0: any) => any }) {
+import { useDispatch } from "react-redux";
+import { openPopUpAction } from "../../reducer/actions";
+function TopBar(props: { tabs: any }) {
+  const dispatch = useDispatch();
   return (
     <div>
       <div className="top-bar">
@@ -11,12 +13,16 @@ function TopBar(props: { tabs: any; openPopUp: (arg0: any) => any }) {
           key="tabs"
           tabs={props.tabs}
           className="container"
-          onClick={(popUp: string) => props.openPopUp(popUp)}
+          onClick={(popUp: string) => {
+            dispatch(openPopUpAction(popUp));
+          }}
         ></TabsBar>
 
         <WelcomeMessage
           isConnected={false}
-          onClick={(popUp: string) => props.openPopUp(popUp)}
+          onClick={(popUp: string) => {
+            dispatch(openPopUpAction(popUp));
+          }}
         ></WelcomeMessage>
       </div>
     </div>

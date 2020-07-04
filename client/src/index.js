@@ -3,9 +3,23 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { createStore, applyMiddleware, compose } from "redux";
 import WeShop from "./we-shop/we-shop";
-
-ReactDOM.render(<WeShop />, document.getElementById("root"));
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+import reducer from "./reducer/index";
+import { rootReducer, INITIALE_STATE } from "./reducer/index";
+const store = createStore(
+  rootReducer,
+  INITIALE_STATE,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+ReactDOM.render(
+  <Provider store={store}>
+    <WeShop />
+  </Provider>,
+  document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

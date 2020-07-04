@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "css-definitions.scss"
+    ],
+    "names": [],
+    "file": "css-definitions.css"
+}
