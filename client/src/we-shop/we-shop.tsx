@@ -1,26 +1,22 @@
 import "./we-shop.scss";
-import SignIn from "./sign-in/sign-in";
-import TabsBar from "./top-bar/tabs-bar/tabs-bar";
-//import DefaultTab from "./tabs/defualt-tab";
-
 import TopBar from "./top-bar/top-bar";
 import WeShopPopup from "./components/we-shop-popup/we-shop-popup";
-import DefaultTab from "./tabs/defualt-tab";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { WeShoopState } from "./../reducer/index";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-function WeShop() {
-  const [tabs, setTabs] = useState([
-    { name: "My Acount" },
-    { name: "Products" },
-    { name: "Today's Deals" },
-    { name: "Help" },
-  ]);
-  const [isConnected, setIsConnected] = useState(false);
-  const [currentTab, setCurrentTab] = useState(DefaultTab);
 
-  const [showPopup, setShowPopup] = useState(false);
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import MyAcount from "./my-acount/my-acount";
+import Products from "./products/products";
+import TodayDeals from "./today-deals/today-deals";
+import About from "./about/about";
+import { WeShoopState } from "../reducer/store";
+function WeShop() {
+  const [tabs] = useState([
+    { name: "My Acount", path: "/my-acount" },
+    { name: "Products", path: "/products" },
+    { name: "Today's Deals", path: "/today-deals" },
+    { name: "Help", path: "/about" },
+  ]);
 
   const popUp = useSelector((state: WeShoopState) => {
     return state.popUp;
@@ -29,8 +25,23 @@ function WeShop() {
   return (
     <div className="we-shop">
       {popUp ? <WeShopPopup content={popUp}></WeShopPopup> : null}
-      <TopBar tabs={tabs}></TopBar>
-      <Router></Router>
+      <Router>
+        <TopBar tabs={tabs}></TopBar>
+        <Switch>
+          <Route path="/about">
+            <About></About>
+          </Route>
+          <Route path="/products">
+            <Products></Products>
+          </Route>
+          <Route path="/my-acount">
+            <MyAcount></MyAcount>
+          </Route>
+          <Route path="/today-deals">
+            <TodayDeals></TodayDeals>
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

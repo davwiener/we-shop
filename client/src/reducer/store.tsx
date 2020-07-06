@@ -1,6 +1,4 @@
 import { combineReducers, Action, AnyAction } from "redux";
-import React from "react";
-import SignIn from "../we-shop/sign-in/sign-in";
 import PopUpService from "../services/popUp-service";
 export default combineReducers({});
 
@@ -13,7 +11,10 @@ export const INITIALE_STATE: WeShoopState = {
   popUp: undefined,
 };
 
-function userReducer(state: WeShoopState, action: AnyAction) {
+function userReducer(
+  state: { userName: string } = { userName: "" },
+  action: AnyAction
+) {
   switch (action.type) {
     case "USER_NAME": {
       return {
@@ -26,7 +27,7 @@ function userReducer(state: WeShoopState, action: AnyAction) {
     }
   }
 }
-function popUpReducer(state: WeShoopState, action: AnyAction) {
+function popUpReducer(state: WeShoopState = INITIALE_STATE, action: AnyAction) {
   switch (action.type) {
     case "OPEN_POPUP": {
       return {
@@ -51,8 +52,7 @@ function popUpReducer(state: WeShoopState, action: AnyAction) {
 //   setPopup({});
 // };
 
-export const rootReducer = popUpReducer;
-// combineReducers({
-//   userReducer,
-//   popUpReducer,
-// });
+export const rootReducer = combineReducers({
+  userReducer,
+  popUpReducer,
+});

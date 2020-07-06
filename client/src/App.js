@@ -1,25 +1,18 @@
 import React from "react";
-import logo from "./logo.svg";
+import { createStore, applyMiddleware, compose } from "redux";
+import WeShop from "./we-shop/we-shop";
+import { Provider } from "react-redux";
+import { rootReducer, INITIALE_STATE } from "./reducer/store";
 import "./App.css";
-
+const store = createStore(
+  rootReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <WeShop />
+    </Provider>
   );
 }
 
