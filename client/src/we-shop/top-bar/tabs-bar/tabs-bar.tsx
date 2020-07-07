@@ -9,9 +9,11 @@ function TabsBar(props: any) {
         <div>
           <TabBar
             key={index}
-            tab={tab.name}
+            tab={tab}
             index={index}
-            onClick={(tab: string) => props.onClick(tab)}
+            onClick={(tab: any) => {
+              props.onClickk(tab.path);
+            }}
           ></TabBar>
         </div>
       ))}
