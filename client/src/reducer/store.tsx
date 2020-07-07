@@ -1,14 +1,18 @@
 import { combineReducers, Action, AnyAction } from "redux";
 import PopUpService from "../services/popUp-service";
+import { Component } from "react";
 export default combineReducers({});
 
 export interface WeShoopState {
-  userName: string;
-  popUp: any;
+  userReducer: { userName: string };
+  popUpReducer: PopUpState;
+}
+export interface PopUpState {
+  popUp: Component | null;
 }
 export const INITIALE_STATE: WeShoopState = {
-  userName: "",
-  popUp: undefined,
+  userReducer: { userName: "" },
+  popUpReducer: { popUp: null },
 };
 
 function userReducer(
@@ -27,7 +31,10 @@ function userReducer(
     }
   }
 }
-function popUpReducer(state: WeShoopState = INITIALE_STATE, action: AnyAction) {
+function popUpReducer(
+  state: PopUpState = INITIALE_STATE.popUpReducer,
+  action: AnyAction
+) {
   switch (action.type) {
     case "OPEN_POPUP": {
       return {

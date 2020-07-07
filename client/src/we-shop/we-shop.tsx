@@ -19,7 +19,7 @@ function WeShop() {
   ]);
 
   const popUp = useSelector((state: WeShoopState) => {
-    return state.popUp;
+    return state.popUpReducer.popUp;
   });
 
   return (
