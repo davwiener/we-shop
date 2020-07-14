@@ -4,7 +4,7 @@ function InputText(props: any) {
   return (
     <input
       name={props.name}
-      className={props.valid ? "valid" : ""}
+      className={props.valid ? "valid input" : "input"}
       required
       placeholder={props.placeholder}
       type={props.type ? props.type : ""}

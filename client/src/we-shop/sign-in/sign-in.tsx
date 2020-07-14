@@ -94,7 +94,7 @@ export const SignIn = (prop: any) => {
           );
         }
         return (
-          <form onSubmit={handleSubmit}>
+          <form className="form" onSubmit={handleSubmit}>
             <div className="sign-in-container">
               <div className="input-container">
                 <div className="input-fields-container">
