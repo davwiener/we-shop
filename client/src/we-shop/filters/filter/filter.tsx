@@ -8,8 +8,13 @@ import Datepicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Slider, { Range } from "rc-slider";
 import "rc-slider/assets/index.css";
+import { useDispatch } from "react-redux";
+import { Action } from "redux";
 let x = { min: 2, max: 10 };
-function Filter(props: any) {
+function Filter(props: {
+  filter: { text: string; type: string; value: any; action: CallableFunction };
+}) {
+  const dispatch = useDispatch();
   return (
     <div>
       <div className="filter-container">
@@ -18,16 +23,18 @@ function Filter(props: any) {
         {props.filter.type === "datePicker" && (
           <Datepicker
             selected={new Date()}
-            onChange={(date: any) => console.log(date)}
+            onChange={(date: any) => {
+              dispatch(props.filter.action(date));
+            }}
           />
         )}
         {props.filter.type === "range" && (
           <InputRange
             maxValue={20}
             minValue={0}
-            value={x}
+            value={props.filter.value}
             onChange={(value: any) => {
-              x = value;
+              dispatch(props.filter.action(value));
             }}
           />
         )}

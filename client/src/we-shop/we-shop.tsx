@@ -9,7 +9,8 @@ import MyAcount from "./my-acount/my-acount";
 import Products from "./products/products";
 import TodayDeals from "./today-deals/today-deals";
 import About from "./about/about";
-import { WeShoopState } from "../reducer/store";
+import { WeShoopState } from "../reducer/store.config";
+
 function WeShop() {
   const [tabs] = useState([
     { name: "My Acount", path: "/my-acount" },
