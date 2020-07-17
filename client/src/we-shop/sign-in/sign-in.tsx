@@ -5,7 +5,10 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import "./sign-in.scss";
 import React from "react";
-import { openPopUpAction, closePopUpAction } from "../../reducer/actions";
+import {
+  openPopUpAction,
+  closePopUpAction,
+} from "../../reducers/user-reducer/user-actions";
 import { useDispatch } from "react-redux";
 
 export const SignIn = (prop: any) => {

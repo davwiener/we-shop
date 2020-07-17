@@ -1,21 +1,17 @@
 import React, { useState } from "react";
 import Filter from "./filter/filter";
-import {
-  prodcutKindAction,
-  productPriceAction,
-  productDateAction,
-} from "../../reducer/actions";
-import { useDispatch, useSelector } from "react-redux";
-import { WeShoopState } from "../../reducer/store.config";
+import { useSelector } from "react-redux";
+import { weShopState } from "../../reducers/store";
+import { filtersState } from "../../reducers/search-reducer/search-reducer.config";
 
 //: { text: string; type: string; value: any; action: any }[]
 function Filters() {
-  const filters = useSelector((state: WeShoopState) => {
+  const filters: filtersState = useSelector((state: weShopState) => {
     return state.filtersReducer;
   });
   return (
     <div>
-      {Object.keys(filters).map((f) => (
+      {Object.keys(filters).map((f: string) => (
         <div>
           <Filter filter={filters[f]}></Filter>
         </div>

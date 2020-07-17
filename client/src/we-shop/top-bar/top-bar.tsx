@@ -3,7 +3,7 @@ import WelcomeMessage from "./welcome-message/welcome-message";
 import "./top-bar.scss";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { openPopUpAction } from "../../reducer/actions";
+import { openPopUpAction } from "../../reducers/user-reducer/user-actions";
 import { useHistory } from "react-router-dom";
 function TopBar(props: { tabs: any }) {
   const history = useHistory();

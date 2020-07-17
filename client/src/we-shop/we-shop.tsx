@@ -9,7 +9,7 @@ import MyAcount from "./my-acount/my-acount";
 import Products from "./products/products";
 import TodayDeals from "./today-deals/today-deals";
 import About from "./about/about";
-import { WeShoopState } from "../reducer/store.config";
+import { weShopState } from "../reducers/store";
 
 function WeShop() {
   const [tabs] = useState([
@@ -19,8 +19,8 @@ function WeShop() {
     { name: "Help", path: "/about" },
   ]);
 
-  const popUp = useSelector((state: WeShoopState) => {
-    return state.popUpReducer.popUp;
+  const popUp = useSelector((state: weShopState) => {
+    return state.userReducer.popUp;
   });
 
   return (

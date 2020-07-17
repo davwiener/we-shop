@@ -2,7 +2,7 @@ import React from "react";
 import { createStore, applyMiddleware, compose } from "redux";
 import WeShop from "./we-shop/we-shop";
 import { Provider } from "react-redux";
-import { rootReducer, INITIALE_STATE } from "./reducer/store";
+import { rootReducer, INITIALE_STATE } from "./reducers/store";
 import "./App.css";
 const store = createStore(
   rootReducer,
