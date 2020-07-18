@@ -3,12 +3,6 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { createStore, applyMiddleware, compose } from "redux";
-import WeShop from "./we-shop/we-shop";
-import thunk from "redux-thunk";
-import { Provider } from "react-redux";
-import reducer from "./reducers/store";
-import { rootReducer, INITIALE_STATE } from "./reducers/store";
 ReactDOM.render(<App></App>, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
