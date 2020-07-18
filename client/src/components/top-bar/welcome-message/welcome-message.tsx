@@ -1,6 +1,6 @@
 import "./welcome-message.scss";
-import WeShopButton from "../common-components/button/button";
 import React from "react";
+import WeShopButton from "../../../../../src/components/common-components/button/button";
 function WelcomeMessage(props: any) {
   console.log(props.isConnected);
   return (

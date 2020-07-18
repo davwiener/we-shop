@@ -1,6 +1,6 @@
-import "./we-shop-popup.scss";
+import "./popup.scss";
 import React from "react";
-function WeShopPopUp(props: any) {
+function PopUp(props: any) {
   console.log("popup");
   return (
     <div className="popup">
@@ -8,4 +8,4 @@ function WeShopPopUp(props: any) {
     </div>
   );
 }
-export default WeShopPopUp;
+export default PopUp;

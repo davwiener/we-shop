@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import InputText from "../input-text/input-text";
-import WeShopButton from "../we-shop-button/we-shop-button";
+import Button from "../button/button";
 
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -79,30 +79,30 @@ const SignIn = (prop: any) => (
                 {prop.inputs.map((inputVals: any) => input(inputVals))}
               </div>
               <div className="buttons">
-                <WeShopButton
+                <Button
                   type="submit"
                   disable={isSubmitting}
                   // onClick={handleSubmit}
                   text={values.newUser ? "Register" : "Connect"}
-                ></WeShopButton>
-                <WeShopButton
+                ></Button>
+                <Button
                   seconderyButton={true}
                   onClick={() => prop.onClose()}
                   text={"cancel"}
-                ></WeShopButton>
+                ></Button>
               </div>
             </div>
 
             {prop.text !== "" && prop.text && (
               <div className="new-user-container">
-                <WeShopButton
+                <Button
                   className={errors.password && touched.password && "error"}
                   text={prop.text}
                   onClick={(e: any) =>
                     (values.newUser = !values.newUser) &&
                     prop.secunedFunc(prop.secunedFuncVar)
                   }
-                ></WeShopButton>
+                ></Button>
               </div>
             )}
           </div>

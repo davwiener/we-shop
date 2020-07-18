@@ -1,6 +1,6 @@
 import React from "react";
-import "./we-shop-button.scss";
-function WeShopButton(props: any) {
+import "./button.scss";
+function Button(props: any) {
   return (
     <div className="button-container">
       <button
@@ -14,4 +14,4 @@ function WeShopButton(props: any) {
     </div>
   );
 }
-export default WeShopButton;
+export default Button;

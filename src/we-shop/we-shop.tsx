@@ -1,6 +1,6 @@
 import "./we-shop.scss";
 import TopBar from "../components/top-bar/top-bar";
-import WeShopPopup from "../components/common-components/we-shop-popup/we-shop-popup";
+import WeShopPopup from "../components/common-components/popup/popup";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
