@@ -5,15 +5,25 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import MyAcount from "../components/my-acount/my-acount";
+import MyAccount from "../components/my-account/my-account";
 import Products from "../components/products/products";
 import TodayDeals from "../components/today-deals/today-deals";
 import About from "../components/about/about";
 import { weShopState } from "../redux/store";
+import Noty from "noty";
+
+setTimeout(function () {
+  new Noty({
+    text: "This is a notification!",
+    layout: "bottom",
+    theme: "bootstrap-v4",
+    type: "error",
+  }).show();
+}, 500);
 
 function WeShop() {
   const [tabs] = useState([
-    { name: "My Acount", path: "/my-acount" },
+    { name: "My Account", path: "/my-account" },
     { name: "Products", path: "/products" },
     { name: "Today's Deals", path: "/today-deals" },
     { name: "Help", path: "/about" },
@@ -35,8 +45,8 @@ function WeShop() {
           <Route path="/products">
             <Products></Products>
           </Route>
-          <Route path="/my-acount">
-            <MyAcount></MyAcount>
+          <Route path="/my-account">
+            <MyAccount></MyAccount>
           </Route>
           <Route path="/today-deals">
             <TodayDeals></TodayDeals>

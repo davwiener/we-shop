@@ -2,6 +2,8 @@ import { Component } from "react";
 
 export interface userState {
   user: { userName: string };
+  connected: boolean;
+
   popUp: Component | null;
 }
 

@@ -12,7 +12,7 @@ function TabsBar(props: any) {
             tab={tab}
             index={index}
             onClick={(tab: any) => {
-              props.onClickk(tab.path);
+              props.onClick(tab.path);
             }}
           ></TabBar>
         </div>

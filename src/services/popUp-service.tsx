@@ -1,11 +1,12 @@
 import * as Yup from "yup";
 import SignIn from "../components/sign-in/sign-in";
+import Register from "../components/register-page/register";
 import React from "react";
 
 const PopUpService = {
   openPopup(tabName: string) {
     switch (tabName) {
-      case "My Acount": {
+      case "My Account": {
         break;
       }
       case "Products": {
@@ -18,29 +19,10 @@ const PopUpService = {
         break;
       }
       case "Register": {
-        return (
-          <SignIn
-            newUser={true}
-            onRegister={(tab: string) => this.openPopup(tab)}
-            inputs={["email", "password", "confirmPassword"].map(
-              (input: string) => usableInputs[input]
-            )}
-            secunedFuncVar="Connect"
-            secunedFunc={(tab: string) => this.openPopup(tab)}
-            text={"Connect"}
-          ></SignIn>
-        );
+        return <Register></Register>;
       }
       case "Connect": {
-        return (
-          <SignIn
-            newUser={true}
-            onRegister={(tab: string) => this.openPopup(tab)}
-            inputs={["email", "password"].map((input) => usableInputs[input])}
-            secunedFunc={(tab: string) => this.openPopup(tab)}
-            secunedFuncVar="Register"
-          ></SignIn>
-        );
+        return <SignIn></SignIn>;
       }
       default: {
         console.log("Register");

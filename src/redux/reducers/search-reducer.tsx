@@ -3,7 +3,7 @@ import * as actions from "../actions/search-actions";
 import * as actionTypes from "../action-types";
 import { filtersState } from "../types/search-types";
 
-export const INITIALE_FILTER_STATE: filtersState = {
+export const INITIAL_FILTER_STATE: filtersState = {
   price: {
     value: { min: 5, max: 17 },
     type: "range",
@@ -22,7 +22,7 @@ export const INITIALE_FILTER_STATE: filtersState = {
   productName: {
     value: "",
     type: "freeText",
-    action: actions.prodcutKindAction,
+    action: actions.productKindAction,
     text: "",
   },
   productKind: {
@@ -34,7 +34,7 @@ export const INITIALE_FILTER_STATE: filtersState = {
 };
 
 export function filtersReducer(
-  state: filtersState = INITIALE_FILTER_STATE,
+  state: filtersState = INITIAL_FILTER_STATE,
   action: AnyAction
 ) {
   switch (action.type) {
@@ -53,13 +53,13 @@ export function filtersReducer(
     case actionTypes.updateProductName: {
       return {
         ...state,
-        productName: action.paylaod,
+        productName: action.payload,
       };
     }
-    case actionTypes.updateProdictKind: {
+    case actionTypes.updateProductKind: {
       return {
         ...state,
-        productKind: action.paylaod,
+        productKind: action.payload,
       };
     }
     default: {
