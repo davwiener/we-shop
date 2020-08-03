@@ -17,18 +17,15 @@ export const userNameAction = () => ({
 export const login = (username: string, password: string) => {
   return (dispatch: Dispatch<any>) => {
     dispatch(request({ username }));
-
     userService.login(username, password).then(
       (user) => {
-        dispatch(success(user));
+        dispatch(success(username));
       },
       (error) => {
         dispatch(failure(error));
-        //dispatch(alertActions.error(error));
       }
     );
   };
-
   function request(user: any) {
     return { type: actionTypes.request, user };
   }
@@ -46,7 +43,11 @@ export const register = (user: any) => {
 
     userService.register(user).then(
       (retUser) => {
-        dispatch(success(retUser));
+        if (retUser.status === 201 && retUser.statusText === "Created") {
+          dispatch(success(user.username));
+        } else {
+          dispatch(failure("error"));
+        }
         // history.push("/login");
       },
       (error) => {

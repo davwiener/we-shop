@@ -21,7 +21,6 @@ function TopBar(props: { tabs: any }) {
         ></TabsBar>
 
         <WelcomeMessage
-          isConnected={false}
           onClick={(popUp: string) => {
             dispatch(openPopUpAction(popUp));
           }}

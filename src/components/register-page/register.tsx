@@ -6,8 +6,9 @@ import * as userActions from "../../redux/actions/user-actions";
 
 function RegisterPage(props: any) {
   const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
+    email: "",
+    first_name: "",
+    last_name: "",
     username: "",
     password: "",
   });
@@ -28,7 +29,7 @@ function RegisterPage(props: any) {
     e.preventDefault();
 
     setSubmitted(true);
-    if (user.firstName && user.lastName && user.username && user.password) {
+    if (user.first_name && user.last_name && user.username && user.password) {
       dispatch(userActions.register(user));
     }
   }
@@ -38,18 +39,34 @@ function RegisterPage(props: any) {
       <h2>Register</h2>
       <form name="form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>First Name</label>
+          <label>Email</label>
           <input
             type="text"
-            name="firstName"
-            value={user.firstName}
+            name="email"
+            value={user.email}
             onChange={handleChange}
             className={
               "form-control" +
-              (submitted && !user.firstName ? " is-invalid" : "")
+              (submitted && !user.first_name ? " is-invalid" : "")
             }
           />
-          {submitted && !user.firstName && (
+          {submitted && !user.first_name && (
+            <div className="invalid-feedback">First Name is required</div>
+          )}
+        </div>
+        <div className="form-group">
+          <label>First Name</label>
+          <input
+            type="text"
+            name="first_name"
+            value={user.first_name}
+            onChange={handleChange}
+            className={
+              "form-control" +
+              (submitted && !user.first_name ? " is-invalid" : "")
+            }
+          />
+          {submitted && !user.first_name && (
             <div className="invalid-feedback">First Name is required</div>
           )}
         </div>
@@ -57,15 +74,15 @@ function RegisterPage(props: any) {
           <label>Last Name</label>
           <input
             type="text"
-            name="lastName"
-            value={user.lastName}
+            name="last_name"
+            value={user.last_name}
             onChange={handleChange}
             className={
               "form-control" +
-              (submitted && !user.lastName ? " is-invalid" : "")
+              (submitted && !user.last_name ? " is-invalid" : "")
             }
           />
-          {submitted && !user.lastName && (
+          {submitted && !user.last_name && (
             <div className="invalid-feedback">Last Name is required</div>
           )}
         </div>

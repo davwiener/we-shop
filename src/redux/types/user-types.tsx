@@ -1,10 +1,9 @@
 import { Component } from "react";
 
 export interface userState {
-  user: { userName: string };
+  userName: string;
   connected: boolean;
-
-  popUp: Component | null;
+  popUp: string;
 }
 
 //export const OPEN_POPUP = 'OPEN_POPUP';

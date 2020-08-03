@@ -6,9 +6,7 @@ export const userService = {
 };
 function login(username: string, password: string) {
   return axios
-    .post(`/api/users/authenticate`, {
-      params: JSON.stringify({ username, password }),
-    })
+    .post(`/api/auth/signin`, { email: username, password })
     .then((user) => {
       // store user details and jwt token in local storage to keep user logged in between page refreshes
       localStorage.setItem("user", JSON.stringify(user));
@@ -17,13 +15,9 @@ function login(username: string, password: string) {
     });
 }
 function register(user: any) {
-  return axios
-    .post(`/api/users/authenticate`, {
-      params: JSON.stringify(user),
-    })
-    .then((retUser) => {
-      return retUser;
-    });
+  return axios.post(`/api/auth/signup`, { ...user }).then((retUser) => {
+    return retUser;
+  });
 }
 function logout() {
   // remove user from local storage to log user out

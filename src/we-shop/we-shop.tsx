@@ -11,8 +11,9 @@ import TodayDeals from "../components/today-deals/today-deals";
 import About from "../components/about/about";
 import { weShopState } from "../redux/store";
 import Noty from "noty";
+import PopUpService from "../services/popUp-service";
 
-setTimeout(function () {
+setTimeout(() => {
   new Noty({
     text: "This is a notification!",
     layout: "bottom",
@@ -35,7 +36,9 @@ function WeShop() {
 
   return (
     <div className="we-shop">
-      {popUp ? <WeShopPopup content={popUp}></WeShopPopup> : null}
+      {popUp !== "none" && (
+        <WeShopPopup content={PopUpService.openPopup(popUp)}></WeShopPopup>
+      )}
       <Router>
         <TopBar tabs={tabs}></TopBar>
         <Switch>
