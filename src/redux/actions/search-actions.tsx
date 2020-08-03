@@ -3,8 +3,8 @@ export const productPriceAction = (price: { min: number; max: number }) => ({
   type: actionTypes.updatePrice,
   payload: price,
 });
-export const prodcutKindAction = (kind: string) => ({
-  type: actionTypes.updateProdictKind,
+export const productKindAction = (kind: string) => ({
+  type: actionTypes.updateProductKind,
   payload: kind,
 });
 export const productDateAction = (date: {

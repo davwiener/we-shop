@@ -15,13 +15,12 @@ function TopBar(props: { tabs: any }) {
           key="tabs"
           tabs={props.tabs}
           className="container"
-          onClickk={(popUp: string) => {
+          onClick={(popUp: string) => {
             history.push(popUp);
           }}
         ></TabsBar>
 
         <WelcomeMessage
-          isConnected={false}
           onClick={(popUp: string) => {
             dispatch(openPopUpAction(popUp));
           }}

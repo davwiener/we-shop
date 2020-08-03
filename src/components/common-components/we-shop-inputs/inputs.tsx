@@ -58,7 +58,7 @@ const SignIn = (prop: any) => (
               name={inputVals.name}
               valid={!errors[inputVals.name] && touched[inputVals.name]}
               placeholder={inputVals.placeholder}
-              textVissible={false}
+              textVisible={false}
               type={inputVals.type}
               value={values[inputVals.name]}
               onChange={handleChange}
@@ -86,7 +86,7 @@ const SignIn = (prop: any) => (
                   text={values.newUser ? "Register" : "Connect"}
                 ></Button>
                 <Button
-                  seconderyButton={true}
+                  secondaryButton={true}
                   onClick={() => prop.onClose()}
                   text={"cancel"}
                 ></Button>
@@ -100,7 +100,7 @@ const SignIn = (prop: any) => (
                   text={prop.text}
                   onClick={(e: any) =>
                     (values.newUser = !values.newUser) &&
-                    prop.secunedFunc(prop.secunedFuncVar)
+                    prop.secondFunc(prop.secondFuncVar)
                   }
                 ></Button>
               </div>

@@ -1,12 +1,16 @@
 import React from "react";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import WeShop from "./we-shop/we-shop";
 import { Provider } from "react-redux";
 import { rootReducer } from "./redux/store";
+import thunkMiddleware from "redux-thunk";
+import { createLogger } from "redux-logger";
+import { composeWithDevTools } from "redux-devtools-extension";
 import "./App.css";
+const loggerMiddleware = createLogger();
 const store = createStore(
   rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeWithDevTools(applyMiddleware(thunkMiddleware, loggerMiddleware))
 );
 function App() {
   return (

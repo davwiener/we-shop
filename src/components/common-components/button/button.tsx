@@ -4,7 +4,7 @@ function Button(props: any) {
   return (
     <div className="button-container">
       <button
-        className={props.seconderyButton ? "button secondery-button" : "button"}
+        className={props.secondaryButton ? "button secondary-button" : "button"}
         disabled={props.disabled}
         type={props.type ? props.type : ""}
         onClick={props.onClick}

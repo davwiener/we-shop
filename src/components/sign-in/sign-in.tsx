@@ -1,117 +1,88 @@
-import InputText from "../common-components/input-text/input-text";
-import WeShopButton from "../common-components/button/button";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import "./sign-in.scss";
-import React from "react";
-import { closePopUpAction } from "../../redux/actions/user-actions";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-export const SignIn = (prop: any) => {
+import * as userActions from "../../redux/actions/user-actions";
+import { openPopUpAction } from "../../redux/actions/user-actions";
+
+function LoginPage(props: any) {
+  const [inputs, setInputs] = useState({
+    username: "",
+    password: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const { username, password } = inputs;
   const dispatch = useDispatch();
-  return (
-    <Formik
-      initialValues={prop.inputs.reduce(
-        (obj: { [x: string]: string }, input: { name: React.ReactText }) => {
-          obj[input.name] = "";
-          return obj;
-        },
-        {}
-      )}
-      validationSchema={Yup.object().shape(
-        prop.inputs.reduce(
-          (
-            obj: { [x: string]: any },
-            input: { name: React.ReactText; validateFunc: any }
-          ) => {
-            obj[input.name] = input.validateFunc;
-            return obj;
-          },
-          {}
-        )
-      )}
-      onSubmit={async (values) => {
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        alert(JSON.stringify(values, null, 2));
-      }}
-    >
-      {(props) => {
-        const {
-          values,
-          touched,
-          errors,
-          isSubmitting,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-        } = props;
-        function input(inputVals: {
-          name: React.ReactText;
-          placeholder: any;
-          type: any;
-        }) {
-          return (
-            <div className="input-container">
-              <InputText
-                className={
-                  errors[inputVals.name] && touched[inputVals.name] && "error"
-                }
-                name={inputVals.name}
-                valid={!errors[inputVals.name] && touched[inputVals.name]}
-                placeholder={inputVals.placeholder}
-                textVissible={false}
-                type={inputVals.type}
-                value={values[inputVals.name]}
-                onChange={handleChange}
-                id={inputVals.name}
-                handleBlur={handleBlur}
-              ></InputText>
-              {errors[inputVals.name] && touched[inputVals.name] && (
-                <div className="input-feedback">{errors[inputVals.name]}</div>
-              )}
-            </div>
-          );
-        }
-        return (
-          <form className="form" onSubmit={handleSubmit}>
-            <div className="sign-in-container">
-              <div className="input-container">
-                <div className="input-fields-container">
-                  {prop.inputs.map((inputVals: any) => input(inputVals))}
-                </div>
-                <div className="buttons">
-                  <WeShopButton
-                    type="submit"
-                    disable={isSubmitting}
-                    // onClick={handleSubmit}
-                    text={values.newUser ? "Register" : "Connect"}
-                  ></WeShopButton>
-                  <WeShopButton
-                    seconderyButton={true}
-                    onClick={(e: any) => dispatch(closePopUpAction())}
-                    text={"cancel"}
-                  ></WeShopButton>
-                </div>
-              </div>
 
-              {prop.text !== "" && prop.text && (
-                <div className="new-user-container">
-                  <WeShopButton
-                    className={errors.password && touched.password && "error"}
-                    text={prop.text}
-                    onClick={(e: any) =>
-                      (values.newUser = !values.newUser) &&
-                      prop.secunedFunc(prop.secunedFuncVar)
-                    }
-                  ></WeShopButton>
-                </div>
-              )}
-            </div>
-          </form>
-        );
-      }}
-    </Formik>
+  // reset login status
+  // useEffect(() => {
+  //   dispatch(userActions.logout());
+  // }, []);
+
+  function handleChange(e: any) {
+    const { name, value } = e.target;
+    setInputs((inputs) => ({ ...inputs, [name]: value }));
+  }
+
+  function handleSubmit(e: any) {
+    e.preventDefault();
+
+    setSubmitted(true);
+    if (username && password) {
+      dispatch(userActions.login(username, password));
+    }
+  }
+
+  return (
+    <div className="col-lg-8 offset-lg-2">
+      <h2>Login</h2>
+      <form name="form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Username</label>
+          <input
+            type="text"
+            name="username"
+            value={username}
+            onChange={handleChange}
+            className={
+              "form-control" + (submitted && !username ? " is-invalid" : "")
+            }
+          />
+          {submitted && !username && (
+            <div className="invalid-feedback">Username is required</div>
+          )}
+        </div>
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+            className={
+              "form-control" + (submitted && !password ? " is-invalid" : "")
+            }
+          />
+          {submitted && !password && (
+            <div className="invalid-feedback">Password is required</div>
+          )}
+        </div>
+        <div className="form-group">
+          <button className="btn btn-primary">
+            {/* <span className="spinner-border spinner-border-sm mr-1"></span> */}
+            Login
+          </button>
+          <button
+            onClick={() => {
+              dispatch(openPopUpAction("Register"));
+            }}
+          >
+            Register
+          </button>
+        </div>
+      </form>
+    </div>
   );
-};
-//}
-export default SignIn;
+}
+
+export default LoginPage;
