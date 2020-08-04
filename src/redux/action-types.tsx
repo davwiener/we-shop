@@ -6,6 +6,7 @@ export const openPopUp = "OPEN_POPUP";
 export const register = "REGISTER";
 export const registerSuccess = "REGISTER_SUCCESS";
 export const registerFails = "REGISTER_FAILS";
+export const disconnect = "DISCONNECT";
 export const connect = "CONNECT";
 export const connectSuccess = "CONNECT_SUCCESS";
 export const connectFails = "CONNECT_FAILS";

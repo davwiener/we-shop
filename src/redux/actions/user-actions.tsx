@@ -14,11 +14,19 @@ export const userNameAction = () => ({
   type: actionTypes.userName,
 });
 
-export const login = (username: string, password: string) => {
+export const login = (
+  username: string,
+  password: string,
+  rememberMe: boolean
+) => {
   return (dispatch: Dispatch<any>) => {
     dispatch(request({ username }));
     userService.login(username, password).then(
       (user) => {
+        if (rememberMe) {
+          localStorage.username = username;
+          localStorage.password = password;
+        }
         dispatch(success(username));
       },
       (error) => {
@@ -65,4 +73,7 @@ export const register = (user: any) => {
   function failure(error: any) {
     return { type: actionTypes.registerFails, error };
   }
+};
+export const disconnect = () => {
+  return { type: actionTypes.disconnect };
 };

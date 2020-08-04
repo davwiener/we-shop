@@ -53,6 +53,13 @@ export function userReducer(
         connected: true,
       };
     }
+    case actionTypes.disconnect: {
+      return {
+        ...state,
+        userName: "",
+        connected: false,
+      };
+    }
     default: {
       return state;
     }

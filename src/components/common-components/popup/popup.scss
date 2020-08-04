@@ -21,5 +21,12 @@
     border: 2px solid #ccc;
     color: #7f7f7f;
     background-color: #fff;
+    overflow: auto;
+    .close {
+      position: absolute;
+      right: 14px;
+      top: 4px;
+      z-index: 2;
+    }
   }
 }

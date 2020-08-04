@@ -29,7 +29,7 @@ function LoginPage(props: any) {
 
     setSubmitted(true);
     if (username && password) {
-      dispatch(userActions.login(username, password));
+      dispatch(userActions.login(username, password, true));
     }
   }
 
