@@ -21,18 +21,18 @@ export const login = (
 ) => {
   return (dispatch: Dispatch<any>) => {
     dispatch(request({ username }));
-    userService.login(username, password).then(
-      (user) => {
+    userService
+      .login(username, password)
+      .then((user) => {
         if (rememberMe) {
           localStorage.username = username;
           localStorage.password = password;
         }
         dispatch(success(username));
-      },
-      (error) => {
-        dispatch(failure(error));
-      }
-    );
+      })
+      .catch((Error) => {
+        dispatch(failure(Error));
+      });
   };
   function request(user: any) {
     return { type: actionTypes.request, user };
@@ -49,19 +49,19 @@ export const register = (user: any) => {
   return (dispatch: Dispatch<any>) => {
     dispatch(request(user.email));
 
-    userService.register(user).then(
-      (retUser) => {
+    userService
+      .register(user)
+      .then((retUser) => {
         if (retUser.status === 201 && retUser.statusText === "Created") {
           dispatch(success(user.username));
         } else {
           dispatch(failure("error"));
         }
         // history.push("/login");
-      },
-      (error) => {
-        dispatch(failure(error));
-      }
-    );
+      })
+      .catch((Error) => {
+        dispatch(failure(Error));
+      });
   };
 
   function request(user: any) {
