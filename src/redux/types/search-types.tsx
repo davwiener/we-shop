@@ -1,3 +1,5 @@
+import { FilterValue } from "../../filters/filter.config";
+
 export interface filterType {
   value: any;
   type: string;
@@ -5,10 +7,8 @@ export interface filterType {
   text: string;
 }
 
-export interface filtersState {
-  price: filterType;
-  date: filterType;
-  productName: filterType;
-  productKind: filterType;
-  [key: string]: filterType;
+export interface ProductsState {
+  filters: { [key: string]: FilterValue };
+  products: any[];
+  loaded: boolean;
 }

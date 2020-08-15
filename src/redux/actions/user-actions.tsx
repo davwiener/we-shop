@@ -28,23 +28,22 @@ export const login = (
           localStorage.username = username;
           localStorage.password = password;
         }
-        dispatch(success(username));
+        dispatch(loginSuccess(username));
       })
       .catch((Error) => {
-        dispatch(failure(Error));
+        dispatch(loginFailure(Error));
       });
   };
   function request(user: any) {
     return { type: actionTypes.request, user };
   }
-  function success(user: any) {
-    return { type: actionTypes.connectSuccess, user };
-  }
-  function failure(error: any) {
-    return { type: actionTypes.connectFails, error };
-  }
 };
-
+export function loginSuccess(user: any) {
+  return { type: actionTypes.connectSuccess, user };
+}
+export function loginFailure(error: Error) {
+  return { type: actionTypes.connectFails, error };
+}
 export const register = (user: any) => {
   return (dispatch: Dispatch<any>) => {
     dispatch(request(user.email));
@@ -76,4 +75,7 @@ export const register = (user: any) => {
 };
 export const disconnect = () => {
   return { type: actionTypes.disconnect };
+};
+export const newUser = () => {
+  return { type: actionTypes.newUser };
 };

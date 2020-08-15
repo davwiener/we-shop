@@ -1,9 +1,14 @@
 import PopUpService from "../../services/popUp-service";
 import { AnyAction } from "redux";
 import * as actionTypes from "../action-types";
-import { userState } from "../types/user-types";
+import { UserState } from "../types/user-types";
 export function userReducer(
-  state: userState = { userName: "", popUp: "none", connected: false },
+  state: UserState = {
+    userName: "",
+    popUp: "none",
+    connected: false,
+    loaded: false,
+  },
   action: AnyAction
 ) {
   switch (action.type) {
@@ -31,18 +36,21 @@ export function userReducer(
         userName: action.user,
         popUp: "none",
         connected: true,
+        loaded: true,
       };
     }
     case actionTypes.connectFails: {
       return {
         ...state,
         popUp: "none",
+        loaded: true,
       };
     }
     case actionTypes.registerFails: {
       return {
         ...state,
         popUp: "none",
+        loaded: true,
       };
     }
     case actionTypes.registerSuccess: {
@@ -51,6 +59,7 @@ export function userReducer(
         userName: action.user,
         popUp: "none",
         connected: true,
+        loaded: true,
       };
     }
     case actionTypes.disconnect: {
@@ -58,6 +67,13 @@ export function userReducer(
         ...state,
         userName: "",
         connected: false,
+        loaded: true,
+      };
+    }
+    case actionTypes.newUser: {
+      return {
+        ...state,
+        loaded: true,
       };
     }
     default: {
