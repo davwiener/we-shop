@@ -10,7 +10,7 @@ function InputText(props: any) {
       type={props.type ? props.type : ""}
       id={props.id ? props.id : ""}
       value={props.value}
-      onChange={props.onChange}
+      onChange={(event) => props.onChange(event.target.value)}
       onBlur={props.handleBlur}
     />
   );

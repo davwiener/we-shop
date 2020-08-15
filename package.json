@@ -35,9 +35,9 @@
   "scripts": {
     "start": "react-scripts start --no-cache",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --no-cache",
     "eject": "react-scripts eject",
-    "ws": "PORT=3200 react-scripts start"
+    "ws": "PORT=3200 react-scripts start --no-cache"
   },
   "eslintConfig": {
     "extends": "react-app"

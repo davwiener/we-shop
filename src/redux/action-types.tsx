@@ -12,7 +12,10 @@ export const connectSuccess = "CONNECT_SUCCESS";
 export const connectFails = "CONNECT_FAILS";
 
 //search actions
-export const updatePrice = "UPDATE_PRICE";
-export const updateProductKind = "UPDATE_PRODUCT_KIND";
-export const updateDate = "UPDATE_PRODUCT_DATE";
-export const updateProductName = "UPDATE_PRODUCT_NAME";
+export const newUser = "NEW_USER";
+export const getProducts = "GET_PRODUCTS";
+export const addFilter = "ADD_FILTER";
+export const removeFilter = "REMOVE_FILTER";
+export const searchStart = "SEARCH_START";
+export const searchSuccess = "SEARCH_SUCCESS";
+export const searchFails = "SEARCH_FAILS";
