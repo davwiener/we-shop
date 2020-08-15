@@ -4,7 +4,7 @@ import * as actionTypes from "../action-types";
 import { ProductsState } from "../types/search-types";
 
 export const INITIAL_PRODUCTS_STATE: ProductsState = {
-  filters: {},
+  filters: { page: 1 },
   products: [],
   loaded: false,
 };
@@ -50,7 +50,7 @@ export function filtersReducer(
       return {
         ...state,
         loaded: true,
-        products: action.payload.products,
+        products: [...state.products, action.payload.products],
       };
     }
     default: {

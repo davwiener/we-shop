@@ -8,6 +8,10 @@ export const search = (filters: { [key: string]: string }) => {
     searchService
       .search(filters)
       .then((products: any) => {
+        //to delete
+        products = [
+          ...new Set([...products.data.docs.map((b: any) => b.title)]),
+        ];
         dispatch(searchSuccess(products));
       })
       .catch((Error) => {

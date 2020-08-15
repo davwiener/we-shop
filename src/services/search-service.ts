@@ -3,5 +3,12 @@ export const searchService = {
   search,
 };
 function search(filters: { [key: string]: string }) {
-  return axios.post(`/api/search`, filters);
+  let cancel;
+  return axios({
+    method: "GET",
+    url: "http://openlibrary.org/search.json",
+    params: { q: filters.kind ? filters.kind : "", page: filters.page },
+    cancelToken: new axios.CancelToken((c) => (cancel = c)),
+  });
+  // return axios.post(`/api/search`, filters);
 }
