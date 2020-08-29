@@ -1,0 +1,8 @@
+.editableText {
+  display: flex;
+  align-items: baseline;
+  :first {
+    margin-top: 0px;
+  }
+  margin-top: 30px;
+}
