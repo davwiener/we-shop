@@ -1,12 +1,19 @@
-import "./welcome-message.scss";
-import WeShopButton from "../common-components/button/button";
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import WeShopButton from "../common-components/button/button";
 import { WeShopState } from "../../redux/store";
 import * as userActions from "../../redux/actions/user-actions";
+import "./welcome-message.scss";
 function WelcomeMessage(props: any) {
   const dispatch = useDispatch();
-  //console.log(props.isConnected);
+
+  const onLogout = () => {
+    delete localStorage.username;
+    delete localStorage.password;
+    localStorage.removeItem("token");
+    dispatch(userActions.disconnect());
+    window.location.href = "/login";
+  };
 
   const userState = useSelector((state: WeShopState) => {
     return state.user;
@@ -31,11 +38,7 @@ function WelcomeMessage(props: any) {
               type="button"
               className="close"
               aria-label="Close"
-              onClick={() => {
-                delete localStorage.username;
-                delete localStorage.password;
-                dispatch(userActions.disconnect());
-              }}
+              onClick={onLogout}
             >
               <span aria-hidden="true">disconnect</span>
             </button>

@@ -1,0 +1,18 @@
+.container {
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 100%;
+
+  .saveButton {
+    background-color: white !important;
+
+    :active {
+      border: none !important;
+      outline: none !important;
+    }
+
+    :hover {
+      color: blue;
+    }
+  }
+}
