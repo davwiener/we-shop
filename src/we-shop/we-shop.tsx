@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import AccountSettings from "../components/Account/AccountSettings";
+import Account from "../components/Account/Account";
 import Products from "../components/products/products";
 import TodayDeals from "../components/today-deals/today-deals";
 import About from "../components/about/about";
@@ -59,7 +59,7 @@ function WeShop() {
             <Products></Products>
           </Route>
           <Route path="/account">
-            <AccountSettings />
+            <Account />
           </Route>
           <Route path="/today-deals">
             <TodayDeals></TodayDeals>
