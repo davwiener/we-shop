@@ -1,7 +1,7 @@
 export type AccountState = {
   id: number;
   name: string;
-  dataLoaded: boolean;
+  isDataLoaded: boolean;
 };
 export type AccountProps = {
   id: number;

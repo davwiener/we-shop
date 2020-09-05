@@ -6,7 +6,7 @@ export function accountReducer(
   state: AccountState = {
     id: -1,
     name: "",
-    dataLoaded: false,
+    isDataLoaded: false,
   },
   action: AnyAction
 ) {
@@ -20,7 +20,7 @@ export function accountReducer(
       return {
         ...state,
         ...action.payload,
-        dataLoaded: true,
+        isDataLoaded: true,
       };
     }
     default: {
@@ -31,4 +31,4 @@ export function accountReducer(
 
 export const getAccountId = (state: AccountState) => state.id;
 export const getAccountName = (state: AccountState) => state.name;
-export const isAccountDataLoaded = (state: AccountState) => state.dataLoaded;
+export const isAccountDataLoaded = (state: AccountState) => state.isDataLoaded;
