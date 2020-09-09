@@ -19,3 +19,7 @@ export const removeFilter = "REMOVE_FILTER";
 export const searchStart = "SEARCH_START";
 export const searchSuccess = "SEARCH_SUCCESS";
 export const searchFails = "SEARCH_FAILS";
+
+// account actions
+export const FETCH_ACCOUNT_STARTED = "FETCH_ACCOUNT_STARTED";
+export const FETCH_ACCOUNT_SUCCESS = "FETCH_ACCOUNT_SUCCESS";

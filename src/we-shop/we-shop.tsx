@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import MyAccount from "../components/my-account/my-account";
+import Account from "../components/Account/Account";
 import Products from "../components/products/products";
 import TodayDeals from "../components/today-deals/today-deals";
 import About from "../components/about/about";
@@ -25,7 +25,7 @@ setTimeout(() => {
 function WeShop() {
   const dispatch = useDispatch();
   const [tabs] = useState([
-    { name: "My Account", path: "/my-account" },
+    { name: "My Account", path: "/account" },
     { name: "Products", path: "/products" },
     { name: "Today's Deals", path: "/today-deals" },
     { name: "Help", path: "/about" },
@@ -58,8 +58,8 @@ function WeShop() {
           <Route path="/products">
             <Products></Products>
           </Route>
-          <Route path="/my-account">
-            <MyAccount></MyAccount>
+          <Route path="/account">
+            <Account />
           </Route>
           <Route path="/today-deals">
             <TodayDeals></TodayDeals>
