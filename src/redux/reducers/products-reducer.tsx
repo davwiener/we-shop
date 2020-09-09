@@ -7,6 +7,7 @@ export const INITIAL_PRODUCTS_STATE: ProductsState = {
   filters: { page: 1 },
   products: [],
   loaded: false,
+  hasMore: true,
 };
 
 export function filtersReducer(
@@ -50,7 +51,9 @@ export function filtersReducer(
       return {
         ...state,
         loaded: true,
-        products: [...state.products, action.payload.products],
+        products: state.products.concat(Array.from({ length: 20 })),
+        // products: [...state.products, action.payload.products],
+        hasMore: action.payload.hasMore,
       };
     }
     default: {

@@ -1,4 +1,11 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import Filters from "../filters-component/filters";
 
 import "./products.scss";
@@ -11,12 +18,20 @@ import { WeShopState } from "../../redux/store";
 import * as productsActions from "../../redux/actions/products-actions";
 import { FilterClass } from "../../filters/filter";
 import { addFilter } from "../../redux/action-types";
+import InfiniteScroll from "react-infinite-scroll-component";
+const style = {
+  height: 30,
+  border: "1px solid green",
+  margin: 6,
+  padding: 8,
+};
 function Products() {
   const dispatch = useDispatch();
   const searchState = useSelector((state: WeShopState) => {
+    //
     return state.search;
   });
-  const [hasMore, setHasMore] = useState(false);
+
   useEffect(() => {
     let query = {};
     Object.keys(searchState.filters).forEach((stateFilter) => {
@@ -46,54 +61,33 @@ function Products() {
     [kindFilter.filterName]: kindFilter,
     [nameFilter.filterName]: nameFilter,
   });
-  const observer = useRef();
-  const lastBookElementRef = useCallback(
-    (node) => {
-      if (!searchState.loaded) {
-        return;
-      }
-      if (observer.current) {
-        // @ts-ignore: Object is possibly 'null'.
-        observer.current.disconnect();
-      }
-      // @ts-ignore: Object is possibly 'null'.
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          dispatch(
-            productsActions.addFilterAction(
-              "page",
-              searchState.filters.page + 1
-            )
-          );
-        }
-      });
-      // @ts-ignore: Object is possibly 'null'.
-      if (node) observer?.current?.observe(node);
-    },
-    [searchState.loaded, hasMore]
-  );
+  const fetchMoreData = () => {
+    dispatch(
+      productsActions.addFilterAction("page", searchState.filters.page + 1)
+    );
+  };
   return (
     <div className="products-container">
       <div className="products">
-        <span>Products</span>
-        {searchState.products &&
-          searchState.products.map((product: any, index: number) => {
-            if (searchState.products.length === index + 1) {
-              return (
-                <div ref={lastBookElementRef} key={product}>
-                  {product}
-                </div>
-              );
-            } else {
-              return <div key={product}>{product}</div>;
-            }
-          })}
-        <div>{!searchState.loaded && "Loading..."}</div>
-        {/* <div>{error && 'Error'}</div> */}
-      </div>
-      <div className="filters">
-        <Filters filters={Object.values(filters)}></Filters>
-        <div></div>
+        <div id="scrollableDiv" style={{ height: 300, overflow: "auto" }}>
+          <InfiniteScroll
+            dataLength={searchState.products.length}
+            next={fetchMoreData}
+            hasMore={true}
+            loader={<h4>Loading...</h4>}
+            scrollableTarget="scrollableDiv"
+          >
+            {searchState.products.map((i, index) => (
+              <div style={style} key={index}>
+                div - #{index}
+              </div>
+            ))}
+          </InfiniteScroll>
+        </div>
+        <div className="filters">
+          <Filters filters={Object.values(filters)}></Filters>
+          <div></div>
+        </div>
       </div>
     </div>
   );
