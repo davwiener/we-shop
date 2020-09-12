@@ -5,6 +5,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { openPopUpAction } from "../../redux/actions/user-actions";
 import { useHistory } from "react-router-dom";
+import Button from "../common-components/button/button";
 function TopBar(props: { tabs: any }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -25,6 +26,13 @@ function TopBar(props: { tabs: any }) {
             dispatch(openPopUpAction(popUp));
           }}
         ></WelcomeMessage>
+        <Button
+          onClick={(popUp: string) => {
+            history.push("add-product");
+          }}
+        >
+          add auction
+        </Button>
       </div>
     </div>
   );

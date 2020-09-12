@@ -1,7 +1,8 @@
 import * as Yup from "yup";
-import SignIn from "../components/sign-in/sign-in";
+import LoginPage from "../components/login-page/login-page";
 import Register from "../components/register-page/register";
 import React from "react";
+import AddAuction from "../components/add-auction/add-auction";
 
 const PopUpService = {
   openPopup(tabName: string) {
@@ -22,7 +23,10 @@ const PopUpService = {
         return <Register></Register>;
       }
       case "Connect": {
-        return <SignIn></SignIn>;
+        return <LoginPage></LoginPage>;
+      }
+      case "AddAuction": {
+        return <AddAuction></AddAuction>;
       }
       default: {
         console.log("Register");

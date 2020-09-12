@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import Filters from "../filters-component/filters";
 
-import "./products.scss";
+import "./auctions.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { ProductsState } from "../../redux/types/search-types";
 import { DateFilter } from "../../filters/date-filter";
@@ -25,7 +25,7 @@ const style = {
   margin: 6,
   padding: 8,
 };
-function Products() {
+function Auctions() {
   const dispatch = useDispatch();
   const searchState = useSelector((state: WeShopState) => {
     //
@@ -92,4 +92,4 @@ function Products() {
     </div>
   );
 }
-export default Products;
+export default Auctions;
