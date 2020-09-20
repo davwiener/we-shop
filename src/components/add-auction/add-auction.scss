@@ -1,0 +1,10 @@
+.products {
+  max-height: 600px;
+  overflow: auto;
+}
+.fields-container {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin-left: calc(50% - 200px);
+}

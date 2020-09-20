@@ -8,7 +8,8 @@ export interface filterType {
 }
 
 export interface ProductsState {
-  filters: { [key: string]: FilterValue };
+  filters: { [key: string]: FilterValue; page: number };
   products: any[];
   loaded: boolean;
+  hasMore: boolean;
 }

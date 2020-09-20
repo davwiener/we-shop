@@ -7,8 +7,13 @@ export const search = (filters: { [key: string]: string }) => {
     dispatch(searchStart);
     searchService
       .search(filters)
-      .then((products: any) => {
-        dispatch(searchSuccess(products));
+      .then((res: any) => {
+        //to delete
+        // const products = [
+        //   ...new Set([...res.data.docs.map((b: any) => b.title)]),
+        // ];
+        // const hasMore = res.data.docs.length > 0;
+        dispatch(searchSuccess({ products: res, hasMore: true }));
       })
       .catch((Error) => {
         dispatch(searchFails());

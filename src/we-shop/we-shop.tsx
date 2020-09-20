@@ -6,27 +6,19 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Account from "../components/Account/Account";
-import Products from "../components/products/products";
+import Auctions from "../components/auctions/auctions";
 import TodayDeals from "../components/today-deals/today-deals";
 import About from "../components/about/about";
 import { WeShopState } from "../redux/store";
-import Noty from "noty";
 import PopUpService from "../services/popUp-service";
 import * as userActions from "../redux/actions/user-actions";
-setTimeout(() => {
-  new Noty({
-    text: "This is a notification!",
-    layout: "bottom",
-    theme: "bootstrap-v4",
-    type: "error",
-  }).show();
-}, 500);
+import AddProduct from "../components/add-auction/add-auction";
 
 function WeShop() {
   const dispatch = useDispatch();
   const [tabs] = useState([
     { name: "My Account", path: "/account" },
-    { name: "Products", path: "/products" },
+    { name: "Auctions", path: "/Auctions" },
     { name: "Today's Deals", path: "/today-deals" },
     { name: "Help", path: "/about" },
   ]);
@@ -55,14 +47,17 @@ function WeShop() {
           <Route path="/about">
             <About></About>
           </Route>
-          <Route path="/products">
-            <Products></Products>
+          <Route path="/auctions">
+            <Auctions></Auctions>
           </Route>
           <Route path="/account">
             <Account />
           </Route>
           <Route path="/today-deals">
             <TodayDeals></TodayDeals>
+          </Route>
+          <Route path="/add-product">
+            <AddProduct></AddProduct>
           </Route>
         </Switch>
       </Router>

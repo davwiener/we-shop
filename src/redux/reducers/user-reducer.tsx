@@ -1,4 +1,3 @@
-import PopUpService from "../../services/popUp-service";
 import { AnyAction } from "redux";
 import * as actionTypes from "../action-types";
 import { UserState } from "../types/user-types";

@@ -25,8 +25,9 @@ const SettingsTab = () => {
     !isDataLoaded &&
       !userName &&
       fetchAccountData().then((result) => {
-        dispatch(fetchAccountSuccess(result.data));
-        setTempAccountName(result.data.name);
+        // dispatch(fetchAccountSuccess(result.data));
+        //setTempAccountName(result.data.name);
+        console.log(result);
       });
     setTempUserName(userName);
   }, [userName, isDataLoaded]);
