@@ -1,23 +1,13 @@
-import React, {
-  useEffect,
-  useState,
-  useCallback,
-  useRef,
-  Dispatch,
-  SetStateAction,
-} from "react";
+import React, { useEffect, useState } from "react";
 import Filters from "../filters-component/filters";
 
 import "./auctions.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { ProductsState } from "../../redux/types/search-types";
 import { DateFilter } from "../../filters/date-filter";
 import { RangeFilter } from "../../filters/range-filter";
 import { FreeTextFilter } from "../../filters/free-text-filter";
 import { WeShopState } from "../../redux/store";
 import * as productsActions from "../../redux/actions/products-actions";
-import { FilterClass } from "../../filters/filter";
-import { addFilter } from "../../redux/action-types";
 import InfiniteScroll from "react-infinite-scroll-component";
 const style = {
   height: 30,

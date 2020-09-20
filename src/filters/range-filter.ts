@@ -1,5 +1,4 @@
 import { FilterValue, FilterType } from "./filter.config";
-import { string } from "yup";
 import { FilterClass } from "./filter";
 import { Range } from "react-input-range";
 

@@ -1,5 +1,10 @@
 .products-container {
   display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 72%;
+  text-align: center;
+  margin-left: 14%;
   .product-container {
     display: flex;
     flex-direction: column;
@@ -10,9 +15,11 @@
       max-width: 34rem;
       max-height: 34rem;
     }
-    .product-name {
-      font-size: 2rem;
-      font-weight: bold;
+    .fields-container {
+      .field {
+        font-size: 2rem;
+        font-weight: bold;
+      }
     }
   }
 }

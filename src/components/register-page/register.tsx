@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { openPopUpAction } from "../../redux/actions/user-actions";
 import * as userActions from "../../redux/actions/user-actions";
 
@@ -14,11 +13,6 @@ function RegisterPage(props: any) {
   });
   const [submitted, setSubmitted] = useState(false);
   const dispatch = useDispatch();
-
-  // reset login status
-  // useEffect(() => {
-  //     dispatch(userActions.logout());
-  // }, []);
 
   function handleChange(e: any) {
     const { name, value } = e.target;

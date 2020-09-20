@@ -1,8 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import Filter from "./filter/filter";
-import { RangeFilter } from "../../filters/range-filter";
-import { DateFilter } from "../../filters/date-filter";
-import { FreeTextFilter } from "../../filters/free-text-filter";
 import { FilterClass } from "../../filters/filter";
 
 function Filters(props: { filters: FilterClass[] }) {

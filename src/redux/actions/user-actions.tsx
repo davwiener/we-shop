@@ -1,7 +1,5 @@
 import * as actionTypes from "../action-types";
-import { string } from "yup";
 import { userService } from "../../services/user-service";
-import { useDispatch } from "react-redux";
 import { Dispatch } from "react";
 export const openPopUpAction = (popUp: string) => ({
   type: actionTypes.openPopUp,

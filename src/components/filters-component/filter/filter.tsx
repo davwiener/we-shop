@@ -10,7 +10,6 @@ import "rc-slider/assets/index.css";
 import { useDispatch } from "react-redux";
 import { FilterClass } from "../../../filters/filter";
 import { FilterType, FilterValue } from "../../../filters/filter.config";
-import { addFilter } from "../../../redux/action-types";
 import { addFilterAction } from "../../../redux/actions/products-actions";
 function Filter(props: { filter: FilterClass }) {
   const dispatch = useDispatch();

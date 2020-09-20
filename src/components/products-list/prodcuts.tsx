@@ -1,4 +1,4 @@
-import { CheckBox } from "@material-ui/icons";
+import Checkbox from "@material-ui/core/Checkbox";
 import React from "react";
 import "./products.scss";
 function Products(props: any) {
@@ -13,17 +13,24 @@ function Products(props: any) {
                 ? product.src
                 : "https://cdn.azrieli.com/Images/05a63359-eea9-40a2-91ee-87ba1724f44e/Normal/8c145866.jpg"
             }
+            alt="https://cdn.azrieli.com/Images/05a63359-eea9-40a2-91ee-87ba1724f44e/Normal/8c145866.jpg"
           ></img>
-          <CheckBox
-            onChange={(event) =>
-              props.onSelect({ product, checked: event.target })
-            }
-          ></CheckBox>
-          <div className="product-name">{product.name}</div>
-          <div className="product-name">{product.description}</div>
-          <div className="product-name">{product.kind}</div>
-          <div className="product-name">{product.company_name}</div>
-          <div className="product-name">{product.model}</div>
+          <Checkbox
+            checked={product.checked}
+            onChange={(event) => {
+              console.log(event);
+              props.onSelect({ product, checked: event.target.checked });
+            }}
+            name="checkedB"
+            color="primary"
+          />
+          <div className="fields-container">
+            <div className="field">{product.name}</div>
+            <div className="field">{product.description}</div>
+            <div className="field">{product.kind}</div>
+            <div className="field">{product.company_name}</div>
+            <div className="field">{product.model}</div>
+          </div>
         </div>
       ))}
     </div>

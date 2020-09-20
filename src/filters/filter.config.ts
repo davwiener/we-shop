@@ -1,5 +1,3 @@
-import { Interface } from "readline";
-
 export enum FilterType {
   FreeText,
   Date,

@@ -10,19 +10,9 @@ import Auctions from "../components/auctions/auctions";
 import TodayDeals from "../components/today-deals/today-deals";
 import About from "../components/about/about";
 import { WeShopState } from "../redux/store";
-import Noty from "noty";
 import PopUpService from "../services/popUp-service";
 import * as userActions from "../redux/actions/user-actions";
 import AddProduct from "../components/add-auction/add-auction";
-import Button from "../components/common-components/button/button";
-setTimeout(() => {
-  new Noty({
-    text: "This is a notification!",
-    layout: "bottom",
-    theme: "bootstrap-v4",
-    type: "error",
-  }).show();
-}, 500);
 
 function WeShop() {
   const dispatch = useDispatch();

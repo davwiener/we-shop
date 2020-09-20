@@ -1,5 +1,4 @@
 import { AnyAction } from "redux";
-import * as actions from "../actions/products-actions";
 import * as actionTypes from "../action-types";
 import { ProductsState } from "../types/search-types";
 
