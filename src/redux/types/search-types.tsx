@@ -7,9 +7,11 @@ export interface filterType {
   text: string;
 }
 
-export interface ProductsState {
+export interface AuctionsState {
   filters: { [key: string]: FilterValue; page: number };
-  products: any[];
+  auctions: any[];
   loaded: boolean;
   hasMore: boolean;
 }
+
+export type AuctionType = any;

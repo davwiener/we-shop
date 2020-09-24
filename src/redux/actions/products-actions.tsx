@@ -13,7 +13,7 @@ export const search = (filters: { [key: string]: string }) => {
         //   ...new Set([...res.data.docs.map((b: any) => b.title)]),
         // ];
         // const hasMore = res.data.docs.length > 0;
-        dispatch(searchSuccess({ products: res, hasMore: true }));
+        dispatch(searchSuccess({ auctions: res.data, hasMore: false }));
       })
       .catch((Error) => {
         dispatch(searchFails());

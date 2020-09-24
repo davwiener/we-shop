@@ -1,16 +1,16 @@
 import { AnyAction } from "redux";
 import * as actionTypes from "../action-types";
-import { ProductsState } from "../types/search-types";
+import { AuctionsState } from "../types/search-types";
 
-export const INITIAL_PRODUCTS_STATE: ProductsState = {
+export const INITIAL_PRODUCTS_STATE: AuctionsState = {
   filters: { page: 1 },
-  products: [],
+  auctions: [],
   loaded: false,
   hasMore: true,
 };
 
 export function filtersReducer(
-  state: ProductsState = INITIAL_PRODUCTS_STATE,
+  state: AuctionsState = INITIAL_PRODUCTS_STATE,
   action: AnyAction
 ) {
   switch (action.type) {
@@ -50,8 +50,8 @@ export function filtersReducer(
       return {
         ...state,
         loaded: true,
-        products: state.products.concat(Array.from({ length: 20 })),
-        // products: [...state.products, action.payload.products],
+        //products: state.auctions.concat(Array.from({ length: 20 })),
+        auctions: [...state.auctions, action.payload.auctions],
         hasMore: action.payload.hasMore,
       };
     }
