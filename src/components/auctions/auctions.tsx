@@ -9,12 +9,8 @@ import { FreeTextFilter } from "../../filters/free-text-filter";
 import { WeShopState } from "../../redux/store";
 import * as productsActions from "../../redux/actions/products-actions";
 import InfiniteScroll from "react-infinite-scroll-component";
-const style = {
-  height: 30,
-  border: "1px solid green",
-  margin: 6,
-  padding: 8,
-};
+import { AuctionType } from "../../redux/types/search-types";
+import Auction from "../common-components/auction/auction";
 function Auctions() {
   const dispatch = useDispatch();
   const searchState = useSelector((state: WeShopState) => {
@@ -57,27 +53,28 @@ function Auctions() {
     );
   };
   return (
-    <div className="products-container">
-      <div className="products">
-        <div id="scrollableDiv" style={{ height: 300, overflow: "auto" }}>
-          <InfiniteScroll
-            dataLength={searchState.products.length}
-            next={fetchMoreData}
-            hasMore={true}
-            loader={<h4>Loading...</h4>}
-            scrollableTarget="scrollableDiv"
-          >
-            {searchState.products.map((i, index) => (
-              <div style={style} key={index}>
-                div - #{index}
-              </div>
-            ))}
-          </InfiniteScroll>
-        </div>
-        <div className="filters">
-          <Filters filters={Object.values(filters)}></Filters>
-          <div></div>
-        </div>
+    <div className="auctions-container">
+      <div className="auctions">
+        {searchState.auctions && searchState.auctions.length && (
+          <div id="scrollableDiv" className="infinite-scroll-container">
+            <InfiniteScroll
+              className="infinite-scroll"
+              dataLength={searchState.auctions.length}
+              next={fetchMoreData}
+              hasMore={true}
+              loader={<h4>Loading...</h4>}
+              scrollableTarget="scrollableDiv"
+            >
+              {searchState.auctions[0].map((auc: AuctionType) => (
+                <Auction auction={auc} id={"auctions-page"}></Auction>
+              ))}
+            </InfiniteScroll>
+          </div>
+        )}
+      </div>
+      <div className="filters">
+        <Filters filters={Object.values(filters)}></Filters>
+        <div></div>
       </div>
     </div>
   );

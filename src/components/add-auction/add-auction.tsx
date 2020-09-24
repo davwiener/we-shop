@@ -100,7 +100,7 @@ function AddAuction(props: any) {
         />
         <InputLabel htmlFor="input-with-icon-adornment">price</InputLabel>
         <Input
-          id="input-with-icon-adornment"
+          id="add-auction-price-levels"
           name="price_levels"
           value={auction.price_levels}
           onChange={(e) => handleAuctionChange("price_levels", e.target.value)}
@@ -112,7 +112,7 @@ function AddAuction(props: any) {
         />
         <TextField
           onChange={(e) => handleAuctionChange("end_date", e.target.value)}
-          id="datetime-local"
+          id="add-auction-end-date"
           label="Auction End Date and Time"
           type="datetime-local"
           name="end_date"
@@ -124,35 +124,35 @@ function AddAuction(props: any) {
         />
         <TextField
           onChange={(e) => handleAuctionChange("description", e.target.value)}
-          id="auction_description"
+          id="add-auction-auction_description"
           label="description"
           name="description"
-          defaultValue={product.description}
+          defaultValue={auction.description}
           value={auction.description}
         />
         <TextField
-          id="product-name"
+          id="add-auction-product-name"
           name="name"
           label="Product Name"
           onChange={handleProductChange}
           value={name}
         />
         <TextField
-          id="product-type"
+          id="add-auction-product-type"
           name="type"
           label="Type"
           onChange={handleProductChange}
           value={type}
         />
         <TextField
-          id="company-name"
+          id="add-auction-company-name"
           name="company_name"
           label="Company Name"
           onChange={handleProductChange}
           value={company_name}
         />
         <TextField
-          id="product-model"
+          id="add-auction-product-model"
           name="model"
           label="Company Model"
           onChange={handleProductChange}
@@ -163,7 +163,7 @@ function AddAuction(props: any) {
           <input type="file" style={{ display: "none" }} />
         </Button>
         <TextareaAutosize
-          id="product-description"
+          id="add-auction-product-description"
           name="description"
           aria-label="minimum height"
           rowsMin={3}
