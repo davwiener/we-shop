@@ -15,3 +15,5 @@ export interface AuctionsState {
 }
 
 export type AuctionType = any;
+
+export type ProductType = any;

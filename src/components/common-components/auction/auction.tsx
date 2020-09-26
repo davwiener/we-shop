@@ -1,12 +1,19 @@
 import { TextField } from "@material-ui/core";
 import React from "react";
-import { AuctionType } from "../../../redux/types/search-types";
+import { AuctionType, ProductType } from "../../../redux/types/search-types";
 import Product from "../product/product";
 function Auction(props: { auction: AuctionType; id: string }) {
+  const openAuction = (product: ProductType) => {
+    // open a product page
+    console.log(product);
+  };
   return (
     <div>
       <div>
-        <Product product={props.auction.product}></Product>
+        <Product
+          product={props.auction.product}
+          onSelect={openAuction}
+        ></Product>
       </div>
       <div className="fields-container">
         <TextField

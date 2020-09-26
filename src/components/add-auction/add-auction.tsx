@@ -8,10 +8,13 @@ import Products from "../products-list/prodcuts";
 import { Input, InputAdornment, TextareaAutosize } from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-
+import moment from "moment";
 import "./add-auction.scss";
 import { string } from "yup";
 function AddAuction(props: any) {
+  const minDate = moment(moment().add(1, "day").toDate()).format(
+    "YYYY-MM-DDThh:mm"
+  );
   const [products, setProducts] = useState(Array());
   const [product, setProduct] = useState({
     name: "",
@@ -26,7 +29,7 @@ function AddAuction(props: any) {
     price_levels: "",
     description: "",
     name: "",
-    end_date: new Date(),
+    end_date: minDate,
   });
   auction.product = product;
   const { name, type, company_name, model, description } = product;
@@ -38,7 +41,7 @@ function AddAuction(props: any) {
         //const
         setProducts(
           res.data.map((product: any) => {
-            product.checked = false;
+            product.selected = false;
             return product;
           })
         );
@@ -46,22 +49,22 @@ function AddAuction(props: any) {
     });
   }, []);
   const selectProduct = (event: any) => {
-    event.product.checked = event.checked;
+    event.product.selected = event.selected;
     setProducts(
       products.map((product: any) => {
         if (product.id === event.product.id) {
-          product.checked = event.checked;
+          product.selected = event.selected;
         } else {
-          product.checked = false;
+          product.selected = false;
         }
         return product;
       })
     );
-    if (event.checked) {
+    if (event.selected) {
       setProduct((product) => event.product);
       handleAuctionChange("productId", event.product.id);
     } else {
-      handleAuctionChange("productId", event.product.id);
+      handleAuctionChange("productId", "");
     }
   };
   const handleAuctionChange = (name: string, value: any) => {
@@ -116,7 +119,8 @@ function AddAuction(props: any) {
           label="Auction End Date and Time"
           type="datetime-local"
           name="end_date"
-          defaultValue="2020-08-24T10:30"
+          defaultValue="2020-05-24"
+          inputProps={{ min: minDate }}
           InputLabelProps={{
             shrink: true,
           }}
