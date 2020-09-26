@@ -6,7 +6,12 @@ function Products(props: any) {
   return (
     <div className="products-container">
       {props.products.map((product: any) => (
-        <Product product={product}></Product>
+        <Product
+          id={product.id}
+          product={product}
+          onSelect={props.onSelect}
+          selected={props.selected}
+        ></Product>
       ))}
     </div>
   );
