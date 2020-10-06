@@ -12,5 +12,11 @@ export abstract class FilterClass {
   getValue(): FilterValue {
     return this.value;
   }
-  abstract parseToQuery(): { [key: string]: string };
+  isFilterEmpty(): boolean {
+    return this.value;
+  }
+  abstract parseToQuery(): { [key: string]: string } | {};
+  protected capitalizeFirstLetter(string: string): string {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 }

@@ -1,25 +1,37 @@
 import * as actionTypes from "../action-types";
 import { Dispatch } from "react";
 import { searchService } from "../../services/search-service";
-
-export const search = (filters: { [key: string]: string }) => {
+import axios from "axios";
+export const search = (
+  query: { [key: string]: string },
+  newSearch: boolean
+) => {
   return (dispatch: Dispatch<any>) => {
-    dispatch(searchStart);
+    dispatch(updateQueryAction(query));
     searchService
-      .search(filters)
+      .search(query)
       .then((res: any) => {
-        //to delete
-        // const products = [
-        //   ...new Set([...res.data.docs.map((b: any) => b.title)]),
-        // ];
-        // const hasMore = res.data.docs.length > 0;
-        dispatch(searchSuccess({ auctions: res.data, hasMore: false }));
+        dispatch(
+          searchSuccess({
+            auctions: res.data.auctions,
+            hasMore: res.data.hasMore,
+            newSearch,
+          })
+        );
       })
       .catch((Error) => {
+        console.log(Error);
         dispatch(searchFails());
       });
   };
 };
+export const fetchUserAuctions = () => {
+  return axios.get("/auctions/my_auctions");
+};
+export const updateQueryAction = (query: { [key: string]: string }) => ({
+  type: actionTypes.updateQuery,
+  payload: { query },
+});
 
 export const addFilterAction = (filterName: string, value: any) => ({
   type: actionTypes.addFilter,

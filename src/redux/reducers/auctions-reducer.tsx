@@ -34,6 +34,12 @@ export function filtersReducer(
         filters: { ...newStateFilter },
       };
     }
+    case actionTypes.updateQuery: {
+      return {
+        ...state,
+        query: action.payload.query,
+      };
+    }
     case actionTypes.searchStart: {
       return {
         ...state,
@@ -51,7 +57,9 @@ export function filtersReducer(
         ...state,
         loaded: true,
         //products: state.auctions.concat(Array.from({ length: 20 })),
-        auctions: [...state.auctions, action.payload.auctions],
+        auctions: action.payload.newSearch
+          ? action.payload.auctions
+          : [...state.auctions, ...action.payload.auctions],
         hasMore: action.payload.hasMore,
       };
     }

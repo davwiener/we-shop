@@ -7,7 +7,8 @@ import { DateFilter } from "../../filters/date-filter";
 import { RangeFilter } from "../../filters/range-filter";
 import { FreeTextFilter } from "../../filters/free-text-filter";
 import { WeShopState } from "../../redux/store";
-import * as productsActions from "../../redux/actions/products-actions";
+import { QueryType } from "../../redux/types/search-types";
+import * as productsActions from "../../redux/actions/auctions-actions";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { AuctionType } from "../../redux/types/search-types";
 import Auction from "../common-components/auction/auction";
@@ -19,7 +20,7 @@ function Auctions() {
   });
 
   useEffect(() => {
-    let query = {};
+    let query: QueryType = { page: 0 };
     Object.keys(searchState.filters).forEach((stateFilter) => {
       if (stateFilter === "page") {
         query = { ...query, page: searchState.filters.page };
@@ -28,7 +29,9 @@ function Auctions() {
         query = { ...query, ...searchFilter };
       }
     });
-    dispatch(productsActions.search(query));
+    const newSearch =
+      query.page === 1 || query.page === searchState.query?.page;
+    dispatch(productsActions.search(query, newSearch));
   }, [searchState.filters]);
   const [dateFilter] = useState(
     new DateFilter("date", {
@@ -39,8 +42,8 @@ function Auctions() {
   const [rangeFilter] = useState(
     new RangeFilter("price", { min: 0, max: 1000 })
   );
-  const [kindFilter] = useState(new FreeTextFilter("kind", ""));
-  const [nameFilter] = useState(new FreeTextFilter("productName", ""));
+  const [kindFilter] = useState(new FreeTextFilter("model", ""));
+  const [nameFilter] = useState(new FreeTextFilter("name", ""));
   const [filters] = useState({
     [dateFilter.filterName]: dateFilter,
     [rangeFilter.filterName]: rangeFilter,
@@ -65,7 +68,7 @@ function Auctions() {
               loader={<h4>Loading...</h4>}
               scrollableTarget="scrollableDiv"
             >
-              {searchState.auctions[0].map((auc: AuctionType) => (
+              {searchState.auctions.map((auc: AuctionType) => (
                 <Auction auction={auc} id={"auctions-page"}></Auction>
               ))}
             </InfiniteScroll>
