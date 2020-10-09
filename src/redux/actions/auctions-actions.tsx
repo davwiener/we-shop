@@ -2,12 +2,22 @@ import * as actionTypes from "../action-types";
 import { Dispatch } from "react";
 import { searchService } from "../../services/search-service";
 import axios from "axios";
-export const search = (
-  query: { [key: string]: string },
-  newSearch: boolean
-) => {
-  return (dispatch: Dispatch<any>) => {
-    dispatch(updateQueryAction(query));
+import { WeShopState } from "../store";
+import { QueryType } from "../types/search-types";
+import { FilterValue } from "../../filters/filter.config";
+export const addFilterAndSearchAction = (filter: {
+  [filterName: string]: FilterValue;
+}) => {
+  return async (dispatch: Dispatch<any>, getState: any) => {
+    let query = getState().search.query;
+    query = { ...query, ...filter };
+    // a new filter apply need to re-init page number
+    if (query.page === getState().search.filters.page) {
+      query.page = 1;
+    }
+    const newSearch =
+      query.page === 1 || query.page === getState().search.filters.page;
+    dispatch(addFilterAction(query));
     searchService
       .search(query)
       .then((res: any) => {
@@ -28,14 +38,16 @@ export const search = (
 export const fetchUserAuctions = () => {
   return axios.get("/auctions/my_auctions");
 };
-export const updateQueryAction = (query: { [key: string]: string }) => ({
+export const updateQueryAction = (query: QueryType) => ({
   type: actionTypes.updateQuery,
   payload: { query },
 });
 
-export const addFilterAction = (filterName: string, value: any) => ({
+export const addFilterAction = (filter: {
+  [filterName: string]: FilterValue;
+}) => ({
   type: actionTypes.addFilter,
-  payload: { [filterName]: value },
+  payload: filter,
 });
 export const removeFilterAction = (filterName: string) => ({
   type: actionTypes.removeFilter,
@@ -44,9 +56,13 @@ export const removeFilterAction = (filterName: string) => ({
 const searchStart = () => ({
   type: actionTypes.searchStart,
 });
-const searchSuccess = (products: any) => ({
+const searchSuccess = (payload: {
+  auctions: any;
+  hasMore: boolean;
+  newSearch: boolean;
+}) => ({
   type: actionTypes.searchSuccess,
-  payload: products,
+  payload,
 });
 const searchFails = () => ({
   type: actionTypes.searchFails,

@@ -1,10 +1,11 @@
 import { AnyAction } from "redux";
 import * as actionTypes from "../action-types";
 import { AuctionsState } from "../types/search-types";
-
+const rbp = 25;
 export const INITIAL_PRODUCTS_STATE: AuctionsState = {
-  filters: { page: 1 },
+  filters: { page: 1, rbp },
   auctions: [],
+  query: { page: 1, rbp },
   loaded: false,
   hasMore: true,
 };
@@ -18,6 +19,7 @@ export function filtersReducer(
       return {
         ...state,
         filters: { ...state.filters, ...action.payload },
+        query: action.payload,
       };
     }
     case actionTypes.removeFilter: {

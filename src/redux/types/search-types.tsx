@@ -9,7 +9,7 @@ export interface filterType {
 
 export interface AuctionsState {
   filters: { [key: string]: FilterValue; page: number };
-  query?: QueryType;
+  query: QueryType;
   auctions: any[];
   loaded: boolean;
   hasMore: boolean;

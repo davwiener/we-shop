@@ -8,7 +8,7 @@ import { RangeFilter } from "../../filters/range-filter";
 import { FreeTextFilter } from "../../filters/free-text-filter";
 import { WeShopState } from "../../redux/store";
 import { QueryType } from "../../redux/types/search-types";
-import * as productsActions from "../../redux/actions/auctions-actions";
+import * as auctionsActions from "../../redux/actions/auctions-actions";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { AuctionType } from "../../redux/types/search-types";
 import Auction from "../common-components/auction/auction";
@@ -18,21 +18,10 @@ function Auctions() {
     //
     return state.search;
   });
-
   useEffect(() => {
-    let query: QueryType = { page: 0 };
-    Object.keys(searchState.filters).forEach((stateFilter) => {
-      if (stateFilter === "page") {
-        query = { ...query, page: searchState.filters.page };
-      } else {
-        const searchFilter = filters[stateFilter].parseToQuery();
-        query = { ...query, ...searchFilter };
-      }
-    });
-    const newSearch =
-      query.page === 1 || query.page === searchState.query?.page;
-    dispatch(productsActions.search(query, newSearch));
-  }, [searchState.filters]);
+    let query: QueryType = { page: 1 };
+    dispatch(auctionsActions.addFilterAndSearchAction(query));
+  }, []);
   const [dateFilter] = useState(
     new DateFilter("date", {
       startDate: new Date(),
@@ -52,7 +41,9 @@ function Auctions() {
   });
   const fetchMoreData = () => {
     dispatch(
-      productsActions.addFilterAction("page", searchState.filters.page + 1)
+      auctionsActions.addFilterAndSearchAction({
+        page: searchState.filters.page + 1,
+      })
     );
   };
   return (
@@ -64,7 +55,7 @@ function Auctions() {
               className="infinite-scroll"
               dataLength={searchState.auctions.length}
               next={fetchMoreData}
-              hasMore={true}
+              hasMore={searchState.hasMore}
               loader={<h4>Loading...</h4>}
               scrollableTarget="scrollableDiv"
             >
