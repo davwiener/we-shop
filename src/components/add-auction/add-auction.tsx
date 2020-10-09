@@ -119,7 +119,7 @@ function AddAuction(props: any) {
           label="Auction End Date and Time"
           type="datetime-local"
           name="end_date"
-          defaultValue="2020-05-24"
+          defaultValue={minDate}
           inputProps={{ min: minDate }}
           InputLabelProps={{
             shrink: true,

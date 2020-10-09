@@ -12,6 +12,7 @@ function InputText(props: any) {
       value={props.value}
       onChange={(event) => props.onChange(event.target.value)}
       onBlur={props.handleBlur}
+      onKeyUp={props.onKeyUp}
     />
   );
 }

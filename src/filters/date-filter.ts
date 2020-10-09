@@ -17,7 +17,16 @@ export class DateFilter extends FilterClass {
     this.value.endDate = value.endDate;
   }
   parseToQuery() {
-    return { dateFilter: this.value.startDate + "-" + this.value.endDate };
+    if (this.isFilterEmpty()) {
+      return {};
+    }
+    return {
+      endDate: Date.parse(this.value.startDate).toString(),
+      startDate: Date.parse(this.value.endDate).toString(),
+    };
+  }
+  isFilterEmpty() {
+    return !(this.value.startDate || this.value.endDate);
   }
   getValue() {
     return this.value.startDate;
