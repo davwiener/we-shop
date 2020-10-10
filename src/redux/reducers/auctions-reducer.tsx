@@ -39,7 +39,8 @@ export function filtersReducer(
     case actionTypes.updateQuery: {
       return {
         ...state,
-        query: action.payload.query,
+        filters: { ...state.filters, ...action.payload },
+        query: action.payload,
       };
     }
     case actionTypes.searchStart: {

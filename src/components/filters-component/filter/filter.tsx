@@ -9,7 +9,7 @@ import "rc-slider/assets/index.css";
 import { useDispatch } from "react-redux";
 import { FilterClass } from "../../../filters/filter";
 import { FilterType, FilterValue } from "../../../filters/filter.config";
-import { addFilterAndSearchAction } from "../../../redux/actions/auctions-actions";
+import { updateSearchQuery } from "../../../redux/actions/auctions-actions";
 import { TextField } from "@material-ui/core";
 function Filter(props: { filter: FilterClass }) {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ function Filter(props: { filter: FilterClass }) {
   const updateFilter = (val: FilterValue) => {
     props.filter.setValue(val);
     setFilterValue(() => props.filter.getValue());
-    dispatch(addFilterAndSearchAction(props.filter.parseToQuery()));
+    dispatch(updateSearchQuery(props.filter.parseToQuery()));
   };
   return (
     <div>

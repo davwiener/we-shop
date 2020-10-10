@@ -18,7 +18,7 @@ function WeShop() {
   const dispatch = useDispatch();
   const [tabs] = useState([
     { name: "My Account", path: "/account" },
-    { name: "Auctions", path: "/Auctions" },
+    { name: "Auctions", path: "/Auctionss" },
     { name: "Today's Deals", path: "/today-deals" },
     { name: "Help", path: "/about" },
   ]);
@@ -47,9 +47,10 @@ function WeShop() {
           <Route path="/about">
             <About></About>
           </Route>
-          <Route path="/auctions">
-            <Auctions></Auctions>
-          </Route>
+          <Route
+            path="/auctionss"
+            render={(props) => <Auctions {...props} />}
+          ></Route>
           <Route path="/account">
             <Account />
           </Route>

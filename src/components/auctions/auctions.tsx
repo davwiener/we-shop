@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Filters from "../filters-component/filters";
-
+import queryString from "query-string";
 import "./auctions.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { DateFilter } from "../../filters/date-filter";
@@ -12,16 +12,36 @@ import * as auctionsActions from "../../redux/actions/auctions-actions";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { AuctionType } from "../../redux/types/search-types";
 import Auction from "../common-components/auction/auction";
-function Auctions() {
+import { useHistory } from "react-router-dom";
+import * as _ from "lodash";
+function Auctions(props: any) {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const [currentQuery, setCurrentQuery] = useState({});
   const searchState = useSelector((state: WeShopState) => {
     //
     return state.search;
   });
   useEffect(() => {
-    let query: QueryType = { page: 1 };
-    dispatch(auctionsActions.addFilterAndSearchAction(query));
-  }, []);
+    const query = queryString.parse(props.location.search);
+    if (_.isEmpty(query) || _.isEqual(currentQuery, query)) {
+      history.push(`Auctionss/?${queryString.stringify(searchState.query)}`);
+    } else {
+      dispatch(auctionsActions.updateSearchQuery(query as QueryType));
+    }
+  }, [searchState.query]);
+  useEffect(() => {
+    const query = queryString.parse(props.location.search);
+    if (!_.isEmpty(query)) {
+      setCurrentQuery(query);
+      const page = Number(query.page);
+      const newSearch = page === 1 || page === searchState.filters.page;
+      dispatch(auctionsActions.searchAuction(query, newSearch));
+    }
+  }, [props.location]);
+  const value = queryString.parse(props.location.search);
+  const token = value.token;
+  console.log("token", token);
   const [dateFilter] = useState(
     new DateFilter("date", {
       startDate: new Date(),
@@ -41,7 +61,7 @@ function Auctions() {
   });
   const fetchMoreData = () => {
     dispatch(
-      auctionsActions.addFilterAndSearchAction({
+      auctionsActions.updateSearchQuery({
         page: searchState.filters.page + 1,
       })
     );
