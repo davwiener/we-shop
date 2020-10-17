@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route } from "react-router";
+import { Redirect } from "react-router";
 import { isLoggedIn } from "../../util/auth";
 
 const AuthRequiredRoute = ({ path, component }: any) => {

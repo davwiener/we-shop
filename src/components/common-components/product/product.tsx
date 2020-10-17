@@ -1,4 +1,3 @@
-import { Checkbox } from "@material-ui/core";
 import React from "react";
 import "./product.scss";
 function Product(props: any) {

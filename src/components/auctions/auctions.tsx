@@ -29,7 +29,7 @@ function Auctions() {
       }
     });
     dispatch(productsActions.search(query));
-  }, [searchState.filters]);
+  }, [searchState.filters, dispatch]);
   const [dateFilter] = useState(
     new DateFilter("date", {
       startDate: new Date(),
