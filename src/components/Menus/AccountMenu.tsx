@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { logout } from "../../redux/actions/menu";
-import { Menu, MenuItem, IconButton } from "@material-ui/core";
+import { Menu, MenuItem, IconButton, Divider } from "@material-ui/core";
 import { WeShopState } from "../../redux/store";
+import "./AccountMenu.scss";
 
 const AccountMenu = () => {
   const dispatch = useDispatch();
@@ -23,11 +24,17 @@ const AccountMenu = () => {
         <AccountCircle />
       </IconButton>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu}>
-        <MenuItem onClick={closeMenu}>
+        <MenuItem className="menuItem" onClick={closeMenu}>
           <Link to="/account/settings">My Account</Link>
         </MenuItem>
-        <MenuItem onClick={closeMenu}>
-          {!isLoggedIn && <Link to="/login">Login</Link>}
+        <MenuItem className="menuItem" onClick={closeMenu}>
+          {!isLoggedIn && (
+            <div className="loginRegister">
+              <Link to="/login">Login</Link>
+              <Divider orientation="vertical" variant="middle" flexItem />
+              <Link to="/register">Register</Link>
+            </div>
+          )}
           {isLoggedIn && (
             <Link to="/" onClick={handleLogout}>
               Logout

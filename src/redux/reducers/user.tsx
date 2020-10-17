@@ -31,7 +31,6 @@ export function userReducer(
       };
     }
     case actionTypes.SIGN_IN_SUCCESS: {
-      console.log("payload", action.payload);
       return {
         ...state,
         userName: action.payload.username,
