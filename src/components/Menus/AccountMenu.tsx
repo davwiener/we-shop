@@ -27,7 +27,7 @@ const AccountMenu = () => {
           <Link to="/account/settings">My Account</Link>
         </MenuItem>
         <MenuItem onClick={closeMenu}>
-          {!isLoggedIn && <Link to="/login">Login</Link>}
+          {!isLoggedIn && <Link to="/login">Login / Register</Link>}
           {isLoggedIn && (
             <Link to="/" onClick={handleLogout}>
               Logout
