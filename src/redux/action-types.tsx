@@ -15,6 +15,7 @@ export const connectFails = "CONNECT_FAILS";
 export const newUser = "NEW_USER";
 export const getProducts = "GET_PRODUCTS";
 export const addFilter = "ADD_FILTER";
+export const updateQuery = "UPDATE_QUERY";
 export const removeFilter = "REMOVE_FILTER";
 export const searchStart = "SEARCH_START";
 export const searchSuccess = "SEARCH_SUCCESS";

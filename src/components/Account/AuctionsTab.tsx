@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { fetchUserAuctions } from "../../redux/actions/auctions";
+import { fetchUserAuctions } from "../../redux/actions/auctions-actions";
 import { Card, CardContent } from "@material-ui/core";
 import "./AuctionsTab.scss";
 

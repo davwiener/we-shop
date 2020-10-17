@@ -1,10 +1,11 @@
 import { AnyAction } from "redux";
 import * as actionTypes from "../action-types";
 import { AuctionsState } from "../types/search-types";
-
+const rbp = 25;
 export const INITIAL_PRODUCTS_STATE: AuctionsState = {
-  filters: { page: 1 },
+  filters: { page: 1, rbp },
   auctions: [],
+  query: { page: 1, rbp },
   loaded: false,
   hasMore: true,
 };
@@ -18,6 +19,7 @@ export function filtersReducer(
       return {
         ...state,
         filters: { ...state.filters, ...action.payload },
+        query: action.payload,
       };
     }
     case actionTypes.removeFilter: {
@@ -32,6 +34,13 @@ export function filtersReducer(
       return {
         ...state,
         filters: { ...newStateFilter },
+      };
+    }
+    case actionTypes.updateQuery: {
+      return {
+        ...state,
+        filters: { ...state.filters, ...action.payload },
+        query: action.payload,
       };
     }
     case actionTypes.searchStart: {
@@ -51,7 +60,9 @@ export function filtersReducer(
         ...state,
         loaded: true,
         //products: state.auctions.concat(Array.from({ length: 20 })),
-        auctions: [...state.auctions, action.payload.auctions],
+        auctions: action.payload.newSearch
+          ? action.payload.auctions
+          : [...state.auctions, ...action.payload.auctions],
         hasMore: action.payload.hasMore,
       };
     }

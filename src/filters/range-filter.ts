@@ -14,9 +14,19 @@ export class RangeFilter extends FilterClass {
     this.value.max = newValue.max;
   }
   parseToQuery() {
+    if (this.isFilterEmpty()) {
+      return {};
+    }
     const ret: { [key: string]: string } = {};
-    ret[this.filterName] =
-      this.value.min.toString() + "-" + this.value.max.toString();
+    ret[
+      `min${this.capitalizeFirstLetter(this.filterName)}`
+    ] = this.value.min.toString();
+    ret[
+      `max${this.capitalizeFirstLetter(this.filterName)}`
+    ] = this.value.max.toString();
     return ret;
+  }
+  isFilterEmpty() {
+    return !(this.value.min || this.value.max);
   }
 }

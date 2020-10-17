@@ -15,8 +15,10 @@ function getAuctions() {
 }
 function searchAuction(filters: { [key: string]: string }) {
   let cancel;
-  return axios.post(`/auctions/search`, {
-    q: filters.kind ? filters.kind : "",
-    page: filters.page,
+  return axios.get(`/auctions/search`, {
+    params: {
+      q: filters.kind ? filters.kind : "",
+      page: filters.page,
+    },
   });
 }

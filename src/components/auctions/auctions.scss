@@ -2,11 +2,13 @@
   display: flex;
   justify-content: space-between;
   .auctions {
+    height: 90vh;
     .infinite-scroll-container {
       height: 100%;
       overflow: auto;
       .infinite-scroll {
         display: flex;
+        flex-wrap: wrap;
       }
     }
   }

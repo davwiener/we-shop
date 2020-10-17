@@ -12,8 +12,14 @@ export class FreeTextFilter extends FilterClass {
     this.value = value;
   }
   parseToQuery() {
+    if (this.isFilterEmpty()) {
+      return {};
+    }
     const ret: { [key: string]: string } = {};
     ret[this.filterName] = this.value;
     return ret;
+  }
+  isFilterEmpty() {
+    return this.value.length === 0;
   }
 }
