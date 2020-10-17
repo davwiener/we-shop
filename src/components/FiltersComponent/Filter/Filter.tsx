@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import InputText from "../../CommonComponents/Input-text/Input-text";
+import InputText from "../../CommonComponents/InputText/InputText";
 import "./Filter.scss";
 import InputRange, { Range } from "react-input-range";
 import "react-input-range/lib/css/index.css";

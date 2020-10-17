@@ -9,7 +9,7 @@ import { Input, InputAdornment, TextareaAutosize } from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import moment from "moment";
-import "./add-auction.scss";
+import "./AddAuction.scss";
 import { string } from "yup";
 function AddAuction(props: any) {
   const minDate = moment(moment().add(1, "day").toDate()).format(
