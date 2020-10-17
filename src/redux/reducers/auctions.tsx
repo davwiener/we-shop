@@ -10,7 +10,7 @@ export const INITIAL_PRODUCTS_STATE: AuctionsState = {
   hasMore: true,
 };
 
-export function filtersReducer(
+export function AuctionsReducer(
   state: AuctionsState = INITIAL_PRODUCTS_STATE,
   action: AnyAction
 ) {
@@ -64,6 +64,7 @@ export function filtersReducer(
           ? action.payload.auctions
           : [...state.auctions, ...action.payload.auctions],
         hasMore: action.payload.hasMore,
+        query: action.payload.query,
       };
     }
     default: {

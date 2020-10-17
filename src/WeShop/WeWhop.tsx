@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import Account from "../components/Account/Account";
 import { ACCOUNT_TABS } from "../constants/Account";
-import Auctions from "../components/auctions/auctions";
+import Auctions from "../components/Auctions/Auctions";
 import { setUserLogin } from "../redux/actions/menu";
 import About from "../components/about/about";
 import Login from "../components/Login/Login";

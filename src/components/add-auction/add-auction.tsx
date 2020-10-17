@@ -4,7 +4,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import React, { useEffect, useState } from "react";
 import { productService } from "../../services/product-service";
 import { auctionService } from "../../services/auction-service";
-import Products from "../products-list/prodcuts";
+import Products from "../Products/Prodcuts";
 import { Input, InputAdornment, TextareaAutosize } from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
