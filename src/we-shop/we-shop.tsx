@@ -1,64 +1,49 @@
-import "./we-shop.scss";
-import TopBar from "../components/top-bar/top-bar";
-import WeShopPopup from "../components/common-components/popup/popup";
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import TopBar from "../components/TopBar/TopBar";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import Account from "../components/Account/Account";
+import { ACCOUNT_TABS } from "../constants/Account";
 import Auctions from "../components/auctions/auctions";
-import TodayDeals from "../components/today-deals/today-deals";
+import { setUserLogin } from "../redux/actions/menu";
 import About from "../components/about/about";
-import { WeShopState } from "../redux/store";
-import PopUpService from "../services/popUp-service";
-import * as userActions from "../redux/actions/user-actions";
-import AddProduct from "../components/add-auction/add-auction";
+import Login from "../components/Login/Login";
+import AuthRequiredRoute from "../components/AuthRequiredRoute/AuthRequiredRoute";
+import { isLoggedIn } from "../util/auth";
 
 function WeShop() {
   const dispatch = useDispatch();
-  const [tabs] = useState([
-    { name: "My Account", path: "/account" },
-    { name: "Auctions", path: "/Auctions" },
-    { name: "Today's Deals", path: "/today-deals" },
-    { name: "Help", path: "/about" },
-  ]);
   useEffect(() => {
-    if (localStorage.username && localStorage.password) {
-      dispatch(
-        userActions.login(localStorage.username, localStorage.password, false)
-      );
-    } else {
-      dispatch(userActions.newUser());
+    if (isLoggedIn()) {
+      dispatch(setUserLogin());
     }
-  }, []);
-
-  const popUp = useSelector((state: WeShopState) => {
-    return state.user.popUp;
   });
-
   return (
-    <div className="we-shop">
-      {popUp !== "none" && (
-        <WeShopPopup content={PopUpService.openPopup(popUp)}></WeShopPopup>
-      )}
+    <div>
       <Router>
-        <TopBar tabs={tabs}></TopBar>
+        <TopBar />
         <Switch>
-          <Route path="/about">
-            <About></About>
-          </Route>
-          <Route path="/auctions">
-            <Auctions></Auctions>
-          </Route>
-          <Route path="/account">
-            <Account />
-          </Route>
-          <Route path="/today-deals">
-            <TodayDeals></TodayDeals>
-          </Route>
-          <Route path="/add-product">
-            <AddProduct></AddProduct>
-          </Route>
+          <Route path="/about" component={About}></Route>
+          <Route path="/auctions" component={Auctions}></Route>
+          <AuthRequiredRoute
+            exact
+            path="/account"
+            component={() => <Redirect to="/account/settings" />}
+          ></AuthRequiredRoute>
+          <AuthRequiredRoute
+            path="/account/settings"
+            component={() => <Account activeTab={ACCOUNT_TABS.SETTINGS_TAB} />}
+          ></AuthRequiredRoute>
+          <AuthRequiredRoute
+            path="/account/auctions"
+            component={() => <Account activeTab={ACCOUNT_TABS.AUCTIONS_TAB} />}
+          ></AuthRequiredRoute>
+          <Route path="/login" component={Login}></Route>
         </Switch>
       </Router>
     </div>

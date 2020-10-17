@@ -1,3 +1,19 @@
-.appBar {
-  margin-bottom: 20px;
+.drawer {
+  margin-top: 70px;
+  width: 165px;
+}
+
+.content {
+  margin-left: 165px;
+  padding: 20px;
+}
+
+.list.list {
+  padding: 15px 0;
+  width: 100%;
+}
+
+.listItem.listItem {
+  justify-content: center;
+  margin: 5px auto;
 }

@@ -23,3 +23,9 @@ export const searchFails = "SEARCH_FAILS";
 // account actions
 export const FETCH_ACCOUNT_STARTED = "FETCH_ACCOUNT_STARTED";
 export const FETCH_ACCOUNT_SUCCESS = "FETCH_ACCOUNT_SUCCESS";
+
+// top bar menu
+export const SET_MENU_SELECTED_COMPONENT = "SET_MENU_SELECTED_COMPONENT";
+export const SIGN_IN_SUCCESS = "SIGN_IN_SUCCESS";
+export const SET_USER_LOGIN = "SET_USER_LOGIN";
+export const LOG_OUT = "LOG_OUT";
