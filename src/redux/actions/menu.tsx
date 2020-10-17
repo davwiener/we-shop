@@ -16,3 +16,12 @@ export const signIn = async (email: any, password: any) => {
     password,
   });
 };
+
+export const signUp = async ({ firstName, lastName, email, password }: any) => {
+  return await axios.post("/auth/signup", {
+    first_name: firstName,
+    last_name: lastName,
+    email,
+    password,
+  });
+};

@@ -4,6 +4,16 @@
   padding: 20px 0;
   justify-content: center;
 
+  .flexContainer {
+    display: flex;
+    margin-top: 30px;
+
+    .field {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
   .title {
     text-align: center;
   }
@@ -15,7 +25,6 @@
   .field {
     display: flex;
     margin: 40px 0;
-    // justify-content: center;
     padding: 0 30px;
   }
 
@@ -24,10 +33,11 @@
     margin: 17px 5px 0 0;
   }
 
-  .loginButton {
-    color: black;
-    background-color: #3bbb3b;
+  .button {
+    color: white;
+    background-color: #4bb543;
     display: flex;
-    margin: 50px auto;
+    margin: 30px auto;
+    min-width: 90px;
   }
 }

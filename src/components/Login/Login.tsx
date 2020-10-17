@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Paper, TextField } from "@material-ui/core";
 import { Fingerprint } from "@material-ui/icons";
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
-import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
 import { signIn, signInSuccess } from "../../redux/actions/menu";
-import "./Login.scss";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+import Form from "../common-components/Forms/Form";
+import FormField from "../common-components/Forms/FormField";
 
 const Login = (props: any) => {
   useEffect(() => {
@@ -42,43 +41,45 @@ const Login = (props: any) => {
     setPassword(e.target.value);
   };
 
+  const formFooter = () => (
+    <div className="register">
+      <Link to="/register" className="title">
+        Click to create an account
+      </Link>
+    </div>
+  );
+
+  const formHeader = () => "Have an account? Sign In";
+
   return (
-    <Paper className="paper" elevation={5}>
-      <div className="title">Already have an account? Sign In</div>
-      <Divider variant="middle" className="divider" />
-      <div className="field">
-        <AlternateEmailIcon className="icon" />
-        <TextField
-          id="username"
-          label="Username"
-          type="email"
-          value={userName}
-          onChange={onChangeUserName}
-          fullWidth
-          autoFocus
-          required
-        />
-      </div>
-      <div className="field" id="password">
-        <Fingerprint className="icon" />
-        <TextField
-          id="username"
-          label="Password"
-          type="password"
-          onChange={onChangePassword}
-          fullWidth
-          required
-        />
-      </div>
+    <Form header={formHeader()} footer={formFooter()}>
+      <FormField
+        icon={<AlternateEmailIcon className="icon" />}
+        id="email"
+        label="Email"
+        type="email"
+        value={userName}
+        onChange={onChangeUserName}
+        fullWidth
+        autoFocus
+      />
+      <FormField
+        icon={<Fingerprint className="icon" />}
+        id="password"
+        label="Password"
+        type="password"
+        onChange={onChangePassword}
+        fullWidth
+      />
       <Button
         id="loginButton"
-        className="loginButton"
+        className="button"
         variant="contained"
         onClick={handleSignIn}
       >
         Login
       </Button>
-    </Paper>
+    </Form>
   );
 };
 

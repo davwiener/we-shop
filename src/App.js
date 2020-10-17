@@ -1,6 +1,6 @@
 import React from "react";
 import { createStore, applyMiddleware } from "redux";
-import WeShop from "./we-shop/we-shop";
+import WeShop from "./WeShop/WeShop";
 import { Provider } from "react-redux";
 import { rootReducer } from "./redux/store";
 import thunkMiddleware from "redux-thunk";

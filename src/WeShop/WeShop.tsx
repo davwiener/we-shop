@@ -15,6 +15,7 @@ import About from "../components/about/about";
 import Login from "../components/Login/Login";
 import AuthRequiredRoute from "../components/AuthRequiredRoute/AuthRequiredRoute";
 import { isLoggedIn } from "../util/auth";
+import Register from "../components/Register/Register";
 
 function WeShop() {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ function WeShop() {
             component={() => <Account activeTab={ACCOUNT_TABS.AUCTIONS_TAB} />}
           ></AuthRequiredRoute>
           <Route path="/login" component={Login}></Route>
+          <Route path="/register" component={Register}></Route>
         </Switch>
       </Router>
     </div>
