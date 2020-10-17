@@ -13,8 +13,12 @@ export const addInterceptors = (axios: any) => {
     },
     (error: any) => {
       if (error.response.status === 401) {
-        return (window.location.href = "/products");
+        return (window.location.href = "/login");
       }
     }
   );
+};
+
+export const isLoggedIn = () => {
+  return !!localStorage.getItem("token");
 };

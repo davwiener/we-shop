@@ -5,6 +5,7 @@ export interface UserState {
   connected: boolean;
   popUp: string;
   loaded: boolean;
+  isLoading: boolean;
 }
 
 //export const OPEN_POPUP = 'OPEN_POPUP';

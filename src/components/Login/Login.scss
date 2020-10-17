@@ -1,0 +1,33 @@
+.paper {
+  width: 500px;
+  margin: 50px auto;
+  padding: 20px 0;
+  justify-content: center;
+
+  .title {
+    text-align: center;
+  }
+
+  .divider {
+    margin: 20px;
+  }
+
+  .field {
+    display: flex;
+    margin: 40px 0;
+    // justify-content: center;
+    padding: 0 30px;
+  }
+
+  .icon {
+    align-self: center;
+    margin: 17px 5px 0 0;
+  }
+
+  .loginButton {
+    color: black;
+    background-color: #3bbb3b;
+    display: flex;
+    margin: 50px auto;
+  }
+}

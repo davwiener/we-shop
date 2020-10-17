@@ -1,38 +1,45 @@
-import React, { useState } from "react";
-import Container from "@material-ui/core/Container";
-import { Tabs, Tab, AppBar } from "@material-ui/core";
+import React from "react";
+import { Drawer, List, Divider } from "@material-ui/core";
+import ListItem from "@material-ui/core/ListItem";
 import AuctionsTab from "./AuctionsTab";
 import SettingsTab from "./SettingsTab";
 import "./Account.scss";
+import { ACCOUNT_TABS } from "../../constants/Account";
+import { Link } from "react-router-dom";
 
-const Account = () => {
-  const [selectedTab, setSelectedTab] = useState(0);
-
-  const onChangeTab = (e: any, value: any) => {
-    setSelectedTab(value);
-  };
-
-  const renderActiveTabContent = () => {
-    switch (selectedTab) {
-      case 0:
+const Account = ({ activeTab }: any) => {
+  const renderSelectedTab = () => {
+    switch (activeTab) {
+      case ACCOUNT_TABS.SETTINGS_TAB:
         return <SettingsTab />;
-      case 1:
+      case ACCOUNT_TABS.AUCTIONS_TAB:
         return <AuctionsTab />;
       default:
         return;
     }
   };
 
+  const tabs = [
+    { value: "settings", name: "Settings", path: "/account/settings" },
+    { value: "auctions", name: "Auctions", path: "/account/auctions" },
+  ];
+
   return (
-    <Container className="container">
-      <AppBar position="static" className="appBar">
-        <Tabs onChange={onChangeTab} value={selectedTab}>
-          <Tab label="settings" />
-          <Tab label="auctions" />
-        </Tabs>
-      </AppBar>
-      {renderActiveTabContent()}
-    </Container>
+    <div>
+      <Drawer variant="permanent" classes={{ paper: "drawer" }}>
+        <List className="list">
+          {tabs.map((entry, index) => (
+            <div key={entry.value}>
+              <ListItem className="listItem">
+                <Link to={entry.path}>{entry.name}</Link>
+              </ListItem>
+              <Divider variant="middle" />
+            </div>
+          ))}
+        </List>
+      </Drawer>
+      <div className="content">{renderSelectedTab()}</div>
+    </div>
   );
 };
 

@@ -7,6 +7,7 @@ export function userReducer(
     popUp: "none",
     connected: false,
     loaded: false,
+    isLoading: true,
   },
   action: AnyAction
 ) {
@@ -27,6 +28,19 @@ export function userReducer(
       return {
         ...state,
         popUp: "none",
+      };
+    }
+    case actionTypes.SIGN_IN_SUCCESS: {
+      console.log("payload", action.payload);
+      return {
+        ...state,
+        userName: action.payload.username,
+      };
+    }
+    case actionTypes.LOG_OUT: {
+      return {
+        ...state,
+        username: null,
       };
     }
     case actionTypes.connectSuccess: {
@@ -77,6 +91,13 @@ export function userReducer(
     }
     default: {
       return state;
+    }
+    case actionTypes.FETCH_ACCOUNT_SUCCESS: {
+      return {
+        ...state,
+        userName: action.payload.userName,
+        isLoading: false,
+      };
     }
   }
 }

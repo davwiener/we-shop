@@ -22,7 +22,7 @@ const AuctionsTab = () => {
 
   const renderAuctions = () => {
     return userAuctions?.map((auction) => (
-      <Card className="auction" variant="outlined">
+      <Card key={auction.id} className="auction" variant="outlined">
         <CardContent>
           <div>auction name: {auction.name}</div>
           <div>auction id: {auction.id}</div>
