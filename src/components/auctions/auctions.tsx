@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import Filters from "../FiltersComponent/Filters";
+
 import queryString from "query-string";
 import "./Auctions.scss";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,6 +14,7 @@ import { AuctionType } from "../../redux/types/search-types";
 import Auction from "../CommonComponents/Auction/Auction";
 import { useHistory } from "react-router-dom";
 import * as _ from "lodash";
+import Filters from "../FiltersComponent/Filters";
 function Auctions(props: any) {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -22,11 +23,7 @@ function Auctions(props: any) {
     //
     return state.auctions;
   });
-  // const query = queryString.parse(props.location.search);
-  // if (_.isEmpty(currentQuery)) {
-  //   debugger;
-  //   history.push("?page:1,rbp:25");
-  // }
+
   useEffect(() => {
     debugger;
     const query = queryString.parse(props.location.search);
