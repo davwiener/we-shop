@@ -1,5 +1,5 @@
 import React from "react";
-import "./input-text.scss";
+import "./InputText.scss";
 function InputText(props: any) {
   return (
     <input

@@ -3,7 +3,7 @@ export const searchService = {
   search,
 };
 function search(filters: { [key: string]: string }) {
-  return axios.get(`/auctions/search`, {
+  return axios.get(`api/auctions/search`, {
     params: {
       ...filters,
     },

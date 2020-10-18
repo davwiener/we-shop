@@ -1,5 +1,5 @@
 import React from "react";
-import "./product.scss";
+import "./Product.scss";
 function Product(props: any) {
   return (
     <div

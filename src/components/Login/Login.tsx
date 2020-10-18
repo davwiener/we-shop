@@ -5,8 +5,8 @@ import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
 import Button from "@material-ui/core/Button";
 import { signIn, signInSuccess } from "../../redux/actions/menu";
 import { useHistory, Link } from "react-router-dom";
-import Form from "../common-components/Forms/Form";
-import FormField from "../common-components/Forms/FormField";
+import Form from "../CommonComponents/Forms/Form";
+import FormField from "../CommonComponents/Forms/FormField";
 
 const Login = (props: any) => {
   useEffect(() => {

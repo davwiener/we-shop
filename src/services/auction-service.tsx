@@ -6,16 +6,16 @@ export const auctionService = {
   searchAuction,
 };
 function createAuction(auction: any) {
-  return axios.post(`/auctions/createAuction`, {
+  return axios.post(`api/auctions/createAuction`, {
     ...auction,
   });
 }
 function getAuctions() {
-  return axios.get(`/auctions/getAllAuctions`);
+  return axios.get(`api/auctions/getAllAuctions`);
 }
 function searchAuction(filters: { [key: string]: string }) {
   let cancel;
-  return axios.get(`/auctions/search`, {
+  return axios.get(`api/auctions/search`, {
     params: {
       q: filters.kind ? filters.kind : "",
       page: filters.page,

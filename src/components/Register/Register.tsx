@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
-import Form from "../common-components/Forms/Form";
-import FormField from "../common-components/Forms/FormField";
+
 import { signUp } from "../../redux/actions/menu";
 import { useHistory } from "react-router-dom";
-
+import FormField from "../CommonComponents/Forms/FormField";
+import Form from "../CommonComponents/Forms/Form";
 const Register = (props: any) => {
   const history = useHistory();
   useEffect(() => {

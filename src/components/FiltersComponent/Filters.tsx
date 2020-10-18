@@ -1,5 +1,5 @@
 import React from "react";
-import Filter from "./filter/filter";
+import Filter from "./Filter/Filter";
 import { FilterClass } from "../../filters/filter";
 
 function Filters(props: { filters: FilterClass[] }) {

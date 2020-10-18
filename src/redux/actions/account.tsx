@@ -14,9 +14,9 @@ export const fetchAccountSuccess = createAction(
 );
 
 export const fetchAccountData = () => {
-  return axios.get("/accounts/my_account");
+  return axios.get("api/accounts/my_account");
 };
 
 export const saveAccountSettings = (query: any) => {
-  return axios.put("/accounts/update", query);
+  return axios.put("api/accounts/update", query);
 };

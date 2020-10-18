@@ -1,64 +1,71 @@
-import React, { useEffect, useState } from "react";
-import Filters from "../filters-component/filters";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import Filters from "../FiltersComponent/Filters";
 import queryString from "query-string";
-import "./auctions.scss";
+import "./Auctions.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { DateFilter } from "../../filters/date-filter";
-import { RangeFilter } from "../../filters/range-filter";
-import { FreeTextFilter } from "../../filters/free-text-filter";
+import { DateFilter } from "../../filters/dateFilter";
+import { RangeFilter } from "../../filters/RangeFilter";
+import { FreeTextFilter } from "../../filters/freeRextFilter";
 import { WeShopState } from "../../redux/store";
 import { QueryType } from "../../redux/types/search-types";
-import * as auctionsActions from "../../redux/actions/auctions-actions";
+import * as auctionsActions from "../../redux/actions/auctions";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { AuctionType } from "../../redux/types/search-types";
-import Auction from "../common-components/auction/auction";
+import Auction from "../CommonComponents/Auction/Auction";
 import { useHistory } from "react-router-dom";
 import * as _ from "lodash";
 function Auctions(props: any) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [currentQuery, setCurrentQuery] = useState({});
+  const [currentQuery, setCurrentQuery]: [any, any] = useState({});
   const searchState = useSelector((state: WeShopState) => {
     //
-    return state.search;
+    return state.auctions;
   });
+  // const query = queryString.parse(props.location.search);
+  // if (_.isEmpty(currentQuery)) {
+  //   debugger;
+  //   history.push("?page:1,rbp:25");
+  // }
   useEffect(() => {
+    debugger;
     const query = queryString.parse(props.location.search);
-    if (_.isEmpty(query) || _.isEqual(currentQuery, query)) {
-      history.push(`Auctionss/?${queryString.stringify(searchState.query)}`);
-    } else {
-      dispatch(auctionsActions.updateSearchQuery(query as QueryType));
+    if (_.isEmpty(query)) {
+      debugger;
+      history.push("?page=1&rbp=25");
     }
-  }, [searchState.query]);
-  useEffect(() => {
-    const query = queryString.parse(props.location.search);
+    if (_.isEqual(currentQuery, query)) {
+      return;
+    }
     if (!_.isEmpty(query)) {
       setCurrentQuery(query);
-      const page = Number(query.page);
-      const newSearch = page === 1 || page === searchState.filters.page;
-      dispatch(auctionsActions.searchAuction(query, newSearch));
+      dispatch(auctionsActions.searchAuction(query as QueryType));
     }
-  }, [props.location]);
+  }, [props.location, dispatch, currentQuery, history]);
+  useLayoutEffect(() => {
+    debugger;
+    if (!searchState.loaded) {
+      return;
+    }
+    history.push(`?${queryString.stringify(searchState.query)}`);
+  }, [searchState, history]);
+
   const value = queryString.parse(props.location.search);
   const token = value.token;
   console.log("token", token);
-  const [dateFilter] = useState(
-    new DateFilter("date", {
-      startDate: new Date(),
-      endDate: new Date(),
-    })
-  );
-  const [rangeFilter] = useState(
-    new RangeFilter("price", { min: 0, max: 1000 })
-  );
-  const [kindFilter] = useState(new FreeTextFilter("model", ""));
-  const [nameFilter] = useState(new FreeTextFilter("name", ""));
-  const [filters] = useState({
+  const dateFilter = new DateFilter("date", {
+    startDate: new Date(),
+    endDate: new Date(),
+  });
+  const rangeFilter = new RangeFilter("price", { min: 0, max: 1000 });
+  const kindFilter = new FreeTextFilter("model", "");
+  const nameFilter = new FreeTextFilter("name", "");
+  const filters = {
     [dateFilter.filterName]: dateFilter,
     [rangeFilter.filterName]: rangeFilter,
     [kindFilter.filterName]: kindFilter,
     [nameFilter.filterName]: nameFilter,
-  });
+  };
   const fetchMoreData = () => {
     dispatch(
       auctionsActions.updateSearchQuery({

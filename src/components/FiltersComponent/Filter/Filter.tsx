@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import InputText from "../../common-components/input-text/input-text";
-import "./filter.scss";
+import InputText from "../../CommonComponents/InputText/InputText";
+import "./Filter.scss";
 import InputRange, { Range } from "react-input-range";
 import "react-input-range/lib/css/index.css";
 
@@ -9,7 +9,7 @@ import "rc-slider/assets/index.css";
 import { useDispatch } from "react-redux";
 import { FilterClass } from "../../../filters/filter";
 import { FilterType, FilterValue } from "../../../filters/filter.config";
-import { updateSearchQuery } from "../../../redux/actions/auctions-actions";
+import { updateSearchQuery } from "../../../redux/actions/auctions";
 import { TextField } from "@material-ui/core";
 function Filter(props: { filter: FilterClass }) {
   const dispatch = useDispatch();

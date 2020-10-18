@@ -11,7 +11,7 @@ export const logout = createAction(ACTION_TYPES.LOG_OUT);
 export const setUserLogin = createAction(ACTION_TYPES.SET_USER_LOGIN);
 
 export const signIn = async (email: any, password: any) => {
-  return await axios.post("/auth/signin", {
+  return await axios.post("api/auth/signin", {
     email,
     password,
   });
