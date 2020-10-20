@@ -25,10 +25,8 @@ function Auctions(props: any) {
   });
 
   useEffect(() => {
-    debugger;
     const query = queryString.parse(props.location.search);
     if (_.isEmpty(query)) {
-      debugger;
       history.push("?page=1&rbp=25");
     }
     if (_.isEqual(currentQuery, query)) {
@@ -40,16 +38,12 @@ function Auctions(props: any) {
     }
   }, [props.location, dispatch, currentQuery, history]);
   useLayoutEffect(() => {
-    debugger;
     if (!searchState.loaded) {
       return;
     }
     history.push(`?${queryString.stringify(searchState.query)}`);
   }, [searchState, history]);
 
-  const value = queryString.parse(props.location.search);
-  const token = value.token;
-  console.log("token", token);
   const dateFilter = new DateFilter("date", {
     startDate: new Date(),
     endDate: new Date(),
@@ -84,7 +78,11 @@ function Auctions(props: any) {
               scrollableTarget="scrollableDiv"
             >
               {searchState.auctions.map((auc: AuctionType) => (
-                <Auction auction={auc} id={"auctions-page"}></Auction>
+                <Auction
+                  auction={auc}
+                  key={`auctions-page-auction-${auc.id}`}
+                  id={"auctions-page"}
+                ></Auction>
               ))}
             </InfiniteScroll>
           </div>

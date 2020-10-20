@@ -9,12 +9,13 @@ import {
 } from "react-router-dom";
 import Account from "../components/Account/Account";
 import { ACCOUNT_TABS } from "../constants/Account";
-import Auctions from "../components/Auctions/Auctions";
+
 import { setUserLogin } from "../redux/actions/menu";
 import Login from "../components/Login/Login";
 import AuthRequiredRoute from "../components/AuthRequiredRoute/AuthRequiredRoute";
 import { isLoggedIn } from "../util/auth";
 import Register from "../components/Register/Register";
+import Auctions from "../components/Auctions/Auctions";
 
 function WeShop() {
   const dispatch = useDispatch();

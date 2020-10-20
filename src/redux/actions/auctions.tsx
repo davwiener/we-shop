@@ -54,7 +54,7 @@ export const updateSearchQuery = (filter: {
   };
 };
 export const fetchUserAuctions = () => {
-  return axios.get("api/auctions/my_auctions");
+  return axios.get("/api/auctions/my_auctions");
 };
 export const updateQueryAction = (query: QueryType) => ({
   type: actionTypes.updateQuery,
