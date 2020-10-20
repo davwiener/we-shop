@@ -6,7 +6,7 @@ function Filters(props: { filters: FilterClass[] }) {
   return (
     <div>
       {props.filters.map((filter: FilterClass) => (
-        <div>
+        <div key={`auction-page-filters-${filter.filterName}`}>
           <Filter filter={filter}></Filter>
         </div>
       ))}

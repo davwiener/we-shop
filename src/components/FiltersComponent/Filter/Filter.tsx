@@ -53,7 +53,6 @@ function Filter(props: { filter: FilterClass }) {
             label="Auction End Date and Time"
             type="datetime-local"
             name="end_date"
-            defaultValue={filterValue}
             inputProps={{ min: new Date() }}
             InputLabelProps={{
               shrink: true,
