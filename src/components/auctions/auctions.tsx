@@ -23,7 +23,19 @@ function Auctions(props: any) {
     //
     return state.auctions;
   });
-
+  const dateFilter = new DateFilter("date", {
+    startDate: new Date(),
+    endDate: new Date(),
+  });
+  const rangeFilter = new RangeFilter("price", { min: 0, max: 1000 });
+  const kindFilter = new FreeTextFilter("model", "");
+  const nameFilter = new FreeTextFilter("name", "");
+  const filters = {
+    [dateFilter.filterName]: dateFilter,
+    [rangeFilter.filterName]: rangeFilter,
+    [kindFilter.filterName]: kindFilter,
+    [nameFilter.filterName]: nameFilter,
+  };
   useEffect(() => {
     const query = queryString.parse(props.location.search);
     if (_.isEmpty(query)) {
@@ -44,19 +56,6 @@ function Auctions(props: any) {
     history.push(`?${queryString.stringify(searchState.query)}`);
   }, [searchState, history]);
 
-  const dateFilter = new DateFilter("date", {
-    startDate: new Date(),
-    endDate: new Date(),
-  });
-  const rangeFilter = new RangeFilter("price", { min: 0, max: 1000 });
-  const kindFilter = new FreeTextFilter("model", "");
-  const nameFilter = new FreeTextFilter("name", "");
-  const filters = {
-    [dateFilter.filterName]: dateFilter,
-    [rangeFilter.filterName]: rangeFilter,
-    [kindFilter.filterName]: kindFilter,
-    [nameFilter.filterName]: nameFilter,
-  };
   const fetchMoreData = () => {
     dispatch(
       auctionsActions.updateSearchQuery({
@@ -89,7 +88,10 @@ function Auctions(props: any) {
         )}
       </div>
       <div className="filters">
-        <Filters filters={Object.values(filters)}></Filters>
+        <Filters
+          filters={Object.values(filters)}
+          filtersStateValues={searchState.filters}
+        ></Filters>
         <div></div>
       </div>
     </div>

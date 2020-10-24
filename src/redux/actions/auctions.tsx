@@ -14,7 +14,7 @@ export const searchAuction = (query: QueryType) => {
     //   dispatch(updateSearchQuery(query));
     // }
 
-    dispatch(searchStart());
+    dispatch(searchStart(query));
     const page = Number(query.page);
     const newSearch = page === 1 || page === getState().auctions.filters.page;
     searchService
@@ -71,8 +71,9 @@ export const removeFilterAction = (filterName: string) => ({
   type: actionTypes.removeFilter,
   payload: filterName,
 });
-const searchStart = () => ({
+const searchStart = (payload: QueryType) => ({
   type: actionTypes.searchStart,
+  payload,
 });
 const searchSuccess = (payload: {
   auctions: any;

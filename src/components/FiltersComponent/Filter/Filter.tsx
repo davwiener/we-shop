@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InputText from "../../CommonComponents/InputText/InputText";
 import "./Filter.scss";
 import InputRange, { Range } from "react-input-range";
@@ -14,11 +14,15 @@ import { TextField } from "@material-ui/core";
 function Filter(props: { filter: FilterClass }) {
   const dispatch = useDispatch();
   const [filterValue, setFilterValue] = useState(props.filter.getValue());
+  //setFilterValue(props.filter.getValue());
   const updateFilter = (val: FilterValue) => {
+    debugger;
     props.filter.setValue(val);
-    setFilterValue(() => props.filter.getValue());
     dispatch(updateSearchQuery(props.filter.parseToQuery()));
   };
+  useEffect(() => {
+    setFilterValue(() => props.filter.getValue());
+  }, [props.filter]);
   return (
     <div>
       <div className="filter-container">

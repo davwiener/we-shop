@@ -47,6 +47,7 @@ export function AuctionsReducer(
       return {
         ...state,
         loaded: false,
+        filters: { ...state.filters, ...action.payload },
       };
     }
     case actionTypes.searchFails: {
