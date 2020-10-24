@@ -16,7 +16,6 @@ function Filter(props: { filter: FilterClass }) {
   const [filterValue, setFilterValue] = useState(props.filter.getValue());
   //setFilterValue(props.filter.getValue());
   const updateFilter = (val: FilterValue) => {
-    debugger;
     props.filter.setValue(val);
     dispatch(updateSearchQuery(props.filter.parseToQuery()));
   };

@@ -15,6 +15,7 @@ import Auction from "../CommonComponents/Auction/Auction";
 import { useHistory } from "react-router-dom";
 import * as _ from "lodash";
 import Filters from "../FiltersComponent/Filters";
+import { AuctionFilters } from "./AuctionsFilters/AuctionFilters";
 function Auctions(props: any) {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -88,11 +89,9 @@ function Auctions(props: any) {
         )}
       </div>
       <div className="filters">
-        <Filters
-          filters={Object.values(filters)}
+        <AuctionFilters
           filtersStateValues={searchState.filters}
-        ></Filters>
-        <div></div>
+        ></AuctionFilters>
       </div>
     </div>
   );

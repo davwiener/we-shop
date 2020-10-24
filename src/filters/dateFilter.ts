@@ -31,4 +31,8 @@ export class DateFilter extends FilterClass {
   getValue() {
     return this.value.startDate;
   }
+  getFilterFromQuery(query: Record<string, any>, filter?: FilterClass): Record<string, string> {
+    return {startDate: query.startDate ? new Date(Number(query['startDate'])).toISOString().substring(0,16) : '', 
+    endDate: query.endDate ? new Date(Number(query['endDate'])).toISOString().substring(0,16) : ''}
+  }
 }

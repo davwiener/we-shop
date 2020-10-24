@@ -8,7 +8,7 @@ function Filters(props: {
   filtersStateValues: { [key: string]: FilterValue };
 }) {
   const addStateValue = (filter: FilterClass) => {
-    const stateFilterValue = props.filtersStateValues[filter.filterName];
+    const stateFilterValue = filter.getFilterFromQuery (props.filtersStateValues, filter);
     if (stateFilterValue && filter.getValue() !== stateFilterValue) {
       filter.setValue(stateFilterValue);
     }

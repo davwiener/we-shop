@@ -9,6 +9,9 @@ export abstract class FilterClass {
     this.filterName = filterName;
   }
   abstract setValue(value: FilterValue): void;
+  getFilterFromQuery(query: Record<string, any>, currentFilter?: FilterClass): Record<string, string> {
+    return query[this.filterName];
+  }
   getValue(): FilterValue {
     return this.value;
   }
