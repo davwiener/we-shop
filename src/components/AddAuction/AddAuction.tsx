@@ -1,208 +1,139 @@
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import InputLabel from "@material-ui/core/InputLabel";
-import React, { useEffect, useState } from "react";
-import { productService } from "../../services/product-service";
-import { auctionService } from "../../services/auction-service";
-import Products from "../Products/Prodcuts";
-import { Input, InputAdornment, TextareaAutosize } from "@material-ui/core";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
-import moment from "moment";
-import "./AddAuction.scss";
-import { string } from "yup";
-function AddAuction(props: any) {
-  const minDate = moment(moment().add(1, "day").toDate()).format(
-    "YYYY-MM-DDThh:mm"
-  );
-  const [products, setProducts] = useState(Array());
-  const [product, setProduct] = useState({
-    name: "",
-    type: "",
-    company_name: "",
-    model: "",
-    description: "",
-  });
-  const [auction, setAuction] = useState({
-    productId: 0,
-    product: product,
-    price_levels: "",
-    description: "",
-    name: "",
-    end_date: minDate,
-  });
-  auction.product = product;
-  const { name, type, company_name, model, description } = product;
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
-  const [showProducts, setShowProducts] = useState(false);
-  useEffect(() => {
-    productService.getProducts({ productName: "" }).then((res) => {
-      if (res) {
-        setProducts(
-          res.data.map((product: any) => {
-            product.selected = false;
-            return product;
-          })
-        );
-      }
-    });
-  }, []);
-  const selectProduct = (event: any) => {
-    event.product.selected = event.selected;
-    setProducts(
-      products.map((product: any) => {
-        if (product.id === event.product.id) {
-          product.selected = event.selected;
-        } else {
-          product.selected = false;
-        }
-        return product;
+import "./AddAuction.scss";
+import IconButton from "@material-ui/core/IconButton";
+import AddCircleOutline from "@material-ui/icons/AddCircleOutline";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import TextField from "@material-ui/core/TextField";
+import Select from "@material-ui/core/Select";
+import { MenuItem, FormControl, InputLabel, Button } from "@material-ui/core";
+import { fetchCategories } from "../../api_methods/categories";
+import { productService } from "../../services/product-service";
+import {
+  fetchCategoriesStarted,
+  fetchCategoriesSuccess,
+} from "../../redux/actions/categories";
+import AuctionCard from "../Auctions/AuctionCard/AuctionCard";
+
+const AddAuction = () => {
+  const dispatch = useDispatch();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [category, setCategory] = useState("");
+  const [categoryOptions, setCategoryOptions] = useState([]);
+  const [product, setProduct] = useState("");
+  const [productOptions, setProductOptions] = useState([]);
+  const [endDate, setEndDate] = useState("");
+
+  const handleOpen = () => setModalOpen(true);
+  const handleClose = () => setModalOpen(false);
+  const fetchNewAuctionData = () => {
+    dispatch(fetchCategoriesStarted());
+    fetchCategories()
+      .then((res) => {
+        setCategoryOptions(res.data);
+        dispatch(fetchCategoriesSuccess(res.data));
       })
-    );
-    if (event.selected) {
-      setProduct((product) => event.product);
-      handleAuctionChange("productId", event.product.id);
-    } else {
-      handleAuctionChange("productId", "");
-    }
+      .catch((err) => console.log("err", err));
   };
-  const handleAuctionChange = (name: string, value: any) => {
-    setAuction((auction) => ({ ...auction, [name]: value }));
+
+  const handleCategoryChange = (e: any) => {
+    setCategory(e.target.value);
+    setProduct("");
+    productService
+      .getProducts({ category: e.target.value })
+      .then((res: any) => {
+        setProductOptions(res.data);
+      })
+      .catch((err: any) => console.log("err", err));
   };
-  const handleProductChange = (e: any) => {
-    const { name, value } = e.target;
-    setProduct((product) => ({ ...product, [name]: value }));
-  };
-  function addAuction() {
-    if (
-      (auction.productId !== 0 ||
-        (name !== "" &&
-          type !== "" &&
-          company_name !== "" &&
-          model !== "" &&
-          description !== "")) &&
-      auction.end_date &&
-      auction.price_levels !== "" &&
-      auction.description !== "" &&
-      auction.name !== ""
-    ) {
-      auctionService.createAuction(auction);
-    }
-  }
+
+  const handleProductChange = (e: any) => setProduct(e.target.value);
+
+  const handleEndDateChange = (e: any) => setEndDate(e.target.value);
+
   return (
-    <form onSubmit={addAuction}>
-      <h2 className="center-element">Add Auction</h2>
-      <div className="fields-container">
-        <TextField
-          id="auction-name"
-          name="name"
-          label="Auction Name"
-          onChange={(e) => handleAuctionChange("name", e.target.value)}
-          value={auction.name}
-        />
-        <InputLabel htmlFor="input-with-icon-adornment">price</InputLabel>
-        <Input
-          id="add-auction-price-levels"
-          name="price_levels"
-          value={auction.price_levels}
-          onChange={(e) => handleAuctionChange("price_levels", e.target.value)}
-          startAdornment={
-            <InputAdornment position="start">
-              <i className="fas fa-dollar-sign"></i>
-            </InputAdornment>
-          }
-        />
-        <TextField
-          onChange={(e) => handleAuctionChange("end_date", e.target.value)}
-          id="add-auction-end-date"
-          label="Auction End Date and Time"
-          type="datetime-local"
-          name="end_date"
-          defaultValue={minDate}
-          inputProps={{ min: minDate }}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          value={auction.end_date}
-        />
-        <TextField
-          onChange={(e) => handleAuctionChange("description", e.target.value)}
-          id="add-auction-auction_description"
-          label="description"
-          name="description"
-          defaultValue={auction.description}
-          value={auction.description}
-        />
-        <TextField
-          id="add-auction-product-name"
-          name="name"
-          label="Product Name"
-          onChange={handleProductChange}
-          value={name}
-        />
-        <TextField
-          id="add-auction-product-type"
-          name="type"
-          label="Type"
-          onChange={handleProductChange}
-          value={type}
-        />
-        <TextField
-          id="add-auction-company-name"
-          name="company_name"
-          label="Company Name"
-          onChange={handleProductChange}
-          value={company_name}
-        />
-        <TextField
-          id="add-auction-product-model"
-          name="model"
-          label="Company Model"
-          onChange={handleProductChange}
-          value={model}
-        />
-        <Button variant="contained" component="label">
-          Upload File
-          <input type="file" style={{ display: "none" }} />
-        </Button>
-        <TextareaAutosize
-          id="add-auction-product-description"
-          name="description"
-          aria-label="minimum height"
-          rowsMin={3}
-          placeholder="product_description"
-          onChange={handleProductChange}
-          value={description}
-        />
-        <Button variant="contained" component="label" onClick={addAuction}>
-          add auction
-        </Button>
-      </div>
-      <div className="center-element">
-        <FormControlLabel
-          control={
-            <Switch
-              checked={showProducts}
-              onChange={() => setShowProducts(!showProducts)}
-              name="products-toggle"
-            />
-          }
-          label={
-            showProducts
-              ? "Create a new product"
-              : "Chose From a list of products"
-          }
-        />
-      </div>
-      {showProducts && (
-        <Products
-          className="products"
-          products={products}
-          onSelect={selectProduct}
-        ></Products>
-      )}
-    </form>
+    <AuctionCard className="noBorder">
+      <IconButton className="iconButton" onClick={handleOpen}>
+        <AddCircleOutline style={{ fontSize: 170 }} />
+      </IconButton>
+      <Dialog
+        open={modalOpen}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+        onEnter={fetchNewAuctionData}
+      >
+        <DialogTitle id="form-dialog-title">Add New Auction</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            id="name"
+            label="Title"
+            type="text"
+            margin="normal"
+            fullWidth
+          />
+          <TextField
+            select
+            required
+            label="Category"
+            value={category}
+            onChange={handleCategoryChange}
+            margin="normal"
+            classes={{ root: "field" }}
+          >
+            {categoryOptions.map((option: any, index: number) => (
+              <option key={index} value={option.id}>
+                {option.name}
+              </option>
+            ))}
+          </TextField>
+          <TextField
+            select
+            required
+            label="Product"
+            value={product}
+            onChange={handleProductChange}
+            margin="normal"
+            classes={{ root: "field" }}
+            disabled={category.toString() === ""}
+          >
+            {productOptions.map((option: any, index: number) => (
+              <option key={index} value={option.id}>
+                {option.name}
+              </option>
+            ))}
+            {/* <option value={1}>Basket Ball</option>
+            <option value={2}>Soccer Ball</option>
+            <option value={3}>Tennis Ball</option> */}
+          </TextField>
+          <TextField
+            value={endDate}
+            margin="normal"
+            id="endDate"
+            label="End Date"
+            type="date"
+            onChange={handleEndDateChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            classes={{ root: "field" }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleClose} color="primary">
+            Subscribe
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </AuctionCard>
   );
-}
+};
 
 export default AddAuction;

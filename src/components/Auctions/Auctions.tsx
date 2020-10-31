@@ -14,6 +14,7 @@ import AuctionCardImage from "./AuctionCard/AuctionCardImage";
 import AuctionCardSummary from "./AuctionCard/AuctionCardSummary";
 import { Divider } from "@material-ui/core";
 import { AuctionFilters } from "./AuctionsFilters/AuctionFilters";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Auctions = (props: any) => {
   const dispatch = useDispatch();
@@ -53,54 +54,34 @@ const Auctions = (props: any) => {
   return (
     <div className="pageWrapper">
       <SidePanel>
-        <div>Filters Panel</div>
+        <AuctionFilters
+          filtersStateValues={searchState.filters}
+        ></AuctionFilters>
       </SidePanel>
       {searchState.auctions && searchState.auctions.length && (
-        <div className="content">
-          {searchState.auctions.map((auc: AuctionType, index) => (
-            <AuctionCard className="cardContent" key={index}>
-              <AuctionCardImage
-                url="https://i1.wp.com/www.shoorayner.com/wp-images/uploads/2017/02/scooter-1.jpg?resize=227%2C220"
-                className="image"
-              />
-              <Divider />
-              <AuctionCardSummary data={auc} className="description" />
-            </AuctionCard>
-          ))}
+        <div id="scrollableDiv" className="content">
+          <InfiniteScroll
+            className="infinite-scroll"
+            dataLength={searchState.auctions.length}
+            next={fetchMoreData}
+            hasMore={searchState.hasMore}
+            loader={<h4>Loading...</h4>}
+            scrollableTarget="scrollableDiv"
+          >
+            {searchState.auctions.map((auc: AuctionType, index) => (
+              <AuctionCard className="cardContent" key={`${auc.toString()} ${index}`}>
+                <AuctionCardImage
+                  url="https://i1.wp.com/www.shoorayner.com/wp-images/uploads/2017/02/scooter-1.jpg?resize=227%2C220"
+                  className="image"
+                />
+                <Divider />
+                <AuctionCardSummary data={auc} className="description" />
+              </AuctionCard>
+            ))}
+          </InfiniteScroll>
         </div>
       )}
     </div>
   );
 };
 export default Auctions;
-
-/**
- * <div className="auctions-container">
-      <div className="auctions">
-        {searchState.auctions && searchState.auctions.length && (
-          <div id="scrollableDiv" className="infinite-scroll-container">
-            <InfiniteScroll
-              className="infinite-scroll"
-              dataLength={searchState.auctions.length}
-              next={fetchMoreData}
-              hasMore={searchState.hasMore}
-              loader={<h4>Loading...</h4>}
-              scrollableTarget="scrollableDiv"
-            >
-              {searchState.auctions.map((auc: AuctionType) => (
-                <Auction
-                  auction={auc}
-                  key={`auctions-page-auction-${auc.id}`}
-                  id={"auctions-page"}
-                ></Auction>
-              ))}
-            </InfiniteScroll>
-          </div>
-        )}
-      </div>
-      <div className="auctions-filters">
-        <AuctionFilters
-          filtersStateValues={searchState.filters}
-        ></AuctionFilters>
-      </div>
- */
