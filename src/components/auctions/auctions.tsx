@@ -2,9 +2,6 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import queryString from "query-string";
 import "./Auctionss.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { DateFilter } from "../../filters/dateFilter";
-import { RangeFilter } from "../../filters/RangeFilter";
-import { FreeTextFilter } from "../../filters/freeRextFilter";
 import { WeShopState } from "../../redux/store";
 import { QueryType } from "../../redux/types/search-types";
 import * as auctionsActions from "../../redux/actions/auctions";
@@ -16,15 +13,15 @@ import SidePanel from "../CommonComponents/SidePanel/SidePanel";
 import AuctionCardImage from "./AuctionCard/AuctionCardImage";
 import AuctionCardSummary from "./AuctionCard/AuctionCardSummary";
 import { Divider } from "@material-ui/core";
+import { AuctionFilters } from "./AuctionsFilters/AuctionFilters";
 
-function Auctionss(props: any) {
+const Auctions = (props: any) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [currentQuery, setCurrentQuery]: [any, any] = useState({});
   const searchState = useSelector((state: WeShopState) => {
     return state.auctions;
   });
-
   useEffect(() => {
     const query = queryString.parse(props.location.search);
     if (_.isEmpty(query)) {
@@ -45,19 +42,6 @@ function Auctionss(props: any) {
     history.push(`?${queryString.stringify(searchState.query)}`);
   }, [searchState, history]);
 
-  const dateFilter = new DateFilter("date", {
-    startDate: new Date(),
-    endDate: new Date(),
-  });
-  const rangeFilter = new RangeFilter("price", { min: 0, max: 1000 });
-  const kindFilter = new FreeTextFilter("model", "");
-  const nameFilter = new FreeTextFilter("name", "");
-  const filters = {
-    [dateFilter.filterName]: dateFilter,
-    [rangeFilter.filterName]: rangeFilter,
-    [kindFilter.filterName]: kindFilter,
-    [nameFilter.filterName]: nameFilter,
-  };
   const fetchMoreData = () => {
     dispatch(
       auctionsActions.updateSearchQuery({
@@ -87,5 +71,36 @@ function Auctionss(props: any) {
       )}
     </div>
   );
-}
-export default Auctionss;
+};
+export default Auctions;
+
+/**
+ * <div className="auctions-container">
+      <div className="auctions">
+        {searchState.auctions && searchState.auctions.length && (
+          <div id="scrollableDiv" className="infinite-scroll-container">
+            <InfiniteScroll
+              className="infinite-scroll"
+              dataLength={searchState.auctions.length}
+              next={fetchMoreData}
+              hasMore={searchState.hasMore}
+              loader={<h4>Loading...</h4>}
+              scrollableTarget="scrollableDiv"
+            >
+              {searchState.auctions.map((auc: AuctionType) => (
+                <Auction
+                  auction={auc}
+                  key={`auctions-page-auction-${auc.id}`}
+                  id={"auctions-page"}
+                ></Auction>
+              ))}
+            </InfiniteScroll>
+          </div>
+        )}
+      </div>
+      <div className="auctions-filters">
+        <AuctionFilters
+          filtersStateValues={searchState.filters}
+        ></AuctionFilters>
+      </div>
+ */
