@@ -13,9 +13,9 @@ export class dateFilter extends filterClass {
     this.setValue(value);
   }
   setValue(value: DateValue) {
-    this.value = {...value};
+    this.value = { ...value };
   }
-  parseToQuery(): Record <string, string> {
+  parseToQuery(): Record<string, string> {
     if (this.isFilterEmpty()) {
       return { startDate: "", endDate: "" };
     }
@@ -31,7 +31,9 @@ export class dateFilter extends filterClass {
     return this.value.startDate;
   }
   getFilterFromQuery(query: Record<string, any>, filter?: filterClass): Record<string, string> {
-    return {startDate: query.startDate ? new Date(Number(query['startDate'])).toISOString().substring(0,16) : '', 
-    endDate: query.endDate ? new Date(Number(query['endDate'])).toISOString().substring(0,16) : ''}
+    return {
+      startDate: query.startDate ? new Date(Number(query['startDate'])).toISOString().substring(0, 16) : '',
+      endDate: query.endDate ? new Date(Number(query['endDate'])).toISOString().substring(0, 16) : ''
+    }
   }
 }
