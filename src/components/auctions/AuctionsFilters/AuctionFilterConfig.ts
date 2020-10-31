@@ -23,3 +23,4 @@ const sort = new dropdownFilter('sortBy', '', {
     [name.filterName]: name,
   };
   
+  
