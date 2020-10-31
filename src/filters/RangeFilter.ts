@@ -35,7 +35,7 @@ export class rangeFilter extends filterClass {
   }
   getFilterFromQuery(query: Record<string, any>, currentFilter: filterClass): Record<string, string> {
     if (query[this.minFilterName] && query[this.maxFilterName]) {
-      return {min: query[this.minFilterName], max: query[this.maxFilterName]}
+      return { min: query[this.minFilterName], max: query[this.maxFilterName] }
     } else {
       return currentFilter.getValue();
     }

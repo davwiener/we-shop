@@ -15,16 +15,13 @@ import { AuctionFilters } from "./AuctionsFilters/AuctionFilters";
 function Auctions(props: any) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [currentQuery, setCurrentQuery]: [any, any] = useState({});
+  const [currentQuery, setCurrentQuery] = useState({});
   const searchState = useSelector((state: WeShopState) => {
     //
     return state.auctions;
   });
   useEffect(() => {
     const query = queryString.parse(props.location.search);
-    if (_.isEmpty(query)) {
-      history.push("?page=1&rbp=25");
-    }
     if (_.isEqual(currentQuery, query)) {
       return;
     }
