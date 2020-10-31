@@ -53,9 +53,11 @@ export const updateSearchQuery = (filter: {
     dispatch(updateQueryAction(query));
   };
 };
+
 export const fetchUserAuctions = () => {
-  return axios.get("/api/auctions/my_auctions");
+  return axios.get("/api/auctions/");
 };
+
 export const updateQueryAction = (query: QueryType) => ({
   type: actionTypes.updateQuery,
   payload: query,

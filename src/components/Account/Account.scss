@@ -1,19 +1,9 @@
-.drawer {
-  margin-top: 70px;
-  width: 165px;
-}
+.pageWrapper {
+  display: flex;
+  height: 100%;
 
-.content {
-  margin-left: 165px;
-  padding: 20px;
-}
-
-.list.list {
-  padding: 15px 0;
-  width: 100%;
-}
-
-.listItem.listItem {
-  justify-content: center;
-  margin: 5px auto;
+  .content {
+    padding: 20px;
+    flex-grow: 1;
+  }
 }

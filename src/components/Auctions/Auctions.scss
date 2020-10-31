@@ -1,16 +1,12 @@
-.auctions-container {
+.pageWrapper {
   display: flex;
+  height: 100%;
   justify-content: space-between;
-  .auctions {
-    height: 90vh;
-    .infinite-scroll-container {
-      height: 100%;
-      overflow: auto;
-      .infinite-scroll {
-        display: flex;
-        flex-wrap: wrap;
-      }
-    }
+  .content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
   }
   .auctions-filters {
     align-self: center;

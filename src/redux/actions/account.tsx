@@ -13,6 +13,10 @@ export const fetchAccountSuccess = createAction(
   ACTION_TYPES.FETCH_ACCOUNT_SUCCESS
 );
 
+export const accountAuctionsLoaded = createAction(
+  ACTION_TYPES.ACCOUNT_AUCTIONS_LOADED
+);
+
 export const fetchAccountData = () => {
   return axios.get("/api/accounts/my_account");
 };
