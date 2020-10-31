@@ -1,8 +1,8 @@
 import { FilterValue, FilterType } from "./filter.config";
-import { FilterClass } from "./filter";
+import { filterClass } from "./filter";
 import { Range } from "react-input-range";
 
-export class RangeFilter extends FilterClass {
+export class rangeFilter extends filterClass {
   filterType = FilterType.Range;
   value: Range = { min: 0, max: 0 };
   minFilterName: string;
@@ -33,7 +33,7 @@ export class RangeFilter extends FilterClass {
   isFilterEmpty() {
     return !(this.value.min || this.value.max);
   }
-  getFilterFromQuery(query: Record<string, any>, currentFilter: FilterClass): Record<string, string> {
+  getFilterFromQuery(query: Record<string, any>, currentFilter: filterClass): Record<string, string> {
     if (query[this.minFilterName] && query[this.maxFilterName]) {
       return {min: query[this.minFilterName], max: query[this.maxFilterName]}
     } else {

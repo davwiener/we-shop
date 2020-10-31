@@ -1,6 +1,7 @@
 import { FilterValue, FilterType } from "./filter.config";
 
-export abstract class FilterClass {
+export abstract class filterClass {
+  options: any
   filterName: string = "";
   filterType: FilterType = FilterType.FreeText;
   value: FilterValue;
@@ -9,7 +10,7 @@ export abstract class FilterClass {
     this.filterName = filterName;
   }
   abstract setValue(value: FilterValue): void;
-  getFilterFromQuery(query: Record<string, any>, currentFilter?: FilterClass): Record<string, string> {
+  getFilterFromQuery(query: Record<string, any>, currentFilter?: filterClass): Record<string, string> {
     return query[this.filterName];
   }
   getValue(): FilterValue {

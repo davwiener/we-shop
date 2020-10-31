@@ -3,9 +3,9 @@ import * as actionTypes from "../action-types";
 import { AuctionsState } from "../types/search-types";
 const rbp = 25;
 export const INITIAL_PRODUCTS_STATE: AuctionsState = {
-  filters: { page: 1, rbp },
+  filters: { page: 1, rbp, sortBy: 'name' },
   auctions: [],
-  query: { page: 1, rbp },
+  query: { page: 1, rbp, sortBy: 'name' },
   loaded: false,
   hasMore: true,
 };

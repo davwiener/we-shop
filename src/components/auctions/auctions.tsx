@@ -3,9 +3,6 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import queryString from "query-string";
 import "./Auctions.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { DateFilter } from "../../filters/dateFilter";
-import { RangeFilter } from "../../filters/RangeFilter";
-import { FreeTextFilter } from "../../filters/freeRextFilter";
 import { WeShopState } from "../../redux/store";
 import { QueryType } from "../../redux/types/search-types";
 import * as auctionsActions from "../../redux/actions/auctions";
@@ -14,7 +11,6 @@ import { AuctionType } from "../../redux/types/search-types";
 import Auction from "../CommonComponents/Auction/Auction";
 import { useHistory } from "react-router-dom";
 import * as _ from "lodash";
-import Filters from "../FiltersComponent/Filters";
 import { AuctionFilters } from "./AuctionsFilters/AuctionFilters";
 function Auctions(props: any) {
   const dispatch = useDispatch();
@@ -24,19 +20,6 @@ function Auctions(props: any) {
     //
     return state.auctions;
   });
-  const dateFilter = new DateFilter("date", {
-    startDate: new Date(),
-    endDate: new Date(),
-  });
-  const rangeFilter = new RangeFilter("price", { min: 0, max: 1000 });
-  const kindFilter = new FreeTextFilter("model", "");
-  const nameFilter = new FreeTextFilter("name", "");
-  const filters = {
-    [dateFilter.filterName]: dateFilter,
-    [rangeFilter.filterName]: rangeFilter,
-    [kindFilter.filterName]: kindFilter,
-    [nameFilter.filterName]: nameFilter,
-  };
   useEffect(() => {
     const query = queryString.parse(props.location.search);
     if (_.isEmpty(query)) {
@@ -88,7 +71,7 @@ function Auctions(props: any) {
           </div>
         )}
       </div>
-      <div className="filters">
+      <div className="auctions-filters">
         <AuctionFilters
           filtersStateValues={searchState.filters}
         ></AuctionFilters>

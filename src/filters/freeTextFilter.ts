@@ -1,7 +1,7 @@
-import { FilterClass } from "./filter";
+import { filterClass } from "./filter";
 import { FilterType, FilterValue } from "./filter.config";
 
-export class FreeTextFilter extends FilterClass {
+export class freeTextFilter extends filterClass {
   filterType = FilterType.FreeText;
   value: string = "";
   constructor(filterName: string, value: FilterValue) {

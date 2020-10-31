@@ -1,27 +1,30 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import { DateFilter } from "../../../filters/dateFilter";
-import { FreeTextFilter } from "../../../filters/freeRextFilter";
-import { RangeFilter } from "../../../filters/RangeFilter";
-import Filters from "../../FiltersComponent/Filters";
 
-export function AuctionFilters (props: ) {
-    const dateFilter = new DateFilter("date", {
-        startDate: new Date(),
-        endDate: new Date(),
-      });
-      const rangeFilter = new RangeFilter("price", { min: 0, max: 1000 });
-      const kindFilter = new FreeTextFilter("model", "");
-      const nameFilter = new FreeTextFilter("name", "");
-      const filters = {
-        [dateFilter.filterName]: dateFilter,
-        [rangeFilter.filterName]: rangeFilter,
-        [kindFilter.filterName]: kindFilter,
-        [nameFilter.filterName]: nameFilter,
-      };
-    return  <div className="filters">
-    <Filters
-      filters={Object.values(filters)}
-      filtersStateValues={props.filtersStateValues}
-    ></Filters>
-  </div>
+import React from "react";
+import { useDispatch } from "react-redux";
+import { filterClass } from "../../../filters/filter";
+import { FilterValue } from "../../../filters/filter.config";
+import { updateSearchQuery } from "../../../redux/actions/auctions";
+import { QueryType } from "../../../redux/types/search-types";
+import Filters from "../../FiltersComponent/Filters";
+import {auctionFilters} from "./AuctionFilterConfig"
+
+
+export function AuctionFilters (props: {filtersStateValues: QueryType} ) {
+    const filters = auctionFilters;
+    const dispatch = useDispatch();
+    const updateFilter = (value: Record<string, FilterValue>) => {
+        dispatch(updateSearchQuery(value));
+    }
+    const addStateValue = (filter: filterClass) => {
+        const stateFilterValue = filter.getFilterFromQuery(props.filtersStateValues, filter);
+        if (stateFilterValue && filter.getValue() !== stateFilterValue) {
+            filter.setValue(stateFilterValue);
+        }
+        return filter;
+    };
+    return  (
+        <Filters
+            filters={Object.values(filters).map(filter => addStateValue(filter))}
+            updateFilter={updateFilter}
+        ></Filters>)
 }
