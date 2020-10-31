@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { rangeFilter } from "../../../filters/rangeFilter";
+import { rangeFilter } from "../../../../filters/rangeFilter";
 import InputRange, { Range } from "react-input-range";
 import "react-input-range/lib/css/index.css";
 function RangeFilter(props: { filter: rangeFilter, 

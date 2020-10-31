@@ -1,6 +1,6 @@
 import { FormControl, FormHelperText, MenuItem, Select } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { dropdownFilter } from "../../../filters/dropdownFilter";
+import { dropdownFilter } from "../../../../filters/dropdownFilter";
 
 
 function DropdownFilter(props: { filter: dropdownFilter, updateFilter: (value: Record<string, string>) => void}) {

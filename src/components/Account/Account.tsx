@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import AuctionsTab from "./AuctionsTab";
-import SettingsTab from "./SettingsTab";
+import AuctionsTab from "./AuctionsTab/AuctionsTab";
+import SettingsTab from "./SettingsTab/SettingsTab";
 import "./Account.scss";
 import { ACCOUNT_TABS } from "../../constants/Account";
 import SidePanel from "../CommonComponents/SidePanel/SidePanel";

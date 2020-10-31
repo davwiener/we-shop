@@ -1,16 +1,16 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { fetchUserAuctions } from "../../redux/actions/auctions";
+import { fetchUserAuctions } from "../../../redux/actions/auctions";
 import "./AuctionsTab.scss";
-import AuctionCard from "../Auctions/AuctionCard/AuctionCard";
-import AuctionCardImage from "../Auctions/AuctionCard/AuctionCardImage";
-import AuctionCardSummary from "../Auctions/AuctionCard/AuctionCardSummary";
+import AuctionCard from "../../Auctions/AuctionCard/AuctionCard";
+import AuctionCardImage from "../../Auctions/AuctionCard/AuctionCardImage";
+import AuctionCardSummary from "../../Auctions/AuctionCard/AuctionCardSummary";
 
 import { useDispatch, useSelector } from "react-redux";
-import { accountAuctionsLoaded } from "../../redux/actions/account";
-import { WeShopState } from "../../redux/store";
+import { accountAuctionsLoaded } from "../../../redux/actions/account";
+import { WeShopState } from "../../../redux/store";
 import { Divider } from "@material-ui/core";
-import AddAuction from "../AddAuction/AddAuction";
+import AddAuction from "../../AddAuction/AddAuction";
 
 export interface userAuctionsStruct {
   name: string;

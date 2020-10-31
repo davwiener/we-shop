@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6391d87b-77cd-4a72-a8a5-d1079425bac3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/components/Account/Account.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Account.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/AuctionsTab.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/AuctionsTab.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/SettingsTab.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/SettingsTab.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Auctions/AuctionsFilters/AuctionFilters.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auctions/AuctionsFilters/AuctionFilters.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/DateFilter/DateFilter.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/DateFilter/DateFilter.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/DateFilter/DateFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/DateFilter/DateFilter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/DropdownFilter/DropdownFilter.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/DropdownFilter/DropdownFilter.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/DropdownFilter/DropdownFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/DropdownFilter/DropdownFilter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/Filters.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/Filters.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/Filters.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/Filters.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/FreeTextFilter/FreeText.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/FreeTextFilter/FreeText.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/FreeTextFilter/FreeText.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/FreeTextFilter/FreeText.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/RangeFilter/RangeFilter.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/RangeFilter/RangeFilter.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/RangeFilter/RangeFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/RangeFilter/RangeFilter.tsx" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1jet0jpH112XNVVarBb2NpR53To" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/CommonComponents" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6391d87b-77cd-4a72-a8a5-d1079425bac3" name="Default Changelist" comment="" />
+      <created>1604176163435</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1604176163435</updated>
+      <workItem from="1604176165742" duration="801000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

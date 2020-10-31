@@ -4,8 +4,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import {
   fetchAccountData,
   fetchAccountSuccess,
-} from "../../redux/actions/account";
-import { WeShopState } from "../../redux/store";
+} from "../../../redux/actions/account";
+import { WeShopState } from "../../../redux/store";
 import "./SettingsTab.scss";
 
 const SettingsTab = () => {
@@ -38,18 +38,18 @@ const SettingsTab = () => {
       {isLoading ? (
         <CircularProgress />
       ) : (
-        <div>
-          <label>Username</label>
-          <input
-            value={tempUserName}
-            placeholder="Enter username"
-            key="snir"
-            type="text"
-            onChange={handleChange}
-          ></input>
-          <button>update</button>
-        </div>
-      )}
+          <div>
+            <label>Username</label>
+            <input
+              value={tempUserName}
+              placeholder="Enter username"
+              key="snir"
+              type="text"
+              onChange={handleChange}
+            ></input>
+            <button>update</button>
+          </div>
+        )}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { TextField } from "@material-ui/core";
 import React, {useEffect, useState} from "react";
-import { freeTextFilter } from "../../../filters/freeTextFilter";
+import { freeTextFilter } from "../../../../filters/freeTextFilter";
 
 
 function FreeTextFilter(props: {filter: freeTextFilter,

@@ -1,6 +1,6 @@
 import { TextField } from "@material-ui/core";
 import React, {useEffect, useState} from "react";
-import { dateFilter, DateValue } from "../../../filters/dateFilter";
+import { dateFilter, DateValue } from "../../../../filters/dateFilter";
 
 function DateFilter(props: { filter: dateFilter, 
   updateFilter: (value: Record<string, string>) => void}) {

@@ -5,7 +5,7 @@ import { filterClass } from "../../../filters/filter";
 import { FilterValue } from "../../../filters/filter.config";
 import { updateSearchQuery } from "../../../redux/actions/auctions";
 import { QueryType } from "../../../redux/types/search-types";
-import Filters from "../../FiltersComponent/Filters";
+import Filters from "../../CommonComponents/Filters/Filters";
 import {auctionFilters} from "./AuctionFilterConfig"
 
 
