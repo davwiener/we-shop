@@ -3,10 +3,10 @@ export const productService = {
   getProducts,
   createProduct,
 };
-function getProducts(productName: string) {
+function getProducts(query: object) {
   return axios.get(`/api/products/getProducts`, {
     params: {
-      productName,
+      ...query,
     },
   });
 }

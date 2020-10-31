@@ -3,6 +3,7 @@ import React from "react";
 import { AuctionType, ProductType } from "../../../redux/types/search-types";
 import Product from "../Product/Product";
 function Auction(props: { auction: AuctionType; id: string }) {
+  console.log("props ===>", props);
   const openAuction = (product: ProductType) => {
     // open a product page
     console.log(product);

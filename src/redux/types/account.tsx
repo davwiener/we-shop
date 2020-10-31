@@ -3,6 +3,7 @@ export type AccountState = {
   id: number;
   name: string;
   isDataLoaded: boolean;
+  isAccountAuctionsLoaded: boolean;
 };
 export type AccountProps = {
   isLoggedIn: boolean;

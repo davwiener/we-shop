@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import TextField from "@material-ui/core/TextField";
-// import EditableText from "../../components/common-components/Text/EditableText";
-// import SaveButton from "../common-components/Buttons/SaveButton";
-// import { saveAccountSettings } from "../../redux/actions/account";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {
   fetchAccountData,

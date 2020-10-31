@@ -1,0 +1,36 @@
+.drawerWrapper {
+  min-width: 250px;
+}
+
+.drawer {
+  position: relative;
+  top: 70px;
+  display: flex;
+  flex-direction: inherit;
+  height: inherit;
+
+  .item {
+    text-decoration: none;
+    display: flex;
+    justify-content: space-evenly;
+    min-height: 65px;
+    line-height: 65px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+    &:hover {
+      background-color: #c9c9c9;
+      color: white;
+    }
+
+    > a {
+      background-color: white;
+      width: 100%;
+      text-align: center;
+      &:hover {
+        text-decoration: none;
+        color: white;
+        background-color: #c9c9c9;
+      }
+    }
+  }
+}

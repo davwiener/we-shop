@@ -8,6 +8,7 @@ export function accountReducer(
     id: -1,
     name: "",
     isDataLoaded: false,
+    isAccountAuctionsLoaded: false,
   },
   action: AnyAction
 ) {
@@ -39,6 +40,12 @@ export function accountReducer(
       return {
         ...state,
         isLoggedIn: false,
+      };
+    }
+    case ACTION_TYPES.ACCOUNT_AUCTIONS_LOADED: {
+      return {
+        ...state,
+        isAccountAuctionsLoaded: true,
       };
     }
     default: {

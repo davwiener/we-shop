@@ -1,15 +1,16 @@
-import React from "react";
-import { Drawer, List, Divider } from "@material-ui/core";
-import ListItem from "@material-ui/core/ListItem";
+import React, { useState } from "react";
 import AuctionsTab from "./AuctionsTab";
 import SettingsTab from "./SettingsTab";
 import "./Account.scss";
 import { ACCOUNT_TABS } from "../../constants/Account";
-import { Link } from "react-router-dom";
+import SidePanel from "../CommonComponents/SidePanel/SidePanel";
+import Tabs from "../CommonComponents/Tabs/Tabs";
+import Tab from "../CommonComponents/Tabs/Tab";
 
-const Account = ({ activeTab }: any) => {
+const Account = () => {
+  const [selectedTab, setSelectedTab] = useState(0);
   const renderSelectedTab = () => {
-    switch (activeTab) {
+    switch (selectedTab) {
       case ACCOUNT_TABS.SETTINGS_TAB:
         return <SettingsTab />;
       case ACCOUNT_TABS.AUCTIONS_TAB:
@@ -19,25 +20,18 @@ const Account = ({ activeTab }: any) => {
     }
   };
 
-  const tabs = [
-    { value: "settings", name: "Settings", path: "/account/settings" },
-    { value: "auctions", name: "Auctions", path: "/account/auctions" },
-  ];
+  const changeSelectedTab = (index: number) => {
+    setSelectedTab(index);
+  };
 
   return (
-    <div>
-      <Drawer variant="permanent" classes={{ paper: "drawer" }}>
-        <List className="list">
-          {tabs.map((entry, index) => (
-            <div key={entry.value}>
-              <ListItem className="listItem">
-                <Link to={entry.path}>{entry.name}</Link>
-              </ListItem>
-              <Divider variant="middle" />
-            </div>
-          ))}
-        </List>
-      </Drawer>
+    <div className="pageWrapper">
+      <SidePanel>
+        <Tabs selectedTab={selectedTab} onChange={changeSelectedTab}>
+          <Tab index={0} label="Account Settings" />
+          <Tab index={1} label="My Auctions" />
+        </Tabs>
+      </SidePanel>
       <div className="content">{renderSelectedTab()}</div>
     </div>
   );

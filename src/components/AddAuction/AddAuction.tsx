@@ -36,9 +36,8 @@ function AddAuction(props: any) {
 
   const [showProducts, setShowProducts] = useState(false);
   useEffect(() => {
-    productService.getProducts("").then((res) => {
+    productService.getProducts({ productName: "" }).then((res) => {
       if (res) {
-        //const
         setProducts(
           res.data.map((product: any) => {
             product.selected = false;

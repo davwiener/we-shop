@@ -1,0 +1,31 @@
+.auctionCard {
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 5px;
+  margin-right: 20px;
+  height: 320px;
+  width: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.noBorder {
+    border: none;
+  }
+
+  &.cardContent {
+    display: inline-block;
+    .image {
+      padding: 5px;
+      width: 100%;
+      max-height: 240px;
+    }
+
+    .description {
+      padding: 5px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 80px;
+    }
+  }
+}
