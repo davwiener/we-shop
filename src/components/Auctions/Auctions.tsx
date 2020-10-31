@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import queryString from "query-string";
-import "./Auctionss.scss";
+import "./Auctions.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { WeShopState } from "../../redux/store";
 import { QueryType } from "../../redux/types/search-types";

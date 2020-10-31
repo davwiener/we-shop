@@ -8,7 +8,7 @@ import Login from "../components/Login/Login";
 import AuthRequiredRoute from "../components/AuthRequiredRoute/AuthRequiredRoute";
 import { isLoggedIn } from "../util/auth";
 import Register from "../components/Register/Register";
-import Auctionss from "../components/Auctions/Auctionss";
+import Auctions from "../components/Auctions/Auctions";
 import "./WeShop.scss";
 
 function WeShop() {
@@ -24,7 +24,7 @@ function WeShop() {
         <TopBar />
         <div className="main">
           <Switch>
-            <Route exact path="/auctions" component={Auctionss}></Route>
+            <Route exact path="/auctions" component={Auctions}></Route>
             {/* <Route path="/auctions/:id" component={Auction}></Route> */}
             <AuthRequiredRoute
               exact
