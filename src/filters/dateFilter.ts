@@ -1,24 +1,23 @@
 import { FilterValue, FilterType } from "./filter.config";
-import { FilterClass } from "./filter";
+import { filterClass } from "./filter";
 
-interface dateValue {
+export interface DateValue {
   startDate: string;
   endDate: string;
 }
-export class DateFilter extends FilterClass {
+export class dateFilter extends filterClass {
   filterType = FilterType.Date;
-  value: dateValue = { startDate: "", endDate: "" };
+  value: DateValue = { startDate: "", endDate: "" };
   constructor(filterName: string, value: FilterValue) {
     super(filterName, value);
     this.setValue(value);
   }
-  setValue(value: dateValue) {
-    this.value.startDate = value.startDate;
-    this.value.endDate = value.endDate;
+  setValue(value: DateValue) {
+    this.value = {...value};
   }
-  parseToQuery() {
+  parseToQuery(): Record <string, string> {
     if (this.isFilterEmpty()) {
-      return {};
+      return { startDate: "", endDate: "" };
     }
     return {
       endDate: Date.parse(this.value.startDate).toString(),
@@ -30,5 +29,9 @@ export class DateFilter extends FilterClass {
   }
   getValue() {
     return this.value.startDate;
+  }
+  getFilterFromQuery(query: Record<string, any>, filter?: filterClass): Record<string, string> {
+    return {startDate: query.startDate ? new Date(Number(query['startDate'])).toISOString().substring(0,16) : '', 
+    endDate: query.endDate ? new Date(Number(query['endDate'])).toISOString().substring(0,16) : ''}
   }
 }

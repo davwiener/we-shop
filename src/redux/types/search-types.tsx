@@ -1,5 +1,5 @@
 import { FilterValue } from "../../filters/filter.config";
-export type QueryType = { [key: string]: FilterValue; page: number };
+export type QueryType = { [key: string]: FilterValue; page: number ; sortBy: string};
 export interface filterType {
   value: any;
   type: string;
@@ -7,8 +7,9 @@ export interface filterType {
   text: string;
 }
 
+
 export interface AuctionsState {
-  filters: { [key: string]: FilterValue; page: number };
+  filters: QueryType;
   query: QueryType;
   auctions: any[];
   loaded: boolean;
