@@ -2,7 +2,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import InputLabel from "@material-ui/core/InputLabel";
 import React, { useEffect, useState } from "react";
-import { productService } from "../../services/product-service";
+// import { productService } from "../../services/product-service";
 import { auctionService } from "../../services/auction-service";
 import Products from "../Products/Prodcuts";
 import { Input, InputAdornment, TextareaAutosize } from "@material-ui/core";
@@ -35,18 +35,18 @@ function AddAuction(props: any) {
   const { name, type, company_name, model, description } = product;
 
   const [showProducts, setShowProducts] = useState(false);
-  useEffect(() => {
-    productService.getProducts({ productName: "" }).then((res) => {
-      if (res) {
-        setProducts(
-          res.data.map((product: any) => {
-            product.selected = false;
-            return product;
-          })
-        );
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   productService.getProducts({ productName: "" }).then((res) => {
+  //     if (res) {
+  //       setProducts(
+  //         res.data.map((product: any) => {
+  //           product.selected = false;
+  //           return product;
+  //         })
+  //       );
+  //     }
+  //   });
+  // }, []);
   const selectProduct = (event: any) => {
     event.product.selected = event.selected;
     setProducts(

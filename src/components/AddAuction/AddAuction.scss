@@ -4,7 +4,16 @@
   }
 }
 
+.categoryProduct {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.divider.divider {
+  margin-top: 30px;
+}
+
 .field.field {
-  margin-right: 30px;
-  min-width: 40%;
+  width: 230px;
 }
