@@ -31,6 +31,7 @@ const AccountMenu = () => {
         </Link>
       )}
     </SideMenu>
+
   );
 };
 

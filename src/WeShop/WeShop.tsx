@@ -10,6 +10,7 @@ import { isLoggedIn } from "../util/auth";
 import Register from "../components/Register/Register";
 import Auctions from "../components/Auctions/Auctions";
 import "./WeShop.scss";
+import Cart from "../pages/Cart/Cart"
 
 function WeShop() {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ function WeShop() {
             ></AuthRequiredRoute>
             <Route path="/login" component={Login}></Route>
             <Route path="/register" component={Register}></Route>
+            <Route path="/cart" component={Cart}></Route>
           </Switch>
         </div>
       </Router>

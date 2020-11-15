@@ -1,5 +1,5 @@
 import { FilterValue } from "../../filters/filter.config";
-export type QueryType = { [key: string]: FilterValue; page: number ; sortBy: string};
+export type QueryType = { [key: string]: FilterValue; page: number; sortBy: string };
 export interface filterType {
   value: any;
   type: string;
@@ -18,4 +18,17 @@ export interface AuctionsState {
 
 export type AuctionType = any;
 
+export interface PriceLevel {
+  price: number,
+  subscribers: number,
+  wantedQuantity: number
+}
+
+export interface BuyingAuction {
+  priceLevels: PriceLevel[],
+  name: string,
+  image: string,
+  quantity: number,
+  selectedPrice: number
+}
 export type ProductType = any;
