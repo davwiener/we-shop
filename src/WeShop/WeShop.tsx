@@ -11,9 +11,55 @@ import Register from "../components/Register/Register";
 import Auctions from "../components/Auctions/Auctions";
 import "./WeShop.scss";
 import Cart from "../pages/Cart/Cart"
-
+import { BuyingAuction } from "../redux/types/cart";
+import { PriceLevel } from "../redux/types/search-types";
+import * as cartActions from "../redux/actions/cart"
+const priceLevels1: PriceLevel[] = [{
+  price: 100,
+  subscribers: 20,
+  wantedQuantity: 120
+}, {
+  price: 90,
+  subscribers: 60,
+  wantedQuantity: 220
+}, {
+  price: 80,
+  subscribers: 90,
+  wantedQuantity: 520
+}]
+const priceLevels2: PriceLevel[] = [{
+  price: 100,
+  subscribers: 20,
+  wantedQuantity: 120
+}, {
+  price: 90,
+  subscribers: 60,
+  wantedQuantity: 220
+}, {
+  price: 80,
+  subscribers: 90,
+  wantedQuantity: 520
+}]
+const auctions: BuyingAuction[] = [{
+  name: 'new auction1',
+  image: '',
+  priceLevels: priceLevels1,
+  quantity: 1,
+  selectedPrice: priceLevels1[0].price,
+  auctionId: 'id1',
+},
+{
+  name: 'new auction2',
+  image: '',
+  priceLevels: priceLevels2,
+  quantity: 1,
+  selectedPrice: priceLevels2[0].price,
+  auctionId: 'id2'
+}]
 function WeShop() {
   const dispatch = useDispatch();
+  dispatch(cartActions.addAuctionToCart(auctions[0]));
+  dispatch(cartActions.addAuctionToCart(auctions[1]));
   useEffect(() => {
     if (isLoggedIn()) {
       dispatch(setUserLogin());

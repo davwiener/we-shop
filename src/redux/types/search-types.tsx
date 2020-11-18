@@ -24,11 +24,5 @@ export interface PriceLevel {
   wantedQuantity: number
 }
 
-export interface BuyingAuction {
-  priceLevels: PriceLevel[],
-  name: string,
-  image: string,
-  quantity: number,
-  selectedPrice: number
-}
+
 export type ProductType = any;
