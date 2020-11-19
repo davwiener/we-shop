@@ -5,7 +5,7 @@ export const addAuctionToCart = (buyingAuction: BuyingAuction) => ({
     payload: buyingAuction,
 });
 
-export const removeAuctionFromCart = (auctionId: number) => ({
+export const removeAuctionFromCart = (auctionId: string) => ({
     type: actionTypes.REMOVE_AUCTION_FROM_CART,
     payload: auctionId
 });

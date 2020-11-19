@@ -2,25 +2,31 @@
     text-align: center;
 }
 
-.cart-acutions {
-    margin-top: 40px;
+.cart {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 80% 20%;
 
-    .buying-auction {
-        display: flex;
-        align-items: center;
-        column-gap: 6%;
-        margin-bottom: 20px;
-        justify-content: space-around;
+    .cart-acutions {
+        margin-top: 40px;
+
+        .buying-auction {
+            display: flex;
+            align-items: center;
+            column-gap: 6%;
+            margin-bottom: 20px;
+            justify-content: space-around;
+        }
     }
 
     .payment-container {
         padding: 16px;
         border: 1px solid black;
         border-radius: 6px;
+        margin-right: 40px;
 
         .items-container {
             margin-bottom: 10px;
         }
     }
-
 }

@@ -20,12 +20,12 @@ export function cartReducer(
             }
         }
         case actionTypes.REMOVE_AUCTION_FROM_CART: {
-            // const newCartAuctions = {...state.buyingAuctions
-            // delete newCartAuctions[action.payload.auctionId]
-            // return {
-            //     state: newCartAuctions
-            // }
-            return state
+            const newCartAuctions: Record<string, BuyingAuction> = { ...state.buyingAuctions };
+            delete newCartAuctions[action.payload]
+            return {
+                ...state,
+                buyingAuctions: newCartAuctions
+            }
         }
         case actionTypes.CHANGE_PRICE_LEVEL: {
             const newAuction = { ...state.buyingAuctions[action.payload.auctionId] }
@@ -38,7 +38,6 @@ export function cartReducer(
             }
         }
         case actionTypes.UPDATE_QUANTITY: {
-            debugger;
             const newAuction = { ...state.buyingAuctions[action.payload.auctionId] }
             newAuction.quantity = newAuction.quantity + (action.payload.increase ? 1 : -1)
             newAuction.quantity = Math.max(1, newAuction.quantity)
