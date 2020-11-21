@@ -9,8 +9,10 @@ function TopBar() {
     <div className="topBar">
       <MainMenu />
       <div>We Shop</div>
-      <AccountMenu />
-      <CartMenu />
+      <div className="right-menus">
+        <AccountMenu />
+        <CartMenu />
+      </div>
     </div>
   );
 }

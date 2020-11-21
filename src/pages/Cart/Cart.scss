@@ -24,9 +24,22 @@
         border: 1px solid black;
         border-radius: 6px;
         margin-right: 40px;
+        align-self: center;
+        height: 300px;
 
         .items-container {
             margin-bottom: 10px;
+            padding: 20px;
+        }
+
+        .price-container {
+            padding: 20px;
+            border-bottom: 1px solid;
+            ;
+        }
+
+        Button {
+            margin-top: 20px;
         }
     }
 }

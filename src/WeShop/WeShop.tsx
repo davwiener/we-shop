@@ -55,11 +55,20 @@ const auctions: BuyingAuction[] = [{
   quantity: 1,
   selectedPrice: priceLevels2[0].price,
   auctionId: 'id2'
+},
+{
+  name: 'new auction3',
+  image: '',
+  priceLevels: priceLevels2,
+  quantity: 1,
+  selectedPrice: priceLevels2[0].price,
+  auctionId: 'id3'
 }]
 function WeShop() {
   const dispatch = useDispatch();
   dispatch(cartActions.addAuctionToCart(auctions[0]));
   dispatch(cartActions.addAuctionToCart(auctions[1]));
+  dispatch(cartActions.addAuctionToCart(auctions[2]));
   useEffect(() => {
     if (isLoggedIn()) {
       dispatch(setUserLogin());

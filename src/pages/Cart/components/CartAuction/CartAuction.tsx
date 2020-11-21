@@ -1,18 +1,19 @@
-import React, { useState } from "react"
-import { AuctionType, PriceLevel } from "../../../../redux/types/search-types";
-import { Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel } from "@material-ui/core";
+import React from "react"
+import { PriceLevel } from "../../../../redux/types/search-types";
+import { Checkbox, FormControl, FormGroup, FormHelperText } from "@material-ui/core";
 import LinearProgressWithLabel from "../../../../components/CommonComponents/LinearProgressWithLabel/LinearProgressWithLabel"
 import "./CartAuction.scss"
+import { BuyingAuction } from "../../../../redux/types/cart";
 const CartAuction = (props: {
-    auction: AuctionType;
+    auction: BuyingAuction;
     setPrice: any
 }) => {
     console.log(props);
-    const [checkedPrices, setCheckedPrices] = useState(new Array(props.auction.priceLevels.length).fill(false));
+    // const [checkedPrices, setCheckedPrices] = useState(new Array(props.auction.priceLevels.length).fill(false));
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
         const newChecked = new Array(props.auction.priceLevels.length).fill(false);
         newChecked[index] = event.target.checked;
-        setCheckedPrices({ ...newChecked });
+        // setCheckedPrices({ ...newChecked });
         props.setPrice(index);
     };
     return (
@@ -41,8 +42,7 @@ const CartAuction = (props: {
                                                 end={priceLevel.wantedQuantity} />
                                         </div>
                                     </div>
-                                    <Checkbox checked={checkedPrices[index]} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                        debugger;
+                                    <Checkbox checked={props.auction.priceLevels[index].price === props.auction.selectedPrice} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                         handleChange(event, index)
                                     }
                                     } name={priceLevel.price.toString()} />

@@ -1,9 +1,8 @@
-import React, { useState } from "react"
-import { PriceLevel } from "../../redux/types/search-types"
+import React from "react"
 import CartAuction from "./components/CartAuction/CartAuction"
 import PlusMinusButttons from "./../../components/CommonComponents/PlusMinusButtons/PlusMinusButtons"
 import "./Cart.scss"
-import { Button } from "@material-ui/core"
+import Button from "@material-ui/core/Button"
 import { BuyingAuction } from "../../redux/types/cart"
 import { useSelector, useDispatch } from "react-redux";
 import * as cartActions from "../../redux/actions/cart"
@@ -55,7 +54,7 @@ const Cart = () => {
                         <div>Total Payment</div>
                         <div>{auctions.reduce((total, auction) => total + auction.selectedPrice * auction.quantity, 0).toFixed(2)}</div>
                     </div>
-                    <Button onClick={checkout} color="primary">
+                    <Button onClick={checkout} color="primary" variant="contained">
                         Checkout
                                      </Button>
                 </div>
