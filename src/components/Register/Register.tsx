@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
-
+import "./Register.scss";
 import { signUp } from "../../redux/actions/menu";
 import { useHistory } from "react-router-dom";
 import FormField from "../CommonComponents/Forms/FormField";
@@ -74,24 +74,21 @@ const Register = (props: any) => {
     <Form header="Account Creation">
       <div className="flexContainer">
         <FormField
-          id="first_name"
+          className="flexChild"
           label="First Name"
           type="text"
           onChange={onChangeFirstName}
           required
-          fullWidth
         />
         <FormField
-          id="last_name"
+          className="flexChild"
           label="Last Name"
           type="text"
           onChange={onChangeLastName}
           required
-          fullWidth
         />
       </div>
       <FormField
-        id="email"
         label="Email"
         type="email"
         onChange={onChangeEmail}
@@ -101,7 +98,6 @@ const Register = (props: any) => {
         errorText="Invalid Email"
       />
       <FormField
-        id="password"
         label="Password"
         type="password"
         onChange={onChangePassword}
@@ -111,7 +107,6 @@ const Register = (props: any) => {
         errorText="Password must be 8 at least characters long"
       />
       <FormField
-        id="password2"
         label="Re-Enter Password"
         type="password"
         onChange={onChangeVerifyPassword}
@@ -121,8 +116,8 @@ const Register = (props: any) => {
         errorText="Passwords don't match"
       />
       <Button
-        id="signupButton"
-        className="button"
+        color="primary"
+        className="RegisterButton"
         variant="contained"
         onClick={handleSignUp}
       >

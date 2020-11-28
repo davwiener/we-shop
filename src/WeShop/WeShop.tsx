@@ -9,6 +9,7 @@ import AuthRequiredRoute from "../components/AuthRequiredRoute/AuthRequiredRoute
 import { isLoggedIn } from "../util/auth";
 import Register from "../components/Register/Register";
 import Auctions from "../components/Auctions/Auctions";
+import CreateAuction from "../components/Auctions/CreateAuction/CreateAuction";
 import "./WeShop.scss";
 
 function WeShop() {
@@ -25,6 +26,10 @@ function WeShop() {
         <div className="main">
           <Switch>
             <Route exact path="/auctions" component={Auctions}></Route>
+            <AuthRequiredRoute
+              path="/auctions/new"
+              component={CreateAuction}
+            ></AuthRequiredRoute>
             {/* <Route path="/auctions/:id" component={Auction}></Route> */}
             <AuthRequiredRoute
               exact

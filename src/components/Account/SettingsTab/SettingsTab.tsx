@@ -38,18 +38,18 @@ const SettingsTab = () => {
       {isLoading ? (
         <CircularProgress />
       ) : (
-          <div>
-            <label>Username</label>
-            <input
-              value={tempUserName}
-              placeholder="Enter username"
-              key="snir"
-              type="text"
-              onChange={handleChange}
-            ></input>
-            <button>update</button>
-          </div>
-        )}
+        <div>
+          <label>Username</label>
+          <input
+            value={tempUserName}
+            placeholder="Enter username"
+            key="snir"
+            type="text"
+            onChange={handleChange}
+          ></input>
+          <button>update</button>
+        </div>
+      )}
     </div>
   );
 };

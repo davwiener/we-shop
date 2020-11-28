@@ -1,43 +1,26 @@
 .paper {
   width: 500px;
   margin: 50px auto;
-  padding: 20px 0;
-  justify-content: center;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  .flexContainer {
-    display: flex;
-    margin-top: 30px;
-
-    .field {
-      width: 100%;
-      margin: 0;
+  .formHeader,
+  .formFooter {
+    width: 100%;
+    .title {
+      text-align: center;
     }
-  }
 
-  .title {
-    text-align: center;
-  }
+    .formDividerTop {
+      margin-top: 20px;
+      margin-bottom: 15px;
+    }
 
-  .divider {
-    margin: 20px;
-  }
-
-  .field {
-    display: flex;
-    margin: 40px 0;
-    padding: 0 30px;
-  }
-
-  .icon {
-    align-self: center;
-    margin: 17px 5px 0 0;
-  }
-
-  .button {
-    color: white;
-    background-color: #4bb543;
-    display: flex;
-    margin: 30px auto;
-    min-width: 90px;
+    .formDividerBottom {
+      margin-top: 5px;
+      margin-bottom: 20px;
+    }
   }
 }

@@ -1,0 +1,17 @@
+.flexContainer {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+
+  .flexChild {
+    width: 190px;
+  }
+}
+
+.RegisterButton.RegisterButton {
+  color: white;
+  display: flex;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  width: 130px;
+}

@@ -1,33 +1,39 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
+import "./FormField.scss";
 
 const FormField = ({
   id,
-  icon,
   required,
   onChange,
   type,
   label,
-  fullWidth,
+  icon,
+  iconPosition,
   error,
   errorText,
   className,
+  size,
+  fullWidth,
 }: any) => {
+  const defaultSize = "small";
   return (
-    <div className="field" id="password">
-      {icon}
-      <TextField
-        id={id}
-        className={className}
-        label={label}
-        type={type}
-        onChange={onChange}
-        fullWidth={fullWidth}
-        required={required}
-        error={error}
-        helperText={error ? errorText : required ? "Required Field" : ""}
-      />
-    </div>
+    <TextField
+      classes={{ root: "formField" }}
+      size={size || defaultSize}
+      variant="outlined"
+      id={id}
+      fullWidth={fullWidth}
+      margin="normal"
+      className={className}
+      label={label}
+      type={type}
+      onChange={onChange}
+      required={required}
+      error={error}
+      helperText={error ? errorText : required ? "Required Field" : ""}
+      InputProps={{ [`${iconPosition}Adornment`]: icon }}
+    />
   );
 };
 

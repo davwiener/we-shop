@@ -4,7 +4,17 @@
   }
 }
 
-.field.field {
-  margin-right: 30px;
-  min-width: 40%;
+.categoryProduct {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.divider.divider {
+  margin-top: 30px;
+}
+
+.test {
+  display: flex;
+  align-items: baseline;
 }
