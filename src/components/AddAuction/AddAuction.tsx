@@ -20,18 +20,23 @@ import AddProduct from "../AddProduct/AddProduct";
 import { AddBoxRounded } from "@material-ui/icons";
 import PriceLevels from "../PriceLevels/PriceLevels";
 import { PriceLevelType } from "../PriceLevels/PriceLevelType";
+import Select from "../CommonComponents/Select/Select";
+import SelectDate from "../CommonComponents/SelectDate/SelectDate";
+import moment from "moment";
 
 const AddAuction = () => {
   const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = useState(false);
   const [category, setCategory] = useState("");
   const [categoryOptions, setCategoryOptions] = useState([]);
+  const [subCategory, setSubCategory] = useState("");
+  const [subCategoryOptions, setSubCategoryOptions] = useState([]);
   const [product, setProduct] = useState("");
   const [productOptions, setProductOptions] = useState([]);
   const [endDate, setEndDate] = useState("");
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [priceLevels, setPriceLevels] = useState<PriceLevelType[]>([]);
-
+  console.log("end date", endDate);
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => {
     setModalOpen(false);
@@ -55,6 +60,10 @@ const AddAuction = () => {
         setProductOptions(res.data);
       })
       .catch((err: any) => console.log("err", err));
+  };
+
+  const handleSubCategoryChange = (e: any) => {
+    setSubCategory(e.target.value);
   };
 
   const handleProductChange = (e: any) => setProduct(e.target.value);
@@ -105,39 +114,35 @@ const AddAuction = () => {
           <TextField
             autoFocus
             variant="outlined"
+            size="small"
             label="Title"
             type="text"
             margin="normal"
             fullWidth
           />
-          <div className="categoryProduct">
-            <TextField
-              select
+          <Select required label="category" onChange={handleCategoryChange}>
+            {categoryOptions.map((option: any, index: number) => (
+              <option key={index} value={option.id}>
+                {option.name}
+              </option>
+            ))}
+          </Select>
+          <Select
+            required
+            label="sub category"
+            onChange={handleSubCategoryChange}
+          >
+            {categoryOptions.map((option: any, index: number) => (
+              <option key={index} value={option.id}>
+                {option.name}
+              </option>
+            ))}
+          </Select>
+          <div className="test">
+            <Select
               required
-              size="small"
-              variant="outlined"
-              label="Category"
-              value={category}
-              onChange={handleCategoryChange}
-              margin="normal"
-              classes={{ root: "field" }}
-            >
-              {categoryOptions.map((option: any, index: number) => (
-                <option key={index} value={option.id}>
-                  {option.name}
-                </option>
-              ))}
-            </TextField>
-            <TextField
-              select
-              required
-              size="small"
-              variant="outlined"
               label="Product"
-              value={product}
               onChange={handleProductChange}
-              margin="normal"
-              classes={{ root: "field" }}
               disabled={category.toString() === ""}
             >
               {productOptions.map((option: any, index: number) => (
@@ -145,21 +150,16 @@ const AddAuction = () => {
                   {option.name}
                 </option>
               ))}
-            </TextField>
+            </Select>
             <AddProduct categories={categoryOptions} />
           </div>
-          <TextField
-            value={endDate}
-            margin="normal"
-            variant="outlined"
-            label="End Date"
-            type="datetime-local"
-            defaultValue="22/10/2020 10:00"
+          <SelectDate
+            label="end date"
             onChange={handleEndDateChange}
+            defaultValue={moment().format("YYYY-MM-DDTHH:00")}
             InputLabelProps={{
               shrink: true,
             }}
-            classes={{ root: "field" }}
           />
           <Divider classes={{ root: "divider" }} />
           <PriceLevels

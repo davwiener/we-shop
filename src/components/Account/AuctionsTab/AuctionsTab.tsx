@@ -9,8 +9,10 @@ import AuctionCardSummary from "../../Auctions/AuctionCard/AuctionCardSummary";
 import { useDispatch, useSelector } from "react-redux";
 import { accountAuctionsLoaded } from "../../../redux/actions/account";
 import { WeShopState } from "../../../redux/store";
-import { Divider } from "@material-ui/core";
+import { Divider, IconButton } from "@material-ui/core";
 import AddAuction from "../../AddAuction/AddAuction";
+import { AddBoxRounded } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 
 export interface userAuctionsStruct {
   name: string;
@@ -37,9 +39,9 @@ const AuctionsTab = () => {
 
   const renderAuctions = () => {
     return (
-      isAccountAuctionsLoaded && (
-        <div className="auctions">
-          {userAuctions?.map((auction, index) => (
+      <div className="auctions">
+        {isAccountAuctionsLoaded &&
+          userAuctions?.map((auction, index) => (
             <AuctionCard className="cardContent" key={index}>
               <AuctionCardImage
                 url="https://i1.wp.com/www.shoorayner.com/wp-images/uploads/2017/02/scooter-1.jpg?resize=227%2C220"
@@ -49,9 +51,13 @@ const AuctionsTab = () => {
               <AuctionCardSummary data={auction} className="description" />
             </AuctionCard>
           ))}
-          <AddAuction />
-        </div>
-      )
+        <Link to="/auctions/new">
+          <IconButton>
+            <AddBoxRounded />
+          </IconButton>
+        </Link>
+        <AddAuction />
+      </div>
     );
   };
 
