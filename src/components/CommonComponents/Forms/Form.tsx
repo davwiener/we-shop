@@ -5,20 +5,20 @@ import "./Form.scss";
 
 const Form = (props: any) => {
   const renderHeader = () =>
-    props.header ? (
-      <>
+    props.header && (
+      <div className="formHeader">
         <div className="title">{props.header}</div>
-        <Divider variant="middle" className="divider" />
-      </>
-    ) : null;
+        <Divider className="formDividerTop" />
+      </div>
+    );
 
   const renderFooter = () =>
-    props.footer ? (
-      <>
-        <Divider variant="middle" className="divider" />
+    props.footer && (
+      <div className="formFooter">
+        <Divider className="formDividerBottom" />
         <div className="title">{props.footer}</div>
-      </>
-    ) : null;
+      </div>
+    );
 
   return (
     <Paper className="paper" elevation={5}>

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Fingerprint } from "@material-ui/icons";
-import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
+import { Fingerprint, EmailOutlined } from "@material-ui/icons";
 import Button from "@material-ui/core/Button";
 import { signIn, signInSuccess } from "../../redux/actions/menu";
 import { useHistory, Link } from "react-router-dom";
 import Form from "../CommonComponents/Forms/Form";
 import FormField from "../CommonComponents/Forms/FormField";
+import "./Login.scss";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
+import { InputAdornment } from "@material-ui/core";
 
 const Login = (props: any) => {
   useEffect(() => {
@@ -42,38 +44,47 @@ const Login = (props: any) => {
   };
 
   const formFooter = () => (
-    <div className="register">
-      <Link to="/register" className="title">
-        Click to create an account
-      </Link>
-    </div>
+    <Link to="/register">Click to create an account</Link>
   );
 
   const formHeader = () => "Have an account? Sign In";
 
+  const renderPasswordIcon = (position: any) => (
+    <InputAdornment position={position}>
+      <LockOpenIcon />
+    </InputAdornment>
+  );
+
+  const renderEmailIcon = (position: any) => (
+    <InputAdornment position={position}>
+      <EmailOutlined />
+    </InputAdornment>
+  );
+
   return (
     <Form header={formHeader()} footer={formFooter()}>
       <FormField
-        icon={<AlternateEmailIcon className="icon" />}
-        id="email"
+        size="small"
+        iconPosition="end"
+        icon={renderEmailIcon("end")}
         label="Email"
         type="email"
         value={userName}
         onChange={onChangeUserName}
-        fullWidth
         autoFocus
+        fullWidth
       />
       <FormField
-        icon={<Fingerprint className="icon" />}
-        id="password"
+        fullWidth
+        size="small"
+        iconPosition="end"
+        icon={renderPasswordIcon("end")}
         label="Password"
         type="password"
         onChange={onChangePassword}
-        fullWidth
       />
       <Button
-        id="loginButton"
-        className="button"
+        classes={{ root: "loginButton" }}
         variant="contained"
         onClick={handleSignIn}
       >

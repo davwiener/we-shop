@@ -69,7 +69,10 @@ const Auctions = (props: any) => {
             scrollableTarget="scrollableDiv"
           >
             {searchState.auctions.map((auc: AuctionType, index) => (
-              <AuctionCard className="cardContent" key={`${auc.toString()} ${index}`}>
+              <AuctionCard
+                className="cardContent"
+                key={`${auc.toString()} ${index}`}
+              >
                 <AuctionCardImage
                   url="https://i1.wp.com/www.shoorayner.com/wp-images/uploads/2017/02/scooter-1.jpg?resize=227%2C220"
                   className="image"
