@@ -51,11 +51,6 @@ const AuctionsTab = () => {
               <AuctionCardSummary data={auction} className="description" />
             </AuctionCard>
           ))}
-        <Link to="/auctions/new">
-          <IconButton>
-            <AddBoxRounded />
-          </IconButton>
-        </Link>
         <AddAuction />
       </div>
     );

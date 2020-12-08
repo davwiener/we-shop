@@ -13,6 +13,7 @@ const Select = ({
   InputLabelProps,
   defaultValue,
   autoFocus,
+  value,
 }: any) => {
   return (
     <TextField
@@ -20,15 +21,16 @@ const Select = ({
       size="small"
       variant="outlined"
       classes={{ root: "field" }}
-      autoFocus={autoFocus}
+      defaultValue={defaultValue}
+      value={value}
       select={!type}
-      required={required}
       label={startCase(label)}
       onChange={onChange}
       disabled={disabled}
+      required={required}
+      autoFocus={autoFocus}
       type={type}
       InputLabelProps={InputLabelProps}
-      defaultValue={defaultValue}
     >
       {children}
     </TextField>

@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-import { TextField, IconButton } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
+import { TextField } from "@material-ui/core";
 import "./priceLevelEdit.scss";
 
 export interface PriceLevelViewType {
   addPriceLevel: Function;
 }
 
-const PriceLevelEdit = ({ addPriceLevel }: PriceLevelViewType) => {
+const PriceLevelEdit = ({ setPriceLevel }: any) => {
   const [price, setPrice] = useState();
   const [minRegisters, setMinRegisters] = useState();
 
   const handleChangePrice = (e: any) => setPrice(e.target.value);
   const handleChangeMinRegisters = (e: any) => setMinRegisters(e.target.value);
-  const onClickAdd = () => addPriceLevel({ price, minRegisters });
 
   return (
     <div className="priceLevelEditContainer">
@@ -34,9 +32,6 @@ const PriceLevelEdit = ({ addPriceLevel }: PriceLevelViewType) => {
         value={minRegisters}
         onChange={handleChangeMinRegisters}
       ></TextField>
-      {/* <Button variant="outlined" color="primary" onClick={onClickAdd}>
-        Add
-      </Button> */}
     </div>
   );
 };

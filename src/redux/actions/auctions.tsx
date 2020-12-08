@@ -7,6 +7,7 @@ import { QueryType } from "../types/search-types";
 import { FilterValue } from "../../filters/filter.config";
 import * as _ from "lodash";
 import { Action } from "redux";
+import { createAction } from "redux-actions";
 
 export const searchAuction = (query: QueryType) => {
   return async (dispatch: Dispatch<any>, getState: () => WeShopState) => {
@@ -89,3 +90,5 @@ const searchSuccess = (payload: {
 const searchFails = () => ({
   type: actionTypes.searchFails,
 });
+
+export const saveAuction = createAction(actionTypes.CREATE_AUCTION);

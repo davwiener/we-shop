@@ -35,3 +35,6 @@ export const LOG_OUT = "LOG_OUT";
 // categories
 export const FETCH_CATEGORIES_STARTED = "FETCH_CATEGORIES_STARTED";
 export const FETCH_CATEGORIES_SUCCESS = "FETCH_CATEGORIES_SUCCESS";
+
+// auctions
+export const CREATE_AUCTION = "CREATE_AUCTION";
