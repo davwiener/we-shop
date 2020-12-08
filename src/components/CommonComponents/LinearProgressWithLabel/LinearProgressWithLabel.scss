@@ -1,0 +1,18 @@
+.linear-progress-container {
+    height: 40px;
+    display: flex;
+    column-gap: 12px;
+
+    .linear-progress {
+        margin-top: 6px;
+    }
+
+    .range-progress-bar {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .precent-text {
+        font-size: 12px;
+    }
+}

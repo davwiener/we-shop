@@ -1,0 +1,45 @@
+.cart-text {
+    text-align: center;
+}
+
+.cart {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 80% 20%;
+
+    .cart-acutions {
+        margin-top: 40px;
+
+        .buying-auction {
+            display: flex;
+            align-items: center;
+            column-gap: 6%;
+            margin-bottom: 20px;
+            justify-content: space-around;
+        }
+    }
+
+    .payment-container {
+        padding: 16px;
+        border: 1px solid black;
+        border-radius: 6px;
+        margin-right: 40px;
+        align-self: center;
+        height: 300px;
+
+        .items-container {
+            margin-bottom: 10px;
+            padding: 20px;
+        }
+
+        .price-container {
+            padding: 20px;
+            border-bottom: 1px solid;
+            ;
+        }
+
+        Button {
+            margin-top: 20px;
+        }
+    }
+}

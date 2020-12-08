@@ -2,7 +2,7 @@ import { AnyAction } from "redux";
 import * as actionTypes from "../action-types";
 import { AuctionsState } from "../types/search-types";
 const rbp = 25;
-export const INITIAL_PRODUCTS_STATE: AuctionsState = {
+export const INITIAL_AUCTION_STATE: AuctionsState = {
   filters: { page: 1, rbp, sortBy: 'name' },
   auctions: [],
   query: { page: 1, rbp, sortBy: 'name' },
@@ -10,8 +10,8 @@ export const INITIAL_PRODUCTS_STATE: AuctionsState = {
   hasMore: true,
 };
 
-export function AuctionsReducer(
-  state: AuctionsState = INITIAL_PRODUCTS_STATE,
+export function auctionsReducer(
+  state: AuctionsState = INITIAL_AUCTION_STATE,
   action: AnyAction
 ) {
   switch (action.type) {
