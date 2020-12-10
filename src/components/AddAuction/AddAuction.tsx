@@ -8,25 +8,30 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
-import { Button, Divider } from "@material-ui/core";
+import { Button, Divider, MenuItem } from "@material-ui/core";
 import { fetchCategories } from "../../api_methods/categories";
-import { fetchCategoryProducts } from "../../services/categoriesService";
+import { fetchSubcategoriesByCategory } from "../../services/categoriesService";
 import {
   fetchCategoriesStarted,
   fetchCategoriesSuccess,
 } from "../../redux/actions/categories";
 import AuctionCard from "../Auctions/AuctionCard/AuctionCard";
 import AddProduct from "../AddProduct/AddProduct";
-import { AddBoxRounded } from "@material-ui/icons";
 import PriceLevels from "../PriceLevels/PriceLevels";
 import { PriceLevelType } from "../PriceLevels/PriceLevelType";
 import Select from "../CommonComponents/Select/Select";
 import SelectDate from "../CommonComponents/SelectDate/SelectDate";
 import moment from "moment";
+import {
+  fetchProductsByCategory,
+  fetchProductsBySubCategory,
+} from "../../api_methods/products";
+import { saveAuction } from "../../api_methods/auctions";
 
 const AddAuction = () => {
   const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = useState(false);
+  const [auctionName, setAuctionName] = useState("");
   const [category, setCategory] = useState("");
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [subCategory, setSubCategory] = useState("");
@@ -36,7 +41,10 @@ const AddAuction = () => {
   const [endDate, setEndDate] = useState("");
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [priceLevels, setPriceLevels] = useState<PriceLevelType[]>([]);
-  console.log("end date", endDate);
+
+  const isProductDisabled = () =>
+    (subCategory === "" && subCategoryOptions.length !== 0) || category === "";
+
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => {
     setModalOpen(false);
@@ -53,29 +61,57 @@ const AddAuction = () => {
   };
 
   const handleCategoryChange = (e: any) => {
-    setCategory(e.target.value);
+    setCategory(e.target.value.toString());
+    setSubCategory("");
     setProduct("");
-    fetchCategoryProducts(e.target.value)
+    fetchSubcategoriesByCategory(e.target.value)
       .then((res: any) => {
-        setProductOptions(res.data);
+        if (res.data.length !== 0) {
+          setSubCategoryOptions(res.data);
+        } else {
+          handleSubCategoryChange({ target: { value: -1 } });
+        }
       })
       .catch((err: any) => console.log("err", err));
   };
 
   const handleSubCategoryChange = (e: any) => {
-    setSubCategory(e.target.value);
+    const subCat = e.target.value;
+    setProduct("");
+    setSubCategory(subCat.toString());
+    if (subCat === -1) {
+      fetchProductsByCategory(category);
+    } else {
+      fetchProductsBySubCategory(category).then((res: any) => {
+        setProductOptions(res.data);
+      });
+    }
   };
 
   const handleProductChange = (e: any) => setProduct(e.target.value);
 
-  const handleEndDateChange = (e: any) => setEndDate(e.target.value);
+  const handleEndDateChange = (e: any) => {
+    setEndDate(e.target.value);
+  };
+
+  const handleSave = () => {
+    const auctionData = {
+      auctionName,
+      category,
+      subCategory,
+      product,
+      priceLevels,
+      endDate,
+      name: auctionName,
+    };
+    saveAuction(auctionData).then((res) => {});
+  };
 
   const addPriceLevel = ({ price, minRegisters }: PriceLevelType) => {
     const newPriceLevel = { price, minRegisters };
     if (priceLevels.length === 0) {
       setPriceLevels([newPriceLevel]);
     } else {
-      debugger;
       const indexToInsert = priceLevels.findIndex(
         (priceLevel: PriceLevelType) => price <= priceLevel.price
       );
@@ -90,10 +126,26 @@ const AddAuction = () => {
   };
 
   const removePriceLevel = (index: number) => {
-    debugger;
     const newPriceLevels = [...priceLevels];
     newPriceLevels.splice(index, 1);
     setPriceLevels(newPriceLevels);
+  };
+
+  const renderOptions = (options: any) => {
+    if (options.length === 0) {
+      return (
+        <MenuItem key={"none"} value={-1}>
+          No options available
+        </MenuItem>
+      );
+    } else
+      return options.map((option: any, index: number) => {
+        return (
+          <MenuItem key={index} value={option.id}>
+            {option.name}
+          </MenuItem>
+        );
+      });
   };
 
   return (
@@ -119,37 +171,35 @@ const AddAuction = () => {
             type="text"
             margin="normal"
             fullWidth
+            value={auctionName}
+            onChange={(e) => setAuctionName(e.target.value)}
           />
-          <Select required label="category" onChange={handleCategoryChange}>
-            {categoryOptions.map((option: any, index: number) => (
-              <option key={index} value={option.id}>
-                {option.name}
-              </option>
-            ))}
+          <Select
+            required
+            label="category"
+            onChange={handleCategoryChange}
+            value={category}
+          >
+            {renderOptions(categoryOptions)}
           </Select>
           <Select
             required
             label="sub category"
             onChange={handleSubCategoryChange}
+            disabled={category === ""}
+            value={subCategory}
           >
-            {categoryOptions.map((option: any, index: number) => (
-              <option key={index} value={option.id}>
-                {option.name}
-              </option>
-            ))}
+            {renderOptions(subCategoryOptions)}
           </Select>
           <div className="test">
             <Select
               required
               label="Product"
               onChange={handleProductChange}
-              disabled={category.toString() === ""}
+              disabled={isProductDisabled()}
+              value={product}
             >
-              {productOptions.map((option: any, index: number) => (
-                <option key={index} value={option.id}>
-                  {option.name}
-                </option>
-              ))}
+              {renderOptions(productOptions)}
             </Select>
             <AddProduct categories={categoryOptions} />
           </div>
@@ -172,7 +222,7 @@ const AddAuction = () => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleSave} color="primary">
             Save
           </Button>
         </DialogActions>

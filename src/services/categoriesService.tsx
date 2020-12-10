@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const fetchCategoryProducts = (category: string) => {
-  return axios.get(`/api/categories/products`, {
+export const fetchSubcategoriesByCategory = (category: string) => {
+  return axios.get(`/api/categories/sub_categories`, {
     params: {
       category,
     },
