@@ -1,9 +1,20 @@
 import axios from "axios";
-
-export const fetchSubcategoriesByCategory = (category: string) => {
+import { addInterceptors } from "../util/auth";
+addInterceptors(axios);
+export const fetchSubcategoriesByCategory = (categoryId: number) => {
   return axios.get(`/api/categories/sub_categories`, {
     params: {
-      category,
+      categoryId,
     },
+  });
+};
+
+export const fetchCategories = (page: number, searchWord: string, rbp: number) => {
+  return axios.get("/api/categories/", {
+    params: {
+      page,
+      searchWord,
+      rbp
+    }
   });
 };

@@ -8,8 +8,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
-import { Button, Divider, MenuItem } from "@material-ui/core";
-import { fetchCategories } from "../../api_methods/categories";
+import { Button, Divider, InputLabel, makeStyles, Menu, MenuItem } from "@material-ui/core";
+import { fetchCategories } from "../../services/categoriesService";
 import { fetchSubcategoriesByCategory } from "../../services/categoriesService";
 import {
   fetchCategoriesStarted,
@@ -25,8 +25,11 @@ import moment from "moment";
 import {
   fetchProductsByCategory,
   fetchProductsBySubCategory,
-} from "../../api_methods/products";
-import { saveAuction } from "../../api_methods/auctions";
+} from "../../services/productsService";
+import { auctionService } from "../../services/auction-service";
+import AutoCompleteDropDown from "../CommonComponents/AutoCompleteDropdown/AutoCompleteDropdown";
+import { Category } from "@material-ui/icons";
+
 
 const AddAuction = () => {
   const dispatch = useDispatch();
@@ -34,6 +37,7 @@ const AddAuction = () => {
   const [auctionName, setAuctionName] = useState("");
   const [category, setCategory] = useState("");
   const [categoryOptions, setCategoryOptions] = useState([]);
+  const [hasMoreCategoryOptions, setHasMoreCategoryOptions] = useState(true);
   const [subCategory, setSubCategory] = useState("");
   const [subCategoryOptions, setSubCategoryOptions] = useState([]);
   const [product, setProduct] = useState("");
@@ -41,7 +45,7 @@ const AddAuction = () => {
   const [endDate, setEndDate] = useState("");
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [priceLevels, setPriceLevels] = useState<PriceLevelType[]>([]);
-
+  const rbp = 50;
   const isProductDisabled = () =>
     (subCategory === "" && subCategoryOptions.length !== 0) || category === "";
 
@@ -50,21 +54,27 @@ const AddAuction = () => {
     setModalOpen(false);
     setShowAddProduct(false);
   };
-  const fetchNewAuctionData = () => {
+  const fetchNewAuctionData = (page: number, searchWord: string = "") => {
     dispatch(fetchCategoriesStarted());
-    fetchCategories()
+    fetchCategories(page, searchWord, rbp)
       .then((res) => {
-        setCategoryOptions(res.data);
-        dispatch(fetchCategoriesSuccess(res.data));
+        if (page > 1) {
+          setCategoryOptions(categoryOptions.concat(res.data.categories));
+        } else {
+          setCategoryOptions(res.data.categories);
+        }
+        setHasMoreCategoryOptions(res.data.hasMore)
+        dispatch(fetchCategoriesSuccess(res.data.categories));
       })
       .catch((err) => console.log("err", err));
   };
 
-  const handleCategoryChange = (e: any) => {
-    setCategory(e.target.value.toString());
+  const handleCategoryChange = (categoryName: string, categoryId: number) => {
+    debugger;
+    setCategory(categoryName);
     setSubCategory("");
     setProduct("");
-    fetchSubcategoriesByCategory(e.target.value)
+    fetchSubcategoriesByCategory(categoryId)
       .then((res: any) => {
         if (res.data.length !== 0) {
           setSubCategoryOptions(res.data);
@@ -104,7 +114,7 @@ const AddAuction = () => {
       endDate,
       name: auctionName,
     };
-    saveAuction(auctionData).then((res) => {});
+    auctionService.createAuction(auctionData).then((res) => { });
   };
 
   const addPriceLevel = ({ price, minRegisters }: PriceLevelType) => {
@@ -147,6 +157,13 @@ const AddAuction = () => {
         );
       });
   };
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const handleClick = (event: any) => {
+    setAnchorEl(event);
+  };
+  const handleClose2 = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <AuctionCard className="noBorder">
@@ -158,7 +175,6 @@ const AddAuction = () => {
         open={modalOpen}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
-        onEnter={fetchNewAuctionData}
       >
         <DialogTitle id="form-dialog-title">Add New Auction</DialogTitle>
         <Divider />
@@ -174,14 +190,58 @@ const AddAuction = () => {
             value={auctionName}
             onChange={(e) => setAuctionName(e.target.value)}
           />
-          <Select
-            required
-            label="category"
-            onChange={handleCategoryChange}
-            value={category}
-          >
-            {renderOptions(categoryOptions)}
-          </Select>
+          <div className="selectt">
+            <div className="show-options">
+              <TextField
+                autoFocus
+                variant="outlined"
+                size="small"
+                label="Title"
+                type="text"
+                margin="normal"
+                fullWidth
+                value={category}
+                onChange={(e) => {
+                  setCategory(e.target.value)
+                  if (e.target.value.length > 2) {
+                    handleClick(e.target);
+                    fetchNewAuctionData(1, e.target.value)
+                  } else {
+                    handleClose2();
+                  }
+                }
+                }
+              />
+              <Button
+                aria-controls="simple-menu"
+                aria-haspopup="true"
+                onClick={(event) => {
+                  fetchNewAuctionData(1);
+                  handleClick(event.currentTarget)
+                }
+                }>
+                Choose Category
+            </Button>
+            </div>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose2}
+              style={{ margin: '200px 0 0 0' }}
+            >
+              <div className="abc">
+                {(<AutoCompleteDropDown
+                  onChange={handleCategoryChange}
+                  hasMore={hasMoreCategoryOptions}
+                  options={categoryOptions}
+                  fetchMoreData={((page: number, searchWord: string) => fetchNewAuctionData(page, searchWord))}
+                >
+                </AutoCompleteDropDown>)}
+              </div>
+            </Menu>
+          </div>
           <Select
             required
             label="sub category"
