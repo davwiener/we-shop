@@ -10,7 +10,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import { Button, Divider, InputLabel, makeStyles, Menu, MenuItem } from "@material-ui/core";
 import { fetchCategories } from "../../services/categoriesService";
-import { fetchSubcategoriesByCategory } from "../../services/categoriesService";
+import { fetchSubCategories } from "../../services/categoriesService";
 import {
   fetchCategoriesStarted,
   fetchCategoriesSuccess,
@@ -38,6 +38,7 @@ const AddAuction = () => {
   const [category, setCategory] = useState("");
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [hasMoreCategoryOptions, setHasMoreCategoryOptions] = useState(true);
+  const [hasMoreSubCategoryOptions, setHasMoreSubCategoryOptions] = useState(true);
   const [subCategory, setSubCategory] = useState("");
   const [subCategoryOptions, setSubCategoryOptions] = useState([]);
   const [product, setProduct] = useState("");
@@ -54,7 +55,8 @@ const AddAuction = () => {
     setModalOpen(false);
     setShowAddProduct(false);
   };
-  const fetchNewAuctionData = (page: number, searchWord: string = "") => {
+  const fetchCategoriesCall = (page: number, searchWord: string = "") => {
+    setCategory(searchWord);
     dispatch(fetchCategoriesStarted());
     fetchCategories(page, searchWord, rbp)
       .then((res) => {
@@ -69,12 +71,27 @@ const AddAuction = () => {
       .catch((err) => console.log("err", err));
   };
 
+  const fetchSubCategoriesCall = (page: number, searchWord: string = "") => {
+    setSubCategory(searchWord);
+    fetchSubCategories(page, searchWord, rbp, 1)
+      .then((res: any) => {
+        if (page > 1) {
+          setSubCategoryOptions(categoryOptions.concat(res.data.categories));
+        } else {
+          setSubCategoryOptions(res.data.subCategories);
+        }
+        setHasMoreSubCategoryOptions(res.data.hasMore)
+        dispatch(fetchCategoriesSuccess(res.data.categories));
+      })
+      .catch((err: any) => console.log("err", err));
+  };
+
+
   const handleCategoryChange = (categoryName: string, categoryId: number) => {
-    debugger;
     setCategory(categoryName);
     setSubCategory("");
     setProduct("");
-    fetchSubcategoriesByCategory(categoryId)
+    fetchSubCategories(1, '', rbp, 1)
       .then((res: any) => {
         if (res.data.length !== 0) {
           setSubCategoryOptions(res.data);
@@ -157,14 +174,6 @@ const AddAuction = () => {
         );
       });
   };
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const handleClick = (event: any) => {
-    setAnchorEl(event);
-  };
-  const handleClose2 = () => {
-    setAnchorEl(null);
-  };
-
   return (
     <AuctionCard className="noBorder">
       <IconButton className="iconButton" onClick={handleOpen}>
@@ -190,67 +199,32 @@ const AddAuction = () => {
             value={auctionName}
             onChange={(e) => setAuctionName(e.target.value)}
           />
-          <div className="selectt">
-            <div className="show-options">
-              <TextField
-                autoFocus
-                variant="outlined"
-                size="small"
-                label="Title"
-                type="text"
-                margin="normal"
-                fullWidth
-                value={category}
-                onChange={(e) => {
-                  setCategory(e.target.value)
-                  if (e.target.value.length > 2) {
-                    handleClick(e.target);
-                    fetchNewAuctionData(1, e.target.value)
-                  } else {
-                    handleClose2();
-                  }
-                }
-                }
-              />
-              <Button
-                aria-controls="simple-menu"
-                aria-haspopup="true"
-                onClick={(event) => {
-                  fetchNewAuctionData(1);
-                  handleClick(event.currentTarget)
-                }
-                }>
-                Choose Category
-            </Button>
-            </div>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose2}
-              style={{ margin: '200px 0 0 0' }}
+          <div className="auto-complete-container">
+            {(<AutoCompleteDropDown
+              onChange={handleCategoryChange}
+              hasMore={hasMoreCategoryOptions}
+              key="catergory-auto-complete"
+              id="catergory-auto-complete"
+              name={"Category"}
+              options={categoryOptions}
+              searchWord={category}
+              fetchMoreData={((page: number, searchWord: string) => fetchCategoriesCall(page, searchWord))}
             >
-              <div className="abc">
-                {(<AutoCompleteDropDown
-                  onChange={handleCategoryChange}
-                  hasMore={hasMoreCategoryOptions}
-                  options={categoryOptions}
-                  fetchMoreData={((page: number, searchWord: string) => fetchNewAuctionData(page, searchWord))}
-                >
-                </AutoCompleteDropDown>)}
-              </div>
-            </Menu>
+            </AutoCompleteDropDown>)}
           </div>
-          <Select
-            required
-            label="sub category"
-            onChange={handleSubCategoryChange}
-            disabled={category === ""}
-            value={subCategory}
-          >
-            {renderOptions(subCategoryOptions)}
-          </Select>
+          <div className="auto-complete-container">
+            {(<AutoCompleteDropDown
+              onChange={handleSubCategoryChange}
+              hasMore={hasMoreSubCategoryOptions}
+              key="sub-catergory-auto-complete"
+              id="sub-catergory-auto-complete"
+              name={"Sub Category"}
+              options={subCategoryOptions}
+              searchWord={subCategory}
+              fetchMoreData={((page: number, searchWord: string) => fetchCategoriesCall(page, searchWord))}
+            >
+            </AutoCompleteDropDown>)}
+          </div>
           <div className="test">
             <Select
               required

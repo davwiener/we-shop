@@ -2,55 +2,76 @@ import React, { useState } from "react";
 import { MenuItem, Input } from "@material-ui/core";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "./AutoCompleteDropdown.scss"
+import TextField from "@material-ui/core/TextField/TextField";
 const AutoCompleteDropDown = (props: {
     children: any,
     hasMore: boolean
     options: any[],
+    name: string,
+    id: string,
+    searchWord: string
     fetchMoreData: (page: number, searchWord: string) => void,
     onChange: (name: string, id: number) => void
 }) => {
     const [page, setPage] = useState(1);
-    const [searchWord, setSearchWord] = useState('');
-    const fetchMoreData = () => {
-        props.fetchMoreData(page, searchWord)
+    const fetchMoreData = (page: number, searchWord: string) => {
+        setPage(page)
+        props.fetchMoreData(page, searchWord);
     };
-    debugger;
+    const [showOptions, setShowOptions] = useState(false);
+    const selectOption = (selectedOption: string, selectedId: number) => {
+        props.onChange(selectedOption, selectedId);
+        setShowOptions(false);
+    }
     return (
-        <div id="scrollableDivcc" className="content">
-            <div>
-                <Input
-                    autoFocus
-                    type="text"
-                    value={searchWord}
-                    onChange={(e) => {
-                        setSearchWord(e.target.value)
-                        if (e.target.value.length > 1) {
-                            setPage(1)
-                            return fetchMoreData()
-                        }
-                    }}
-                />
-            </div>
-            <InfiniteScroll
-                className="infinite-scroll"
+        <div className="content" >
+            <TextField
+                autoFocus
+                variant="outlined"
+                size="small"
+                label={props.name}
+                type="text"
+                margin="normal"
+                fullWidth
+                id={`${props.id}-auto-complete-input-id`}
+                key={`${props.id}-auto-complete-input`}
+                value={props.searchWord}
+                onFocus={() => {
+                    if (!props.options.length) {
+                        props.fetchMoreData(1, '');
+                    }
+                    setShowOptions(true);
+                }}
+                onBlur={() => {
+                    setShowOptions(false);
+                }}
+                onChange={(e) => {
+                    return fetchMoreData(1, e.target.value);
+                }}
+            />
+            {showOptions && <InfiniteScroll
                 dataLength={props.options.length}
                 next={() => {
-                    setPage(page + 1);
-                    return fetchMoreData()
+                    return fetchMoreData(page + 1, props.searchWord)
                 }}
                 hasMore={props.hasMore}
                 loader={<h4>Loading...</h4>}
-                scrollableTarget="scrollableDivcc"
-            > {props.options.map((option: { name: string, id: number }, index: number) => (
-                <MenuItem
-                    key={index}
-                    value={option.id}
-                    onClick={() => props.onChange(option.name, option.id)}
-                >
-                    {option.name}
-                </MenuItem>
-            ))}
-            </InfiniteScroll>
+                height={300}
+
+            >
+                <div className="auto-comolete-options">
+                    {props.options.map((option: { name: string, id: number }, index: number) => (
+                        <MenuItem
+                            id={`auto-comolete-options-${option.id}`}
+                            key={props.id + option.id.toString()}
+                            value={option.id}
+                            onMouseDown={() => selectOption(option.name, option.id)}
+                        >
+                            {option.name}
+                        </MenuItem>
+                    ))}
+                </div>
+            </InfiniteScroll>}
         </div>
     )
 }

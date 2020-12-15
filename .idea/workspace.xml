@@ -2,22 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6391d87b-77cd-4a72-a8a5-d1079425bac3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/Account/Account.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/Account.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Account/AuctionsTab.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Account/AuctionsTab.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Account/SettingsTab.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Account/SettingsTab.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Auctions/AuctionsFilters/AuctionFilters.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auctions/AuctionsFilters/AuctionFilters.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/DateFilter/DateFilter.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/DateFilter/DateFilter.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/DateFilter/DateFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/DateFilter/DateFilter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/DropdownFilter/DropdownFilter.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/DropdownFilter/DropdownFilter.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/DropdownFilter/DropdownFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/DropdownFilter/DropdownFilter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/Filters.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/Filters.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/Filters.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/Filters.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/FreeTextFilter/FreeText.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/FreeTextFilter/FreeText.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/FreeTextFilter/FreeText.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/FreeTextFilter/FreeText.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/RangeFilter/RangeFilter.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/RangeFilter/RangeFilter.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FiltersComponent/RangeFilter/RangeFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/Filters/RangeFilter/RangeFilter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddAuction/AddAuction.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddAuction/AddAuction.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddAuction/AddAuction.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddAuction/AddAuction.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CommonComponents/AutoCompleteDropdown/AutoCompleteDropdown.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/AutoCompleteDropdown/AutoCompleteDropdown.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CommonComponents/AutoCompleteDropdown/AutoCompleteDropdown.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/AutoCompleteDropdown/AutoCompleteDropdown.tsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,11 +21,16 @@
   <component name="ProjectId" id="1jet0jpH112XNVVarBb2NpR53To" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -65,6 +60,7 @@
       <option name="presentableId" value="Default" />
       <updated>1604176163435</updated>
       <workItem from="1604176165742" duration="801000" />
+      <workItem from="1607874449773" duration="325000" />
     </task>
     <servers />
   </component>
@@ -76,7 +72,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
