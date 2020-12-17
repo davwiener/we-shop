@@ -9,18 +9,14 @@ export const createProduct = (product: ProductType) => {
   });
 };
 
-export const fetchProductsByCategory = (categoryId: string) => {
-  return axios.get("/api/products/getProducts", {
+export const fetchProducts = (page: number, searchWord: string, rbp: number, categoryId: number, subCategoryId: number) => {
+  return axios.get("/api/products/", {
     params: {
-      category: categoryId,
-    },
-  });
-};
-
-export const fetchProductsBySubCategory = (subCategoryId: string) => {
-  return axios.get("/api/products/getProducts", {
-    params: {
-      category: subCategoryId,
+      categoryId,
+      subCategoryId,
+      page,
+      rbp,
+      searchWord
     },
   });
 };

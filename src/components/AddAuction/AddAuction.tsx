@@ -8,7 +8,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
-import { Button, Divider, InputLabel, makeStyles, Menu, MenuItem } from "@material-ui/core";
+import { Button, Divider } from "@material-ui/core";
 import { fetchCategories } from "../../services/categoriesService";
 import { fetchSubCategories } from "../../services/categoriesService";
 import {
@@ -19,16 +19,14 @@ import AuctionCard from "../Auctions/AuctionCard/AuctionCard";
 import AddProduct from "../AddProduct/AddProduct";
 import PriceLevels from "../PriceLevels/PriceLevels";
 import { PriceLevelType } from "../PriceLevels/PriceLevelType";
-import Select from "../CommonComponents/Select/Select";
 import SelectDate from "../CommonComponents/SelectDate/SelectDate";
 import moment from "moment";
 import {
-  fetchProductsByCategory,
-  fetchProductsBySubCategory,
+  fetchProducts
 } from "../../services/productsService";
 import { auctionService } from "../../services/auction-service";
 import AutoCompleteDropDown from "../CommonComponents/AutoCompleteDropdown/AutoCompleteDropdown";
-import { Category } from "@material-ui/icons";
+
 
 
 const AddAuction = () => {
@@ -37,11 +35,16 @@ const AddAuction = () => {
   const [auctionName, setAuctionName] = useState("");
   const [category, setCategory] = useState({ name: '', id: -1 });
   const [categoryOptions, setCategoryOptions] = useState([]);
-  const [hasMoreCategoryOptions, setHasMoreCategoryOptions] = useState(true);
-  const [hasMoreSubCategoryOptions, setHasMoreSubCategoryOptions] = useState(true);
-  const [subCategory, setSubCategory] = useState("");
+  const [hasMore, setHaseMore] = useState({
+    category: true,
+    subCategory: true,
+    product: true,
+    brand: true,
+    model: true
+  })
+  const [subCategory, setSubCategory] = useState({ name: '', id: -1 });
   const [subCategoryOptions, setSubCategoryOptions] = useState([]);
-  const [product, setProduct] = useState("");
+  const [product, setProduct] = useState({ name: '', id: -1 });
   const [productOptions, setProductOptions] = useState([]);
   const [endDate, setEndDate] = useState("");
   const [showAddProduct, setShowAddProduct] = useState(false);
@@ -62,59 +65,58 @@ const AddAuction = () => {
         } else {
           setCategoryOptions(res.data.categories);
         }
-        setHasMoreCategoryOptions(res.data.hasMore)
+        setHaseMore({ ...hasMore, category: res.data.hasMore })
         dispatch(fetchCategoriesSuccess(res.data.categories));
       })
       .catch((err) => console.log("err", err));
   };
 
   const fetchSubCategoriesCall = (page: number, searchWord: string = "") => {
-    debugger;
-    setSubCategory(searchWord);
+    setSubCategory({ name: searchWord, id: subCategory.id });
     fetchSubCategories(page, searchWord, rbp, category.id)
       .then((res: any) => {
-        debugger;
         if (page > 1) {
           setSubCategoryOptions(subCategoryOptions.concat(res.data.subCategories));
         } else {
           setSubCategoryOptions(res.data.subCategories);
         }
-        setHasMoreSubCategoryOptions(res.data.hasMore)
+        setHaseMore({ ...hasMore, subCategory: res.data.hasMore })
         dispatch(fetchCategoriesSuccess(res.data.subCategories));
       })
       .catch((err: any) => console.log("err", err));
   };
 
-
-  const handleCategoryChange = (categoryName: string, categoryId: number) => {
-    setCategory({ name: categoryName, id: categoryId });
-    setSubCategory("");
-    setProduct("");
-    fetchSubCategories(1, '', rbp, 1)
+  const fetchProductsCall = (page: number, searchWord: string = "") => {
+    setProduct({ name: searchWord, id: subCategory.id });
+    fetchProducts(page, searchWord, rbp, category.id, subCategory.id)
       .then((res: any) => {
-        if (res.data.length !== 0) {
-          setSubCategoryOptions(res.data);
+        if (page > 1) {
+          setProductOptions(productOptions.concat(res.data.products));
         } else {
-          handleSubCategoryChange({ target: { value: -1 } });
+          setProductOptions(res.data.products);
         }
+        setHaseMore({ ...hasMore, product: res.data.hasMore })
       })
       .catch((err: any) => console.log("err", err));
   };
 
-  const handleSubCategoryChange = (e: any) => {
-    const subCat = e.target.value;
-    setProduct("");
-    setSubCategory(subCat.toString());
-    if (subCat === -1) {
-      fetchProductsByCategory(category.name);
-    } else {
-      fetchProductsBySubCategory(category.name).then((res: any) => {
-        setProductOptions(res.data);
-      });
-    }
+  const handleCategoryChange = (categoryName: string, categoryId: number) => {
+    setCategory({ name: categoryName, id: categoryId });
+    setSubCategory({ name: '', id: -1 });
+    setProduct({ name: '', id: -1 });
+    fetchSubCategoriesCall(1, '');
+    fetchProductsCall(1, '')
   };
 
-  const handleProductChange = (e: any) => setProduct(e.target.value);
+  const handleSubCategoryChange = (subCategoryName: string, subCategoryId: number) => {
+    setSubCategory({ name: subCategoryName, id: subCategoryId });
+    setProduct({ name: '', id: -1 });
+    fetchProductsCall(1, '');
+  };
+
+  const handleProdcutsChange = (productName: string, prodcutId: number) => {
+    setProduct({ name: productName, id: prodcutId });
+  };
 
   const handleEndDateChange = (e: any) => {
     setEndDate(e.target.value);
@@ -157,22 +159,7 @@ const AddAuction = () => {
     setPriceLevels(newPriceLevels);
   };
 
-  const renderOptions = (options: any) => {
-    if (options.length === 0) {
-      return (
-        <MenuItem key={"none"} value={-1}>
-          No options available
-        </MenuItem>
-      );
-    } else
-      return options.map((option: any, index: number) => {
-        return (
-          <MenuItem key={index} value={option.id}>
-            {option.name}
-          </MenuItem>
-        );
-      });
-  };
+
   return (
     <AuctionCard className="noBorder">
       <IconButton className="iconButton" onClick={handleOpen}>
@@ -201,7 +188,7 @@ const AddAuction = () => {
           <div className="auto-complete-container">
             {(<AutoCompleteDropDown
               onChange={handleCategoryChange}
-              hasMore={hasMoreCategoryOptions}
+              hasMore={hasMore.category}
               key="catergory-auto-complete"
               id="catergory-auto-complete"
               name={"Category"}
@@ -214,25 +201,28 @@ const AddAuction = () => {
           <div className="auto-complete-container">
             {(<AutoCompleteDropDown
               onChange={handleSubCategoryChange}
-              hasMore={hasMoreSubCategoryOptions}
+              hasMore={hasMore.subCategory}
               key="sub-catergory-auto-complete"
               id="sub-catergory-auto-complete"
               name={"Sub Category"}
               options={subCategoryOptions}
-              searchWord={subCategory}
+              searchWord={subCategory.name}
               fetchMoreData={((page: number, searchWord: string) => fetchSubCategoriesCall(page, searchWord))}
             >
             </AutoCompleteDropDown>)}
           </div>
           <div className="test">
-            <Select
-              required
-              label="Product"
-              onChange={handleProductChange}
-              value={product}
+            {(<AutoCompleteDropDown
+              onChange={handleProdcutsChange}
+              hasMore={hasMore.product}
+              key="product-auto-complete"
+              id="product-auto-complete"
+              name={"Product"}
+              options={productOptions}
+              searchWord={product.name}
+              fetchMoreData={((page: number, searchWord: string) => fetchProductsCall(page, searchWord))}
             >
-              {renderOptions(productOptions)}
-            </Select>
+            </AutoCompleteDropDown>)}
             <AddProduct categories={categoryOptions} />
           </div>
           <SelectDate
