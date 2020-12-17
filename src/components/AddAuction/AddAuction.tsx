@@ -35,7 +35,7 @@ const AddAuction = () => {
   const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = useState(false);
   const [auctionName, setAuctionName] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState({ name: '', id: -1 });
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [hasMoreCategoryOptions, setHasMoreCategoryOptions] = useState(true);
   const [hasMoreSubCategoryOptions, setHasMoreSubCategoryOptions] = useState(true);
@@ -47,16 +47,13 @@ const AddAuction = () => {
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [priceLevels, setPriceLevels] = useState<PriceLevelType[]>([]);
   const rbp = 50;
-  const isProductDisabled = () =>
-    (subCategory === "" && subCategoryOptions.length !== 0) || category === "";
-
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => {
     setModalOpen(false);
     setShowAddProduct(false);
   };
   const fetchCategoriesCall = (page: number, searchWord: string = "") => {
-    setCategory(searchWord);
+    setCategory({ name: searchWord, id: category.id });
     dispatch(fetchCategoriesStarted());
     fetchCategories(page, searchWord, rbp)
       .then((res) => {
@@ -72,23 +69,25 @@ const AddAuction = () => {
   };
 
   const fetchSubCategoriesCall = (page: number, searchWord: string = "") => {
+    debugger;
     setSubCategory(searchWord);
-    fetchSubCategories(page, searchWord, rbp, 1)
+    fetchSubCategories(page, searchWord, rbp, category.id)
       .then((res: any) => {
+        debugger;
         if (page > 1) {
-          setSubCategoryOptions(categoryOptions.concat(res.data.categories));
+          setSubCategoryOptions(subCategoryOptions.concat(res.data.subCategories));
         } else {
           setSubCategoryOptions(res.data.subCategories);
         }
         setHasMoreSubCategoryOptions(res.data.hasMore)
-        dispatch(fetchCategoriesSuccess(res.data.categories));
+        dispatch(fetchCategoriesSuccess(res.data.subCategories));
       })
       .catch((err: any) => console.log("err", err));
   };
 
 
   const handleCategoryChange = (categoryName: string, categoryId: number) => {
-    setCategory(categoryName);
+    setCategory({ name: categoryName, id: categoryId });
     setSubCategory("");
     setProduct("");
     fetchSubCategories(1, '', rbp, 1)
@@ -107,9 +106,9 @@ const AddAuction = () => {
     setProduct("");
     setSubCategory(subCat.toString());
     if (subCat === -1) {
-      fetchProductsByCategory(category);
+      fetchProductsByCategory(category.name);
     } else {
-      fetchProductsBySubCategory(category).then((res: any) => {
+      fetchProductsBySubCategory(category.name).then((res: any) => {
         setProductOptions(res.data);
       });
     }
@@ -207,7 +206,7 @@ const AddAuction = () => {
               id="catergory-auto-complete"
               name={"Category"}
               options={categoryOptions}
-              searchWord={category}
+              searchWord={category.name}
               fetchMoreData={((page: number, searchWord: string) => fetchCategoriesCall(page, searchWord))}
             >
             </AutoCompleteDropDown>)}
@@ -221,7 +220,7 @@ const AddAuction = () => {
               name={"Sub Category"}
               options={subCategoryOptions}
               searchWord={subCategory}
-              fetchMoreData={((page: number, searchWord: string) => fetchCategoriesCall(page, searchWord))}
+              fetchMoreData={((page: number, searchWord: string) => fetchSubCategoriesCall(page, searchWord))}
             >
             </AutoCompleteDropDown>)}
           </div>
@@ -230,7 +229,6 @@ const AddAuction = () => {
               required
               label="Product"
               onChange={handleProductChange}
-              disabled={isProductDisabled()}
               value={product}
             >
               {renderOptions(productOptions)}
