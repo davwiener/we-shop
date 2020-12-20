@@ -71,9 +71,9 @@ const AddAuction = () => {
       .catch((err) => console.log("err", err));
   };
 
-  const fetchSubCategoriesCall = (page: number, searchWord: string = "") => {
-    setSubCategory({ name: searchWord, id: subCategory.id });
-    fetchSubCategories(page, searchWord, rbp, category.id)
+  const fetchSubCategoriesCall = (page: number, searchWord: string = "", categoryId: number) => {
+    setSubCategory({ name: searchWord, id: subCategory.id })
+    fetchSubCategories(page, searchWord, rbp, categoryId)
       .then((res: any) => {
         if (page > 1) {
           setSubCategoryOptions(subCategoryOptions.concat(res.data.subCategories));
@@ -86,9 +86,9 @@ const AddAuction = () => {
       .catch((err: any) => console.log("err", err));
   };
 
-  const fetchProductsCall = (page: number, searchWord: string = "") => {
-    setProduct({ name: searchWord, id: subCategory.id });
-    fetchProducts(page, searchWord, rbp, category.id, subCategory.id)
+  const fetchProductsCall = (page: number, searchWord: string = "", categoryId: number, subCategoryId: number) => {
+    setProduct({ name: searchWord, id: product.id })
+    fetchProducts(page, searchWord, rbp, categoryId, subCategoryId)
       .then((res: any) => {
         if (page > 1) {
           setProductOptions(productOptions.concat(res.data.products));
@@ -104,14 +104,14 @@ const AddAuction = () => {
     setCategory({ name: categoryName, id: categoryId });
     setSubCategory({ name: '', id: -1 });
     setProduct({ name: '', id: -1 });
-    fetchSubCategoriesCall(1, '');
-    fetchProductsCall(1, '')
+    fetchSubCategoriesCall(1, '', categoryId);
+    fetchProductsCall(1, '', categoryId, -1);
   };
 
   const handleSubCategoryChange = (subCategoryName: string, subCategoryId: number) => {
     setSubCategory({ name: subCategoryName, id: subCategoryId });
     setProduct({ name: '', id: -1 });
-    fetchProductsCall(1, '');
+    fetchProductsCall(1, '', category.id, subCategoryId);
   };
 
   const handleProdcutsChange = (productName: string, prodcutId: number) => {
@@ -207,7 +207,7 @@ const AddAuction = () => {
               name={"Sub Category"}
               options={subCategoryOptions}
               searchWord={subCategory.name}
-              fetchMoreData={((page: number, searchWord: string) => fetchSubCategoriesCall(page, searchWord))}
+              fetchMoreData={((page: number, searchWord: string) => fetchSubCategoriesCall(page, searchWord, category.id))}
             >
             </AutoCompleteDropDown>)}
           </div>
@@ -220,7 +220,7 @@ const AddAuction = () => {
               name={"Product"}
               options={productOptions}
               searchWord={product.name}
-              fetchMoreData={((page: number, searchWord: string) => fetchProductsCall(page, searchWord))}
+              fetchMoreData={((page: number, searchWord: string) => fetchProductsCall(page, searchWord, category.id, subCategory.id))}
             >
             </AutoCompleteDropDown>)}
             <AddProduct categories={categoryOptions} />
