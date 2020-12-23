@@ -26,6 +26,8 @@ import {
 } from "../../services/productsService";
 import { auctionService } from "../../services/auction-service";
 import AutoCompleteDropDown from "../CommonComponents/AutoCompleteDropdown/AutoCompleteDropdown";
+import { fetchBrands } from "../../services/brandsService";
+import { fetchModels } from "../../services/modelsService";
 
 
 
@@ -35,6 +37,14 @@ const AddAuction = () => {
   const [auctionName, setAuctionName] = useState("");
   const [category, setCategory] = useState({ name: '', id: -1 });
   const [categoryOptions, setCategoryOptions] = useState([]);
+  const [subCategory, setSubCategory] = useState({ name: '', id: -1 });
+  const [subCategoryOptions, setSubCategoryOptions] = useState([]);
+  const [product, setProduct] = useState({ name: '', id: -1 });
+  const [productOptions, setProductOptions] = useState([]);
+  const [model, setModel] = useState({ name: '', id: -1 });
+  const [modelOptions, setModelsOptions] = useState([]);
+  const [brand, setBrand] = useState({ name: '', id: -1 });
+  const [brandOptions, setBrandsOptions] = useState([]);
   const [hasMore, setHaseMore] = useState({
     category: true,
     subCategory: true,
@@ -42,24 +52,43 @@ const AddAuction = () => {
     brand: true,
     model: true
   })
-  const [subCategory, setSubCategory] = useState({ name: '', id: -1 });
-  const [subCategoryOptions, setSubCategoryOptions] = useState([]);
-  const [product, setProduct] = useState({ name: '', id: -1 });
-  const [productOptions, setProductOptions] = useState([]);
   const [endDate, setEndDate] = useState("");
-  const [showAddProduct, setShowAddProduct] = useState(false);
   const [priceLevels, setPriceLevels] = useState<PriceLevelType[]>([]);
   const rbp = 50;
-  const handleOpen = () => setModalOpen(true);
-  const handleClose = () => {
+  const handelOpen = () => setModalOpen(true);
+  const handelClose = () => {
     setModalOpen(false);
-    setShowAddProduct(false);
   };
+
+  const removeOptions = (type: string) => {
+    switch (type) {
+      case 'category': {
+        setBrandsOptions([]);
+        setProductOptions([]);
+        setSubCategoryOptions([]);
+        setModelsOptions([]);
+        break;
+      }
+      case 'subCategory': {
+        setBrandsOptions([]);
+        setProductOptions([]);
+        setModelsOptions([]);
+        break;
+      }
+      case 'brand': {
+        setProductOptions([]);
+        setModelsOptions([]);
+        break;
+      }
+      default: break;
+    }
+  }
   const fetchCategoriesCall = (page: number, searchWord: string = "") => {
-    setCategory({ name: searchWord, id: category.id });
+    setCategory({ name: searchWord, id: -1 });
     dispatch(fetchCategoriesStarted());
     fetchCategories(page, searchWord, rbp)
       .then((res) => {
+        removeOptions('category');
         if (page > 1) {
           setCategoryOptions(categoryOptions.concat(res.data.categories));
         } else {
@@ -72,9 +101,10 @@ const AddAuction = () => {
   };
 
   const fetchSubCategoriesCall = (page: number, searchWord: string = "", categoryId: number) => {
-    setSubCategory({ name: searchWord, id: subCategory.id })
+    setSubCategory({ name: searchWord, id: -1 })
     fetchSubCategories(page, searchWord, rbp, categoryId)
       .then((res: any) => {
+        removeOptions('subCategory');
         if (page > 1) {
           setSubCategoryOptions(subCategoryOptions.concat(res.data.subCategories));
         } else {
@@ -86,8 +116,37 @@ const AddAuction = () => {
       .catch((err: any) => console.log("err", err));
   };
 
+  const fetchBrandsCall = (page: number, searchWord: string = "", categoryId: number, subCategoryId: number) => {
+    setBrand({ name: searchWord, id: -1 })
+    fetchBrands(page, searchWord, rbp, categoryId, subCategoryId)
+      .then((res: any) => {
+        removeOptions('brands');
+        if (page > 1) {
+          setBrandsOptions(brandOptions.concat(res.data.brands));
+        } else {
+          setBrandsOptions(res.data.brands);
+        }
+        setHaseMore({ ...hasMore, brand: res.data.hasMore })
+      })
+      .catch((err: any) => console.log("err", err));
+  };
+
+  const fetchModelsCall = (page: number, searchWord: string = "", categoryId: number, subCategoryId: number, brandId: number) => {
+    setModel({ name: searchWord, id: -1 })
+    fetchModels(page, searchWord, rbp, categoryId, subCategoryId, brandId)
+      .then((res: any) => {
+        if (page > 1) {
+          setModelsOptions(modelOptions.concat(res.data.models));
+        } else {
+          setModelsOptions(res.data.models);
+        }
+        setHaseMore({ ...hasMore, model: res.data.hasMore })
+      })
+      .catch((err: any) => console.log("err", err));
+  };
+
   const fetchProductsCall = (page: number, searchWord: string = "", categoryId: number, subCategoryId: number) => {
-    setProduct({ name: searchWord, id: product.id })
+    setProduct({ name: searchWord, id: -1 })
     fetchProducts(page, searchWord, rbp, categoryId, subCategoryId)
       .then((res: any) => {
         if (page > 1) {
@@ -100,29 +159,35 @@ const AddAuction = () => {
       .catch((err: any) => console.log("err", err));
   };
 
-  const handleCategoryChange = (categoryName: string, categoryId: number) => {
+  const handelCategoryChange = (categoryName: string, categoryId: number) => {
     setCategory({ name: categoryName, id: categoryId });
+    removeOptions('category');
     setSubCategory({ name: '', id: -1 });
     setProduct({ name: '', id: -1 });
-    fetchSubCategoriesCall(1, '', categoryId);
-    fetchProductsCall(1, '', categoryId, -1);
   };
 
-  const handleSubCategoryChange = (subCategoryName: string, subCategoryId: number) => {
+  const handelSubCategoryChange = (subCategoryName: string, subCategoryId: number) => {
     setSubCategory({ name: subCategoryName, id: subCategoryId });
+    removeOptions('subCategory');
     setProduct({ name: '', id: -1 });
-    fetchProductsCall(1, '', category.id, subCategoryId);
+  };
+  const handelBrandChange = (brandName: string, brandId: number) => {
+    removeOptions('brand');
+    setBrand({ name: brandName, id: brandId })
+  }
+
+  const handelModelChange = (modelName: string, modelId: number) => {
+    setModel({ name: modelName, id: modelId });
   };
 
-  const handleProdcutsChange = (productName: string, prodcutId: number) => {
+  const handelProdcutsChange = (productName: string, prodcutId: number) => {
     setProduct({ name: productName, id: prodcutId });
   };
-
-  const handleEndDateChange = (e: any) => {
+  const handelEndDateChange = (e: any) => {
     setEndDate(e.target.value);
   };
 
-  const handleSave = () => {
+  const handelSave = () => {
     const auctionData = {
       auctionName,
       category,
@@ -162,13 +227,13 @@ const AddAuction = () => {
 
   return (
     <AuctionCard className="noBorder">
-      <IconButton className="iconButton" onClick={handleOpen}>
+      <IconButton className="iconButton" onClick={handelOpen}>
         <AddCircleOutline style={{ fontSize: 170 }} />
       </IconButton>
       <Dialog
         fullWidth
         open={modalOpen}
-        onClose={handleClose}
+        onClose={handelClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Add New Auction</DialogTitle>
@@ -187,7 +252,7 @@ const AddAuction = () => {
           />
           <div className="auto-complete-container">
             {(<AutoCompleteDropDown
-              onChange={handleCategoryChange}
+              onChange={handelCategoryChange}
               hasMore={hasMore.category}
               key="catergory-auto-complete"
               id="catergory-auto-complete"
@@ -200,7 +265,7 @@ const AddAuction = () => {
           </div>
           <div className="auto-complete-container">
             {(<AutoCompleteDropDown
-              onChange={handleSubCategoryChange}
+              onChange={handelSubCategoryChange}
               hasMore={hasMore.subCategory}
               key="sub-catergory-auto-complete"
               id="sub-catergory-auto-complete"
@@ -211,9 +276,36 @@ const AddAuction = () => {
             >
             </AutoCompleteDropDown>)}
           </div>
-          <div className="test">
+          <div className="auto-complete-container">
             {(<AutoCompleteDropDown
-              onChange={handleProdcutsChange}
+              onChange={handelBrandChange}
+              hasMore={hasMore.brand}
+              key="brands-auto-complete"
+              id="brands-auto-complete"
+              name={"Brand"}
+              options={brandOptions}
+              searchWord={brand.name}
+              fetchMoreData={((page: number, searchWord: string) => fetchBrandsCall(page, searchWord, category.id, subCategory.id))}
+            >
+            </AutoCompleteDropDown>)}
+
+          </div>
+          <div className="auto-complete-container">
+            {(<AutoCompleteDropDown
+              onChange={handelModelChange}
+              hasMore={hasMore.model}
+              key="model-auto-complete"
+              id="model-auto-complete"
+              name={"Model"}
+              options={modelOptions}
+              searchWord={model.name}
+              fetchMoreData={((page: number, searchWord: string) => fetchModelsCall(page, searchWord, category.id, subCategory.id, brand.id))}
+            >
+            </AutoCompleteDropDown>)}
+          </div>
+          <div className="auto-complete-container">
+            {(<AutoCompleteDropDown
+              onChange={handelProdcutsChange}
               hasMore={hasMore.product}
               key="product-auto-complete"
               id="product-auto-complete"
@@ -227,7 +319,7 @@ const AddAuction = () => {
           </div>
           <SelectDate
             label="end date"
-            onChange={handleEndDateChange}
+            onChange={handelEndDateChange}
             defaultValue={moment().format("YYYY-MM-DDTHH:00")}
             InputLabelProps={{
               shrink: true,
@@ -241,10 +333,10 @@ const AddAuction = () => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handelClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleSave} color="primary">
+          <Button onClick={handelSave} color="primary">
             Save
           </Button>
         </DialogActions>

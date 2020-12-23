@@ -26,12 +26,12 @@ const AutoCompleteDropDown = (props: {
     return (
         <div className="content" >
             <TextField
-                autoFocus
                 variant="outlined"
                 size="small"
                 label={props.name}
                 type="text"
                 margin="normal"
+                autoComplete="off"
                 fullWidth
                 id={`${props.id}-auto-complete-input-id`}
                 key={`${props.id}-auto-complete-input`}

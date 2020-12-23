@@ -41,13 +41,13 @@ const AddProduct = ({ categories }: any) => {
     });
   };
 
-  const fetchNewProductData = () => {
-    fetchBrands()
-      .then((res) => {
-        setBrandOptions(res.data);
-      })
-      .catch((err) => console.log("error fetching brands", err));
-  };
+  // const fetchNewProductData = () => {
+  //   fetchBrands()
+  //     .then((res) => {
+  //       setBrandOptions(res.data);
+  //     })
+  //     .catch((err) => console.log("error fetching brands", err));
+  // };
 
   const handleNameChange = (e: any) => {
     setName(e.target.value);
@@ -133,7 +133,7 @@ const AddProduct = ({ categories }: any) => {
         open={modalOpen}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
-        onEnter={fetchNewProductData}
+        // onEnter={fetchNewProductData}
       >
         <DialogTitle id="form-dialog-title">Add New Product</DialogTitle>
         <DialogContent>
