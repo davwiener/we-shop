@@ -13,6 +13,7 @@ const AutoCompleteDropDown = (props: {
     fetchMoreData: (page: number, searchWord: string) => void,
     onChange: (name: string, id: number) => void
 }) => {
+    debugger;
     const [page, setPage] = useState(1);
     const fetchMoreData = (page: number, searchWord: string) => {
         setPage(page)
@@ -37,10 +38,13 @@ const AutoCompleteDropDown = (props: {
                 key={`${props.id}-auto-complete-input`}
                 value={props.searchWord}
                 onFocus={() => {
-                    if (!props.options.length) {
+                    debugger
+                    if (!props.options.length && !props.searchWord.length) {
                         props.fetchMoreData(1, '');
                     }
-                    setShowOptions(true);
+                    if (props.options.length > 1 || props?.searchWord !== props?.options[0]?.name) {
+                        setShowOptions(true);
+                    }
                 }}
                 onBlur={() => {
                     setShowOptions(false);
@@ -65,7 +69,13 @@ const AutoCompleteDropDown = (props: {
                             id={`auto-comolete-options-${option.id}`}
                             key={props.id + option.id.toString()}
                             value={option.id}
-                            onMouseDown={() => selectOption(option.name, option.id)}
+                            onMouseDown={() => {
+                                debugger
+                                if (option.name !== props.searchWord) {
+                                    selectOption(option.name, option.id)
+                                }
+                            }
+                            }
                         >
                             {option.name}
                         </MenuItem>

@@ -20,3 +20,11 @@ export const fetchProducts = (page: number, searchWord: string, rbp: number, cat
     },
   });
 };
+
+export const fetchFullProduct = (id: number) => {
+  return axios.get("/api/products/full-product", {
+    params: {
+      id
+    }
+  })
+} 

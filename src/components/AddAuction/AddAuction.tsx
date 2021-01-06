@@ -16,12 +16,12 @@ import {
   fetchCategoriesSuccess,
 } from "../../redux/actions/categories";
 import AuctionCard from "../Auctions/AuctionCard/AuctionCard";
-import AddProduct from "../AddProduct/AddProduct";
 import PriceLevels from "../PriceLevels/PriceLevels";
 import { PriceLevelType } from "../PriceLevels/PriceLevelType";
 import SelectDate from "../CommonComponents/SelectDate/SelectDate";
 import moment from "moment";
 import {
+  fetchFullProduct,
   fetchProducts
 } from "../../services/productsService";
 import { auctionService } from "../../services/auction-service";
@@ -29,22 +29,22 @@ import AutoCompleteDropDown from "../CommonComponents/AutoCompleteDropdown/AutoC
 import { fetchBrands } from "../../services/brandsService";
 import { fetchModels } from "../../services/modelsService";
 
-
+interface Item { name: string, id: number };
 
 const AddAuction = () => {
   const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = useState(false);
   const [auctionName, setAuctionName] = useState("");
   const [category, setCategory] = useState({ name: '', id: -1 });
-  const [categoryOptions, setCategoryOptions] = useState([]);
-  const [subCategory, setSubCategory] = useState({ name: '', id: -1 });
-  const [subCategoryOptions, setSubCategoryOptions] = useState([]);
-  const [product, setProduct] = useState({ name: '', id: -1 });
-  const [productOptions, setProductOptions] = useState([]);
-  const [model, setModel] = useState({ name: '', id: -1 });
-  const [modelOptions, setModelsOptions] = useState([]);
-  const [brand, setBrand] = useState({ name: '', id: -1 });
-  const [brandOptions, setBrandsOptions] = useState([]);
+  const [categoryOptions, setCategoryOptions] = useState<Item[]>([]);
+  const [subCategory, setSubCategory] = useState<Item>({ name: '', id: -1 });
+  const [subCategoryOptions, setSubCategoryOptions] = useState<Item[]>([]);
+  const [product, setProduct] = useState<Item>({ name: '', id: -1 });
+  const [productOptions, setProductOptions] = useState<Item[]>([]);
+  const [model, setModel] = useState<Item>({ name: '', id: -1 });
+  const [modelOptions, setModelsOptions] = useState<Item[]>([]);
+  const [brand, setBrand] = useState<Item>({ name: '', id: -1 });
+  const [brandOptions, setBrandsOptions] = useState<Item[]>([]);
   const [hasMore, setHaseMore] = useState({
     category: true,
     subCategory: true,
@@ -182,7 +182,25 @@ const AddAuction = () => {
 
   const handelProdcutsChange = (productName: string, prodcutId: number) => {
     setProduct({ name: productName, id: prodcutId });
+    if (category.id === -1 || subCategory.id === -1) {
+      fetchFullProduct(prodcutId).then((res: any) => {
+        debugger
+        if (res.data?.category?.id) {
+          setCategory({ id: res.data.category.id, name: res.data.category.name });
+          setCategoryOptions([{ id: res.data.category.id, name: res.data.category.name }])
+        }
+        if (res.data?.subCategory?.id) {
+          setSubCategory({ id: res.data.subCategory.id, name: res.data.subCategory.name });
+          setSubCategoryOptions([{ id: res.data.subCategory.id, name: res.data.subCategory.name }])
+        }
+        if (res.data?.brand?.id) {
+          setBrand({ id: res.data.brand.id, name: res.data.brand.name });
+          setBrandsOptions([{ id: res.data.brand.id, name: res.data.brand.name }])
+        }
+      })
+    }
   };
+
   const handelEndDateChange = (e: any) => {
     setEndDate(e.target.value);
   };
@@ -315,7 +333,6 @@ const AddAuction = () => {
               fetchMoreData={((page: number, searchWord: string) => fetchProductsCall(page, searchWord, category.id, subCategory.id))}
             >
             </AutoCompleteDropDown>)}
-            <AddProduct categories={categoryOptions} />
           </div>
           <SelectDate
             label="end date"
