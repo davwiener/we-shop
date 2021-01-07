@@ -9,11 +9,12 @@ export const createProduct = (product: ProductType) => {
   });
 };
 
-export const fetchProducts = (page: number, searchWord: string, rbp: number, categoryId: number, subCategoryId: number) => {
+export const fetchProducts = (page: number, searchWord: string, rbp: number, categoryId: number, subCategoryId: number, brandId: number) => {
   return axios.get("/api/products/", {
     params: {
       categoryId,
       subCategoryId,
+      brandId,
       page,
       rbp,
       searchWord

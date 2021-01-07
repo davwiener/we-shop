@@ -9,11 +9,11 @@ const AutoCompleteDropDown = (props: {
     options: any[],
     name: string,
     id: string,
-    searchWord: string
+    searchWord: string,
+    isSelected: boolean,
     fetchMoreData: (page: number, searchWord: string) => void,
     onChange: (name: string, id: number) => void
 }) => {
-    debugger;
     const [page, setPage] = useState(1);
     const fetchMoreData = (page: number, searchWord: string) => {
         setPage(page)
@@ -38,13 +38,11 @@ const AutoCompleteDropDown = (props: {
                 key={`${props.id}-auto-complete-input`}
                 value={props.searchWord}
                 onFocus={() => {
-                    debugger
+
                     if (!props.options.length && !props.searchWord.length) {
                         props.fetchMoreData(1, '');
                     }
-                    if (props.options.length > 1 || props?.searchWord !== props?.options[0]?.name) {
-                        setShowOptions(true);
-                    }
+                    setShowOptions(true);
                 }}
                 onBlur={() => {
                     setShowOptions(false);
@@ -53,7 +51,7 @@ const AutoCompleteDropDown = (props: {
                     return fetchMoreData(1, e.target.value);
                 }}
             />
-            {showOptions && <InfiniteScroll
+            {showOptions && !props.isSelected && <InfiniteScroll
                 dataLength={props.options.length}
                 next={() => {
                     return fetchMoreData(page + 1, props.searchWord)
@@ -70,7 +68,6 @@ const AutoCompleteDropDown = (props: {
                             key={props.id + option.id.toString()}
                             value={option.id}
                             onMouseDown={() => {
-                                debugger
                                 if (option.name !== props.searchWord) {
                                     selectOption(option.name, option.id)
                                 }

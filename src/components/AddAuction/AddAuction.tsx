@@ -29,13 +29,13 @@ import AutoCompleteDropDown from "../CommonComponents/AutoCompleteDropdown/AutoC
 import { fetchBrands } from "../../services/brandsService";
 import { fetchModels } from "../../services/modelsService";
 
-interface Item { name: string, id: number };
+interface Item { name: string, id: number, selectedItem?: string };
 
 const AddAuction = () => {
   const dispatch = useDispatch();
   const [modalOpen, setModalOpen] = useState(false);
   const [auctionName, setAuctionName] = useState("");
-  const [category, setCategory] = useState({ name: '', id: -1 });
+  const [category, setCategory] = useState<Item>({ name: '', id: -1 });
   const [categoryOptions, setCategoryOptions] = useState<Item[]>([]);
   const [subCategory, setSubCategory] = useState<Item>({ name: '', id: -1 });
   const [subCategoryOptions, setSubCategoryOptions] = useState<Item[]>([]);
@@ -67,28 +67,38 @@ const AddAuction = () => {
         setProductOptions([]);
         setSubCategoryOptions([]);
         setModelsOptions([]);
+        setBrandsOptions([]);
+        setSubCategory({ name: '', id: -1 });
+        setProduct({ name: '', id: -1 });
+        setBrand({ name: '', id: -1 });
+        setModel({ name: '', id: -1 });
         break;
       }
       case 'subCategory': {
         setBrandsOptions([]);
         setProductOptions([]);
         setModelsOptions([]);
+        setBrandsOptions([]);
+        setProduct({ name: '', id: -1 });
+        setBrand({ name: '', id: -1 });
+        setModel({ name: '', id: -1 });
         break;
       }
       case 'brand': {
         setProductOptions([]);
         setModelsOptions([]);
+        setModel({ name: '', id: -1 });
+        setProduct({ name: '', id: -1 });
         break;
       }
       default: break;
     }
   }
   const fetchCategoriesCall = (page: number, searchWord: string = "") => {
-    setCategory({ name: searchWord, id: -1 });
+    setCategory({ ...category, name: searchWord, id: -1 });
     dispatch(fetchCategoriesStarted());
     fetchCategories(page, searchWord, rbp)
       .then((res) => {
-        removeOptions('category');
         if (page > 1) {
           setCategoryOptions(categoryOptions.concat(res.data.categories));
         } else {
@@ -101,10 +111,9 @@ const AddAuction = () => {
   };
 
   const fetchSubCategoriesCall = (page: number, searchWord: string = "", categoryId: number) => {
-    setSubCategory({ name: searchWord, id: -1 })
+    setSubCategory({ ...subCategory, name: searchWord, id: -1 })
     fetchSubCategories(page, searchWord, rbp, categoryId)
       .then((res: any) => {
-        removeOptions('subCategory');
         if (page > 1) {
           setSubCategoryOptions(subCategoryOptions.concat(res.data.subCategories));
         } else {
@@ -117,10 +126,9 @@ const AddAuction = () => {
   };
 
   const fetchBrandsCall = (page: number, searchWord: string = "", categoryId: number, subCategoryId: number) => {
-    setBrand({ name: searchWord, id: -1 })
+    setBrand({ ...brand, name: searchWord, id: -1 })
     fetchBrands(page, searchWord, rbp, categoryId, subCategoryId)
       .then((res: any) => {
-        removeOptions('brands');
         if (page > 1) {
           setBrandsOptions(brandOptions.concat(res.data.brands));
         } else {
@@ -145,9 +153,9 @@ const AddAuction = () => {
       .catch((err: any) => console.log("err", err));
   };
 
-  const fetchProductsCall = (page: number, searchWord: string = "", categoryId: number, subCategoryId: number) => {
+  const fetchProductsCall = (page: number, searchWord: string = "", categoryId: number, subCategoryId: number, brandId: number) => {
     setProduct({ name: searchWord, id: -1 })
-    fetchProducts(page, searchWord, rbp, categoryId, subCategoryId)
+    fetchProducts(page, searchWord, rbp, categoryId, subCategoryId, brandId)
       .then((res: any) => {
         if (page > 1) {
           setProductOptions(productOptions.concat(res.data.products));
@@ -160,20 +168,25 @@ const AddAuction = () => {
   };
 
   const handelCategoryChange = (categoryName: string, categoryId: number) => {
-    setCategory({ name: categoryName, id: categoryId });
-    removeOptions('category');
-    setSubCategory({ name: '', id: -1 });
-    setProduct({ name: '', id: -1 });
+    debugger;
+    if (categoryName !== category.selectedItem) {
+      removeOptions('category');
+    }
+    setCategory({ name: categoryName, id: categoryId, selectedItem: categoryName });
   };
 
   const handelSubCategoryChange = (subCategoryName: string, subCategoryId: number) => {
-    setSubCategory({ name: subCategoryName, id: subCategoryId });
-    removeOptions('subCategory');
-    setProduct({ name: '', id: -1 });
+    if (subCategoryName !== subCategory.selectedItem) {
+      removeOptions('subCategory');
+    }
+    setSubCategory({ name: subCategoryName, id: subCategoryId, selectedItem: subCategoryName });
   };
   const handelBrandChange = (brandName: string, brandId: number) => {
-    removeOptions('brand');
-    setBrand({ name: brandName, id: brandId })
+    debugger;
+    if (brandName !== brand.selectedItem) {
+      removeOptions('brand');
+    }
+    setBrand({ name: brandName, id: brandId, selectedItem: brandName })
   }
 
   const handelModelChange = (modelName: string, modelId: number) => {
@@ -186,15 +199,15 @@ const AddAuction = () => {
       fetchFullProduct(prodcutId).then((res: any) => {
         debugger
         if (res.data?.category?.id) {
-          setCategory({ id: res.data.category.id, name: res.data.category.name });
+          setCategory({ id: res.data.category.id, name: res.data.category.name, selectedItem: res.data.category.name });
           setCategoryOptions([{ id: res.data.category.id, name: res.data.category.name }])
         }
         if (res.data?.subCategory?.id) {
-          setSubCategory({ id: res.data.subCategory.id, name: res.data.subCategory.name });
+          setSubCategory({ id: res.data.subCategory.id, name: res.data.subCategory.name, selectedItem: res.data.subCategory.name });
           setSubCategoryOptions([{ id: res.data.subCategory.id, name: res.data.subCategory.name }])
         }
         if (res.data?.brand?.id) {
-          setBrand({ id: res.data.brand.id, name: res.data.brand.name });
+          setBrand({ id: res.data.brand.id, name: res.data.brand.name, selectedItem: res.data.brand.name });
           setBrandsOptions([{ id: res.data.brand.id, name: res.data.brand.name }])
         }
       })
@@ -277,6 +290,7 @@ const AddAuction = () => {
               name={"Category"}
               options={categoryOptions}
               searchWord={category.name}
+              isSelected={category.id > -1}
               fetchMoreData={((page: number, searchWord: string) => fetchCategoriesCall(page, searchWord))}
             >
             </AutoCompleteDropDown>)}
@@ -290,6 +304,7 @@ const AddAuction = () => {
               name={"Sub Category"}
               options={subCategoryOptions}
               searchWord={subCategory.name}
+              isSelected={subCategory.id > -1}
               fetchMoreData={((page: number, searchWord: string) => fetchSubCategoriesCall(page, searchWord, category.id))}
             >
             </AutoCompleteDropDown>)}
@@ -303,6 +318,7 @@ const AddAuction = () => {
               name={"Brand"}
               options={brandOptions}
               searchWord={brand.name}
+              isSelected={brand.id > -1}
               fetchMoreData={((page: number, searchWord: string) => fetchBrandsCall(page, searchWord, category.id, subCategory.id))}
             >
             </AutoCompleteDropDown>)}
@@ -317,6 +333,7 @@ const AddAuction = () => {
               name={"Model"}
               options={modelOptions}
               searchWord={model.name}
+              isSelected={model.id > -1}
               fetchMoreData={((page: number, searchWord: string) => fetchModelsCall(page, searchWord, category.id, subCategory.id, brand.id))}
             >
             </AutoCompleteDropDown>)}
@@ -330,7 +347,8 @@ const AddAuction = () => {
               name={"Product"}
               options={productOptions}
               searchWord={product.name}
-              fetchMoreData={((page: number, searchWord: string) => fetchProductsCall(page, searchWord, category.id, subCategory.id))}
+              isSelected={product.id > -1}
+              fetchMoreData={((page: number, searchWord: string) => fetchProductsCall(page, searchWord, category.id, subCategory.id, brand.id))}
             >
             </AutoCompleteDropDown>)}
           </div>
