@@ -21,3 +21,11 @@ export const fetchCategories = (page: number, searchWord: string, rbp: number) =
     }
   });
 };
+
+export const fetchFullSubCategoreis = (id: number) => {
+  return axios.get("/api/sub_categories/full-sub-category", {
+    params: {
+      id
+    }
+  });
+};

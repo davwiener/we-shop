@@ -9,7 +9,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import { Button, Divider } from "@material-ui/core";
-import { fetchCategories } from "../../services/categoriesService";
+import { fetchCategories, fetchFullSubCategoreis } from "../../services/categoriesService";
 import { fetchSubCategories } from "../../services/categoriesService";
 import {
   fetchCategoriesStarted,
@@ -26,8 +26,8 @@ import {
 } from "../../services/productsService";
 import { auctionService } from "../../services/auction-service";
 import AutoCompleteDropDown from "../CommonComponents/AutoCompleteDropdown/AutoCompleteDropdown";
-import { fetchBrands } from "../../services/brandsService";
-import { fetchModels } from "../../services/modelsService";
+import { fetchBrands, fetchFullBrand } from "../../services/brandsService";
+import { fetchFullModel, fetchModels } from "../../services/modelsService";
 
 interface Item { name: string, id: number, selectedItem?: string };
 
@@ -167,6 +167,25 @@ const AddAuction = () => {
       .catch((err: any) => console.log("err", err));
   };
 
+  const setSelectedOptionFromSelectedItem = (data: any) => {
+    if (data?.category?.id) {
+      setCategory({ id: data.category.id, name: data.category.name, selectedItem: data.category.name });
+      setCategoryOptions([{ id: data.category.id, name: data.category.name }])
+    }
+    if (data?.subCategory?.id) {
+      setSubCategory({ id: data.subCategory.id, name: data.subCategory.name, selectedItem: data.subCategory.name });
+      setSubCategoryOptions([{ id: data.subCategory.id, name: data.subCategory.name }])
+    }
+    if (data?.brand?.id) {
+      setBrand({ id: data.brand.id, name: data.brand.name, selectedItem: data.brand.name });
+      setBrandsOptions([{ id: data.brand.id, name: data.brand.name }])
+    }
+    if (data?.model?.id) {
+      setBrand({ id: data.model.id, name: data.model.name, selectedItem: data.model.name });
+      setBrandsOptions([{ id: data.model.id, name: data.model.name }])
+    }
+  }
+
   const handelCategoryChange = (categoryName: string, categoryId: number) => {
     debugger;
     if (categoryName !== category.selectedItem) {
@@ -180,36 +199,40 @@ const AddAuction = () => {
       removeOptions('subCategory');
     }
     setSubCategory({ name: subCategoryName, id: subCategoryId, selectedItem: subCategoryName });
+    if (category.id === -1) {
+      fetchFullSubCategoreis(subCategoryId).then((res: any) => {
+        setSelectedOptionFromSelectedItem(res.data);
+      })
+    }
   };
+
   const handelBrandChange = (brandName: string, brandId: number) => {
-    debugger;
     if (brandName !== brand.selectedItem) {
       removeOptions('brand');
     }
     setBrand({ name: brandName, id: brandId, selectedItem: brandName })
+    if (category.id === -1 || subCategory.id === -1) {
+      fetchFullBrand(brandId).then((res: any) => {
+        debugger;
+        setSelectedOptionFromSelectedItem(res.data);
+      })
+    }
   }
 
   const handelModelChange = (modelName: string, modelId: number) => {
     setModel({ name: modelName, id: modelId });
+    if (category.id === -1 || subCategory.id === -1) {
+      fetchFullModel(modelId).then((res: any) => {
+        setSelectedOptionFromSelectedItem(res.data);
+      })
+    }
   };
 
   const handelProdcutsChange = (productName: string, prodcutId: number) => {
     setProduct({ name: productName, id: prodcutId });
     if (category.id === -1 || subCategory.id === -1) {
       fetchFullProduct(prodcutId).then((res: any) => {
-        debugger
-        if (res.data?.category?.id) {
-          setCategory({ id: res.data.category.id, name: res.data.category.name, selectedItem: res.data.category.name });
-          setCategoryOptions([{ id: res.data.category.id, name: res.data.category.name }])
-        }
-        if (res.data?.subCategory?.id) {
-          setSubCategory({ id: res.data.subCategory.id, name: res.data.subCategory.name, selectedItem: res.data.subCategory.name });
-          setSubCategoryOptions([{ id: res.data.subCategory.id, name: res.data.subCategory.name }])
-        }
-        if (res.data?.brand?.id) {
-          setBrand({ id: res.data.brand.id, name: res.data.brand.name, selectedItem: res.data.brand.name });
-          setBrandsOptions([{ id: res.data.brand.id, name: res.data.brand.name }])
-        }
+        setSelectedOptionFromSelectedItem(res.data);
       })
     }
   };

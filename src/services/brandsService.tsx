@@ -23,3 +23,16 @@ export const fetchBrands = (page: number, searchWord: string, rbp: number, categ
     },
   });
 };
+
+export const fetchFullBrand = (id: number) => {
+  return axios.get("/api/brands/full-brand", {
+    params: {
+      id
+    }
+  }).then(res => {
+    return {
+      data:
+        { category: res.data.categories[0], subCategory: res.data.subCategories[0] }
+    }
+  });
+};
