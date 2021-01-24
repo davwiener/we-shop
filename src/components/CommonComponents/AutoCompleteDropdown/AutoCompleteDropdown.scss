@@ -1,0 +1,20 @@
+.content {
+    overflow: auto;
+    height: 100%;
+
+    .infinite-scroll-component__outerdiv {
+        position: fixed;
+        z-index: 1000;
+        background-color: white;
+        box-shadow: 0px 2px 20px rgba(146, 157, 171, 0.75);
+
+        .auto-comolete-options {
+            z-index: 1000;
+            border-radius: 6px;
+            top: 0px;
+            left: 0px;
+            will-change: transform;
+            padding: 8px 0;
+        }
+    }
+}

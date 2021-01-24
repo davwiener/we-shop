@@ -1,4 +1,5 @@
 import { FilterValue } from "../../filters/filter.config";
+import {Item} from "../../components/AddAuction/AddAuction";
 
 export type QueryType = {
   [key: string]: FilterValue;
@@ -32,10 +33,5 @@ export interface PriceLevel {
 
 
 
-export type ProductType = {
-  name: string;
-  description: string;
-  brandId: number;
-  modelId: number;
-};
+
 
