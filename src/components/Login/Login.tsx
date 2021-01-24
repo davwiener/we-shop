@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Fingerprint, EmailOutlined } from "@material-ui/icons";
+import {EmailOutlined } from "@material-ui/icons";
 import Button from "@material-ui/core/Button";
 import { signIn, signInSuccess } from "../../redux/actions/menu";
 import { useHistory, Link } from "react-router-dom";

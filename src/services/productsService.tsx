@@ -1,6 +1,7 @@
 import axios from "axios";
-import { ProductType } from "../redux/types/search-types";
+
 import { addInterceptors } from "../util/auth";
+import {ProductType} from "../redux/types/productType";
 addInterceptors(axios);
 
 export const createProduct = (product: ProductType) => {
@@ -28,4 +29,4 @@ export const fetchFullProduct = (id: number) => {
       id
     }
   })
-} 
+}

@@ -9,10 +9,8 @@ import AuctionCardSummary from "../../Auctions/AuctionCard/AuctionCardSummary";
 import { useDispatch, useSelector } from "react-redux";
 import { accountAuctionsLoaded } from "../../../redux/actions/account";
 import { WeShopState } from "../../../redux/store";
-import { Divider, IconButton } from "@material-ui/core";
+import { Divider } from "@material-ui/core";
 import AddAuction from "../../AddAuction/AddAuction";
-import { AddBoxRounded } from "@material-ui/icons";
-import { Link } from "react-router-dom";
 
 export interface userAuctionsStruct {
   name: string;

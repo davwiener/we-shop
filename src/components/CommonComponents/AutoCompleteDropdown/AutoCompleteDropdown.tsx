@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { MenuItem, Input } from "@material-ui/core";
+import { MenuItem } from "@material-ui/core";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "./AutoCompleteDropdown.scss"
 import TextField from "@material-ui/core/TextField/TextField";
 const AutoCompleteDropDown = (props: {
     children: any,
-    hasMore: boolean
+    hasMore: boolean,
     options: any[],
     name: string,
     id: string,
@@ -13,6 +13,7 @@ const AutoCompleteDropDown = (props: {
     isSelected: boolean,
     fetchMoreData: (page: number, searchWord: string) => void,
     onChange: (name: string, id: number) => void
+    hideOptions?: boolean;
 }) => {
     const [page, setPage] = useState(1);
     const fetchMoreData = (page: number, searchWord: string) => {
@@ -51,7 +52,7 @@ const AutoCompleteDropDown = (props: {
                     return fetchMoreData(1, e.target.value);
                 }}
             />
-            {showOptions && !props.isSelected && <InfiniteScroll
+            {!props.hideOptions && showOptions && !props.isSelected && <InfiniteScroll
                 dataLength={props.options.length}
                 next={() => {
                     return fetchMoreData(page + 1, props.searchWord)
