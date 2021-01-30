@@ -3,13 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6391d87b-77cd-4a72-a8a5-d1079425bac3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Account/AuctionsTab/AuctionsTab.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/AuctionsTab/AuctionsTab.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddAuction/AddAuction.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddAuction/AddAuction.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CommonComponents/AutoCompleteDropdown/AutoCompleteDropdown.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonComponents/AutoCompleteDropdown/AutoCompleteDropdown.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Login/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/Login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/types/productType.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/types/productType.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/types/search-types.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/types/search-types.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/productsService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/productsService.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/actions/menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions/menu.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +61,8 @@
       <workItem from="1604176165742" duration="801000" />
       <workItem from="1607874449773" duration="325000" />
       <workItem from="1611041565401" duration="687000" />
-      <workItem from="1611408202666" duration="7290000" />
+      <workItem from="1611408202666" duration="8096000" />
+      <workItem from="1612025555372" duration="680000" />
     </task>
     <servers />
   </component>
@@ -85,5 +80,23 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/redux/actions/menu.tsx</url>
+          <line>13</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/redux/actions/menu.tsx</url>
+          <line>20</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
